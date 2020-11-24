@@ -20,10 +20,10 @@ for a in locations.find_all('div',class_='location'):
     if a.find('a',{'class':'name'}) != None and a.find('div',{'class':'wtt'}) != None:
         location = {}
         location['location'] = a.find('a',{'class':'name'}).text
-        if a.find('div', {'class':'arr'}) != None:
-            location['arr'] = a.find('div', {'class':'arr'}).text
-        if a.find('div', {'class':'dep'}) != None:
-            location['dep'] = a.find('div', {'class':'dep'}).text
+        if a.find('div', {'class':'wtt'}).find('div', {'class':'arr'}) != None:
+            location['arr'] = a.find('div', {'class':'wtt'}).find('div', {'class':'arr'}).text
+        if a.find('div', {'class':'wtt'}).find('div', {'class':'dep'}) != None:
+            location['dep'] = a.find('div', {'class':'wtt'}).find('div', {'class':'dep'}).text
         dicts_of_locations.append(location)
         
 import pprint
