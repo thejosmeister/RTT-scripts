@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
+import sys
 
-pageurl = 'https://www.realtimetrains.co.uk/train/C25731/2020-12-05/detailed'
+pageurl = sys.argv[1]
 
 # The page we want to find the list of services for a station
 page = requests.get(pageurl)
