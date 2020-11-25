@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-import sys
 
 pages = [ 'https://www.realtimetrains.co.uk/search/detailed/EDB/2020-11-25/1225-1228?stp=WVS&show=all&order=wtt',  'https://www.realtimetrains.co.uk/search/detailed/EDB/2020-11-25/1235-1238?stp=WVS&show=all&order=wtt' ]
 
