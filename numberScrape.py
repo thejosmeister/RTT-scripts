@@ -2,8 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import pprint
+import json
+import sys
 
-main_rtt_page = 'https://www.realtimetrains.co.uk/search/detailed/SHF/2020-11-24/1100-1120?stp=WVS&show=all&order=wtt'
+main_rtt_page = sys.argv[1]
 
 # The page we want to find the list of services for a station
 page = requests.get(main_rtt_page)
@@ -65,8 +67,8 @@ for href in hrefs:
     dict_of_services[headcode] = services_with_headcode
     
     time.sleep(1)
-    
-pp = pprint.PrettyPrinter(indent=4)
-print('Services in SHF from 1100 - 1120')
-pp.pprint(dict_of_services)
-print(set(numbers))
+
+filename = main_rtt_page[main_rtt_page.rfind('detailed/')+9:main_rtt_page.rfind('?')].replace('/','_')
+with open(filename + '.txt', 'w') as f:
+    file.write(json.dumps(dict_of_services))
+    print(set(numbers), file=f)
