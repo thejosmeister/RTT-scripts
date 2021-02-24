@@ -1,0 +1,3 @@
+[   {'dep': '1010', 'location': 'Swindon [SWI]'},
+    {'arr': '1013', 'dep': '1021', 'location': 'Rodbourne Junction'},
+    {'arr': '1024', 'location': 'Swindon [SWI]'}]

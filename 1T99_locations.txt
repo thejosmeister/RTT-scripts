@@ -1,0 +1,9 @@
+[   {'dep': '0646', 'location': 'Bath Spa [BTH]'},
+    {'dep': '0649.5', 'location': 'Bathampton Jn'},
+    {'dep': '0655', 'location': 'Thingley Jn'},
+    {'dep': '0655.5', 'location': 'Thingley East Junction'},
+    {'arr': '0657.5', 'dep': '0700', 'location': 'Chippenham [CPM]'},
+    {'dep': '0704', 'location': 'Dauntsey'},
+    {'dep': '0707', 'location': 'Wootton Bassett Jn'},
+    {'dep': '0710.5', 'location': 'Rushey Platt'},
+    {'arr': '0712', 'location': 'Swindon [SWI]'}]

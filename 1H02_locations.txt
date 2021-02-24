@@ -1,0 +1,80 @@
+location,arr,dep
+London Paddington [PAD],,0630
+Royal Oak Junction,,0631
+Portobello Jn (London),,0632½
+Ladbroke Grove,,0633
+Old Oak Common East,,0633½
+Old Oak Common West,,0634
+Friars Jn,,0634½
+Acton Main Line [AML],,0635
+Acton West,,0635½
+Ealing Broadway [EAL],,0636
+West Ealing [WEA],,0636½
+West Ealing Junction,,0636½
+Hanwell [HAN],,0636½
+Southall East Jn,,0637½
+Southall [STL],,0637½
+Southall West Jn,,0638
+Hayes & Harlington [HAY],,0638½
+Heathrow Airport Jn,,0638½
+Stockley Junction,,0639
+West Drayton East,,0639½
+West Drayton [WDT],,0639½
+West Drayton Jcn,,0639½
+Iver [IVR],,0640
+Langley [LNY],,0641
+Dolphin Jn,,0641½
+Slough [SLO],,0642
+Slough West,,0642½
+Burnham [BNM],,0643½
+Taplow [TAP],,0644
+Maidenhead East,,0644½
+Maidenhead [MAI],,0645
+Maidenhead West,,0645
+Ruscombe,,0648
+Twyford [TWY],,0649
+Twyford West,,0649½
+Kennet Bridge Jn,,0652
+Reading Main Line East,,0652½
+Reading [RDG],0653,0655
+Reading Main Line West,,0655½
+Reading High Level Jn,,0656
+Tilehurst East Jn.,,0657
+Tilehurst [TLH],,0657
+Pangbourne [PAN],,0659
+Goring & Streatley [GOR],,0701
+Cholsey [CHO],,0703½
+Moreton Cutting,,0705½
+Didcot East Jn,,0706½
+Didcot Parkway [DID],0707,0709
+Didcot West End,,0709½
+Foxhall Jn [XJF],,0710
+Milton Junction,,0711
+Steventon,,0711½
+Wantage Road,,0714
+Challow,,0716
+Uffington (Oxfordshire),,0717
+Bourton,,0720½
+Swindon South Marston Jn,,0722
+Swindon Stratton Green,,0722½
+Highworth Jn,,0723
+Swindon East Loop,,0723
+Swindon [SWI],0724,0730
+Rushey Platt,,0731½
+Wootton Bassett Jn,,0734½
+Little Somerford,,0738½
+Hullavington,,0741
+Badminton,,0744½
+Chipping Sodbury,,0747
+Westerleigh Jn,,0748½
+Bristol Parkway [BPW],,0751
+Filton Jn,,0752
+Filton Abbey Wood [FIT],,0752½
+Horfield Junction,,0753
+Narroways Hill Jn,,0755½
+Stapleton Road [SRD],,0756
+Lawrence Hill [LWH],,0757
+Dr Day's Jn,,0757½
+Bristol East Jn,,0758½
+Bristol Temple Meads [BRI],0800,
+*******************************************************[   {'arr': '', 'dep': '0630', 'location': 'London Paddington [PAD]'},    {'dep': '0631', 'location': 'Royal Oak Junction'},    {'dep': '0632½', 'location': 'Portobello Jn (London)'},    {'dep': '0633', 'location': 'Ladbroke Grove'},    {'dep': '0633½', 'location': 'Old Oak Common East'},    {'dep': '0634', 'location': 'Old Oak Common West'},    {'dep': '0634½', 'location': 'Friars Jn'},    {'dep': '0635', 'location': 'Acton Main Line [AML]'},    {'dep': '0635½', 'location': 'Acton West'},    {'dep': '0636', 'location': 'Ealing Broadway [EAL]'},    {'dep': '0636½', 'location': 'West Ealing [WEA]'},    {'dep': '0636½', 'location': 'West Ealing Junction'},    {'dep': '0636½', 'location': 'Hanwell [HAN]'},    {'dep': '0637½', 'location': 'Southall East Jn'},    {'dep': '0637½', 'location': 'Southall [STL]'},    {'dep': '0638', 'location': 'Southall West Jn'},    {'dep': '0638½', 'location': 'Hayes & Harlington [HAY]'},    {'dep': '0638½', 'location': 'Heathrow Airport Jn'},    {'dep': '0639', 'location': 'Stockley Junction'},    {'dep': '0639½', 'location': 'West Drayton East'},    {'dep': '0639½', 'location': 'West Drayton [WDT]'},    {'dep': '0639½', 'location': 'West Drayton Jcn'},    {'dep': '0640', 'location': 'Iver [IVR]'},    {'dep': '0641', 'location': 'Langley [LNY]'},    {'dep': '0641½', 'location': 'Dolphin Jn'},    {'dep': '0642', 'location': 'Slough [SLO]'},    {'dep': '0642½', 'location': 'Slough West'},    {'dep': '0643½', 'location': 'Burnham [BNM]'},    {'dep': '0644', 'location': 'Taplow [TAP]'},    {'dep': '0644½', 'location': 'Maidenhead East'},    {'dep': '0645', 'location': 'Maidenhead [MAI]'},    {'dep': '0645', 'location': 'Maidenhead West'},    {'dep': '0648', 'location': 'Ruscombe'},    {'dep': '0649', 'location': 'Twyford [TWY]'},    {'dep': '0649½', 'location': 'Twyford West'},    {'dep': '0652', 'location': 'Kennet Bridge Jn'},    {'dep': '0652½', 'location': 'Reading Main Line East'},    {'arr': '0653', 'dep': '0655', 'location': 'Reading [RDG]'},    {'dep': '0655½', 'location': 'Reading Main Line West'},    {'dep': '0656', 'location': 'Reading High Level Jn'},    {'dep': '0657', 'location': 'Tilehurst East Jn.'},    {'dep': '0657', 'location': 'Tilehurst [TLH]'},    {'dep': '0659', 'location': 'Pangbourne [PAN]'},    {'dep': '0701', 'location': 'Goring & Streatley [GOR]'},    {'dep': '0703½', 'location': 'Cholsey [CHO]'},    {'dep': '0705½', 'location': 'Moreton Cutting'},    {'dep': '0706½', 'location': 'Didcot East Jn'},    {'arr': '0707', 'dep': '0709', 'location': 'Didcot Parkway [DID]'},    {'dep': '0709½', 'location': 'Didcot West End'},    {'dep': '0710', 'location': 'Foxhall Jn [XJF]'},    {'dep': '0711', 'location': 'Milton Junction'},    {'dep': '0711½', 'location': 'Steventon'},    {'dep': '0714', 'location': 'Wantage Road'},    {'dep': '0716', 'location': 'Challow'},    {'dep': '0717', 'location': 'Uffington (Oxfordshire)'},    {'dep': '0720½', 'location': 'Bourton'},    {'dep': '0722', 'location': 'Swindon South Marston Jn'},    {'dep': '0722½', 'location': 'Swindon Stratton Green'},    {'dep': '0723', 'location': 'Highworth Jn'},    {'dep': '0723', 'location': 'Swindon East Loop'},    {'arr': '0724', 'dep': '0730', 'location': 'Swindon [SWI]'},    {'dep': '0731½', 'location': 'Rushey Platt'},    {'dep': '0734½', 'location': 'Wootton Bassett Jn'},    {'dep': '0738½', 'location': 'Little Somerford'},    {'dep': '0741', 'location': 'Hullavington'},    {'dep': '0744½', 'location': 'Badminton'},    {'dep': '0747', 'location': 'Chipping Sodbury'},    {'dep': '0748½', 'location': 'Westerleigh Jn'},    {'dep': '0751', 'location': 'Bristol Parkway [BPW]'},    {'dep': '0752', 'location': 'Filton Jn'},    {'dep': '0752½', 'location': 'Filton Abbey Wood [FIT]'},    {'dep': '0753', 'location': 'Horfield Junction'},    {'dep': '0755½', 'location': 'Narroways Hill Jn'},    {'dep': '0756', 'location': 'Stapleton Road [SRD]'},    {'dep': '0757', 'location': 'Lawrence Hill [LWH]'},    {'dep': '0757½', 'location': "Dr Day's Jn"},    {'dep': '0758½', 'location': 'Bristol East Jn'},    {'arr': '0800', 'dep': '', 'location': 'Bristol Temple Meads [BRI]'}]
