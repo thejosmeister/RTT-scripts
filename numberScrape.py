@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
-pages = [ 'https://www.realtimetrains.co.uk/search/detailed/EDB/2020-11-25/1225-1228?stp=WVS&show=all&order=wtt',  'https://www.realtimetrains.co.uk/search/detailed/EDB/2020-11-25/1235-1238?stp=WVS&show=all&order=wtt' ]
+pages = [ 'https://www.realtimetrains.co.uk/search/detailed/WKF/2021-01-12/1400-1800?stp=WVS&show=all&order=wtt&toc=GR' ]
 
 for main_rtt_page in pages:
 
