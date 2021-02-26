@@ -1,0 +1,1 @@
+<Activity><Activity>0</Activity><AssociatedUID>${nextTrainUID}</AssociatedUID></Activity>

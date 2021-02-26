@@ -24,6 +24,56 @@ def pull_tiploc_out_of_xml():
             print(e, file=emails_file)
 
 
+def pull_train_categories_out_of_xml() -> dict:
+    f = open('SavedTimetable.xml', "r")
+    catagories_dict = {}
+    _id = ''
+    description = ''
+    dwell_times = False
+    scanning_for_tcs = False
+    for file_line in f:
+        if '<TrainCategories>' in file_line:
+            scanning_for_tcs = True
+            continue
+        if '</TrainCategories>' in file_line:
+            scanning_for_tcs = False
+            continue
+        if scanning_for_tcs is True:
+            if '<TrainCategory>' in file_line:
+                _id = file_line.split('"')[1]
+            elif 'Description' in file_line:
+                description = file_line.split('<Description>')[1].split('</Description>')[0]
+                catagories_dict[description] = { 'id': _id }
+            elif 'AccelBrakeIndex' in file_line:
+                catagories_dict[description]['AccelBrakeIndex'] = file_line.split('<AccelBrakeIndex>')[1].split('</AccelBrakeIndex>')[0]
+            elif 'IsFreight' in file_line:
+                catagories_dict[description]['IsFreight'] = file_line.split('<IsFreight>')[1].split('</IsFreight>')[0]
+            elif 'CanUseGoodsLines' in file_line:
+                catagories_dict[description]['CanUseGoodsLines'] = file_line.split('<CanUseGoodsLines>')[1].split('</CanUseGoodsLines>')[0]
+            elif 'MaxSpeed' in file_line:
+                catagories_dict[description]['MaxSpeed'] = file_line.split('<MaxSpeed>')[1].split('</MaxSpeed>')[0]
+            elif 'TrainLength' in file_line:
+                catagories_dict[description]['TrainLength'] = file_line.split('<TrainLength>')[1].split('</TrainLength>')[0]
+            elif 'SpeedClass' in file_line:
+                catagories_dict[description]['SpeedClass'] = file_line.split('<SpeedClass>')[1].split('</SpeedClass>')[0]
+            elif 'PowerToWeightCategory' in file_line:
+                catagories_dict[description]['PowerToWeightCategory'] = file_line.split('<PowerToWeightCategory>')[1].split('</PowerToWeightCategory>')[0]
+            # elif 'DwellTimes' in file_line:
+            #     if 'DwellTimes/' not in file_line:
+            #         catagories_dict[description]['DwellTimes'] = {}
+            #         dwell_times = True
+            #         continue
+            # elif dwell_times is True:
+            #     if 'Join' in file_line:
+            #         catagories_dict[description]['DwellTimes']['Join'] = file_line.split('<Join>')[1].split('</Join>')[0]
+            #     elif 'Divide' in file_line:
+            #         catagories_dict[description]['DwellTimes']['Divide'] = file_line.split('<Divide>')[1].split('</Divide>')[0]
+            #     elif 'CrewChange' in file_line:
+            #         catagories_dict[description]['DwellTimes']['CrewChange'] = file_line.split('<CrewChange>')[1].split('</CrewChange>')[0]
+
+    return catagories_dict
+
+
 def create_tiploc_dict(file_location: str) -> list:
     tiploc_locations = {}
     entry_points = {}
@@ -49,6 +99,10 @@ def create_tiploc_dict(file_location: str) -> list:
             tiploc_locations[code] = names
 
     return [entry_points, tiploc_locations]
+
+
+d = pull_train_categories_out_of_xml()
+print(d)
 
 # [e,l] = create_tiploc_dict('swindon_locations.txt')
 #
