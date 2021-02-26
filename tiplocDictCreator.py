@@ -24,6 +24,33 @@ def pull_tiploc_out_of_xml():
             print(e, file=emails_file)
 
 
+def create_tiploc_dict(file_location: str) -> list:
+    tiploc_locations = {}
+    entry_points = {}
+    is_entry_points = False
+    is_locations = False
+    f = open(file_location, "r")
+    for file_line in f:
+        if 'Entry Points' in file_line:
+            is_entry_points = True
+            is_locations = False
+            continue
+        elif 'Locations' in file_line:
+            is_entry_points = False
+            is_locations = True
+            continue
+        elif is_entry_points == True:
+            code = file_line.rstrip().split(':')[0]
+            names = file_line.rstrip().split(':')[1].split(',')
+            entry_points[code] = names
+        elif is_locations == True:
+            code = file_line.rstrip().split(':')[0]
+            names = file_line.rstrip().split(':')[1].split(',')
+            tiploc_locations[code] = names
 
-pull_tiploc_out_of_xml()
+    return [entry_points, tiploc_locations]
 
+# [e,l] = create_tiploc_dict('swindon_locations.txt')
+#
+# print(e)
+# print(l)

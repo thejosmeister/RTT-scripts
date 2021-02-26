@@ -4,7 +4,7 @@ import csv
 import sys
 
 # pageurl = sys.argv[1]
-pageurl = 'https://www.realtimetrains.co.uk/train/U36764/2021-02-20/detailed'
+pageurl = 'https://www.realtimetrains.co.uk/train/W30600/2021-02-22/detailed'
 # filename = 'test_locations'
 # The page we want to find the list of services for a station
 page = requests.get(pageurl)
@@ -24,19 +24,11 @@ for a in locations.find_all('div', class_='location'):
 
         # Arrival Times
         if a.find('div', {'class': 'wtt'}).find('div', {'class': 'arr'}) is not None:
-            arrTime = a.find('div', {'class': 'wtt'}).find('div', {'class': 'arr'}).text
-            if len(arrTime) == 4:
-                location['arr'] = arrTime
-            elif len(arrTime) == 5:
-                location['arr'] = arrTime[:4] + '.5'
+            location['arr'] = a.find('div', {'class': 'wtt'}).find('div', {'class': 'arr'}).text.replace('½', '.5')
 
         # Departure Times
         if a.find('div', {'class': 'wtt'}).find('div', {'class': 'dep'}) is not None:
-            depTime = a.find('div', {'class': 'wtt'}).find('div', {'class': 'dep'}).text
-            if len(depTime) == 4:
-                location['dep'] = depTime
-            elif len(depTime) == 5:
-                location['dep'] = depTime[:4] + '.5'
+            location['dep'] = a.find('div', {'class': 'wtt'}).find('div', {'class': 'dep'}).text.replace('½', '.5')
 
         # Platform
         if a.find('div',{'class': 'platform'}) is not None:
@@ -65,11 +57,12 @@ for a in locations.find_all('div', class_='location'):
             allowance = addl.find('span', {'class': 'allowance'})
             if allowance is not None:
                 if allowance.find('span', {'class': 'eng'}) is not None:
-                    location['eng allow'] = allowance.find('span', {'class': 'eng'}).text
+
+                    location['eng allow'] = allowance.find('span', {'class': 'eng'}).text.replace('½', '.5')
                 if allowance.find('span', {'class': 'pth'}) is not None:
-                    location['pth allow'] = allowance.find('span', {'class': 'pth'}).text
+                    location['pth allow'] = allowance.find('span', {'class': 'pth'}).text.replace('½', '.5')
                 if allowance.find('span', {'class': 'prf'}) is not None:
-                    location['prf allow'] = allowance.find('span', {'class': 'prf'}).text
+                    location['prf allow'] = allowance.find('span', {'class': 'prf'}).text.replace('½', '.5')
 
 
         dicts_of_locations.append(location)

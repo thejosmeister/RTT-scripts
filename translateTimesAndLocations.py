@@ -1,5 +1,6 @@
 import ast
 import math
+from tiplocDictCreator import create_tiploc_dict
 
 def convert_time_to_secs(time: str) -> int:
     hours = int(time[:2])
@@ -59,6 +60,12 @@ def produce_dict_with_times_and_locations(location_template_filename: str, tiplo
     origin = sorted_locations[0]['location']
     origin_time = convert_sec_to_time(sorted_locations[0]['dep'])
     dest = sorted_locations[-1]['location']
+    dest_time = convert_sec_to_time(sorted_locations[-1]['arr'])
     locations_on_sim = sub_in_tiploc(sorted_locations, tiploc_dict)
 
-    return [origin_time, origin, dest, locations_on_sim]
+    return [origin_time, origin,dest_time, dest, locations_on_sim]
+
+#
+# a = produce_dict_with_times_and_locations('1A01_locations.txt', create_tiploc_dict('swindon_locations.txt')[1])
+#
+# [print(x) for x in a]
