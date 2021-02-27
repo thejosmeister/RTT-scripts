@@ -35,14 +35,18 @@ def return_value(inp: dict):
         return inp['arr']
 
 
-
 def sub_in_tiploc(sorted_locations: list, tiploc_dict: dict) -> list:
+    out = []
+    entry_time = ''
     for l in sorted_locations:
         for t in tiploc_dict.keys():
             if l['location'] in tiploc_dict[t]:
                 l['location'] = str(t)
+                out.append(l)
+            elif 'Entry' in l['location']:
+                entry_time = l['dep']
 
-    return sorted_locations
+    return [out, entry_time]
 
 
 def produce_dict_with_times_and_locations(location_template_filename: str, tiploc_dict: dict):
@@ -61,11 +65,11 @@ def produce_dict_with_times_and_locations(location_template_filename: str, tiplo
     origin_time = convert_sec_to_time(sorted_locations[0]['dep'])
     dest = sorted_locations[-1]['location']
     dest_time = convert_sec_to_time(sorted_locations[-1]['arr'])
-    locations_on_sim = sub_in_tiploc(sorted_locations, tiploc_dict)
+    [locations_on_sim, entry_time] = sub_in_tiploc(sorted_locations, tiploc_dict)
 
-    return [origin_time, origin,dest_time, dest, locations_on_sim]
+    return [origin_time, origin, entry_time, dest_time, dest, locations_on_sim]
 
 #
-# a = produce_dict_with_times_and_locations('1A01_locations.txt', create_tiploc_dict('swindon_locations.txt')[1])
+# a = produce_dict_with_times_and_locations('1A01_KEY_locations.txt', create_tiploc_dict('swindon_locations.txt')[1])
 #
 # [print(x) for x in a]

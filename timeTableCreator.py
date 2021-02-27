@@ -15,8 +15,10 @@ def create_trip(location: dict, time_increment) -> str:
     out = '<Trip><Location>' + location['location'] + '</Location>'
     if 'dep' in location:
         out += '<DepPassTime>' + str(location['dep'] + time_increment) + '</DepPassTime>'
+        if 'arr' not in location:
+            out += '<IsPassTime>-1</IsPassTime>'
     if 'arr' in location:
-        out += '<DepPassTime>' + str(location['arr'] + time_increment) + '</DepPassTime>'
+        out += '<ArrTime>' + str(location['arr'] + time_increment) + '</ArrTime>'
     if 'plat' in location:
         out += '<Platform>' + location['plat'] + '</Platform>'
     if 'line' in location:
@@ -29,9 +31,11 @@ def create_trip(location: dict, time_increment) -> str:
         out += '<EngAllowance>' + location['eng allow'] + '</EngAllowance>'
     if 'pth allow' in location:
         out += '<PathAllowance>' + location['pth allow'] + '</PathAllowance>'
-    norm_bit = '<AutoLine>-1</AutoLine><AutoPath>-1</AutoPath><IsPassTime>-1</IsPassTime><DownDirection>-1</DownDirection><PrevPathEndDown>-1</PrevPathEndDown><NextPathStartDown>-1</NextPathStartDown>'
+    # norm_bit = '<AutoLine>-1</AutoLine><AutoPath>-1</AutoPath><IsPassTime>-1</IsPassTime><DownDirection>-1</DownDirection><PrevPathEndDown>-1</PrevPathEndDown><NextPathStartDown>-1</NextPathStartDown>'
 
-    out += norm_bit
+    # out += norm_bit
+
+    # Need to add activities
     return out + '</Trip>'
 
 
@@ -39,10 +43,14 @@ def create_timetable_with_spec_entry(headcode_template, headcode_increment, loca
                                      timetable_template_location, entry_point, frequency, number_of, train_category):
     output_str = ''
     tt_template = read_in_tt_template(timetable_template_location)
-    [origin_time, origin, dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
+    [origin_time, origin, _entry_time, dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
         location_list_location, create_tiploc_dict(tiploc_location)[1])
     train_cat_dict = pull_train_categories_out_of_xml()[train_category]
-    entry_time = convert_time_to_secs('0552.5')
+
+    if _entry_time == '':
+        entry_time = convert_time_to_secs(input('Input Entry Time'))
+    else:
+        entry_time = _entry_time
 
     list_of_timetables = []
     for i in range(number_of):
@@ -52,18 +60,23 @@ def create_timetable_with_spec_entry(headcode_template, headcode_increment, loca
         uid = headcode
         AccelBrakeIndex = train_cat_dict['AccelBrakeIndex']
         DepartTime = str(entry_time + time_increment)
-        description = str(origin_time) + origin + dest + train_category
+        description = str(origin_time) + ' ' + origin + ' - ' + dest + ' ' + train_category
         MaxSpeed = train_cat_dict['MaxSpeed']
         IsFreight = train_cat_dict['IsFreight']
         TrainLength = train_cat_dict['TrainLength']
-        Electrification = 'D'
+        Electrification = train_cat_dict['Electrification']
         OriginName = origin
         DestinationName = dest
         OriginTime = str(convert_time_to_secs(origin_time) + time_increment)
         DestinationTime = str(convert_time_to_secs(dest_time) + time_increment)
         OperatorCode = 'GW'
-        StartTraction = 'D'
+        StartTraction = train_cat_dict['Electrification']
+        SpeedClass = train_cat_dict['SpeedClass']
         Category = train_cat_dict['id']
+        DwellTimes = ''
+        if 'DwellTimes' in train_cat_dict:
+            DwellTimes = '<Join>' + train_cat_dict['DwellTimes']['Join'] + '</Join><Divide>' +\
+                         train_cat_dict['DwellTimes']['Divide'] + '</Divide><CrewChange>' + train_cat_dict['DwellTimes']['CrewChange'] + '</CrewChange>'
 
         list_of_timetables.append(
             tt_template.replace('${ID}', headcode).replace('${UID}', uid).replace('${AccelBrakeIndex}', AccelBrakeIndex) \
@@ -73,12 +86,14 @@ def create_timetable_with_spec_entry(headcode_template, headcode_increment, loca
             .replace('${Electrification}', Electrification).replace('${OriginName}', OriginName).replace(
                 '${DestinationName}', DestinationName) \
             .replace('${OriginTime}', OriginTime).replace('${DestinationTime}', DestinationTime).replace(
-                '${OperatorCode}', OperatorCode).replace('${StartTraction}', StartTraction) \
-            .replace('${Category}', Category).replace('${Trips}', trips))
+                '${OperatorCode}', OperatorCode).replace('${StartTraction}', StartTraction).replace('${SpeedClass}', SpeedClass) \
+            .replace('${Category}', Category).replace('${Trips}', trips).replace('${DwellTimes}', DwellTimes))
 
-    with open('testfile.xml', 'w') as f_to_write:
+    with open(location_list_location[:4] + '_timetables.xml', 'w') as f_to_write:
         for tt in list_of_timetables:
             print(tt, file=f_to_write)
 
 
-create_timetable_with_spec_entry('1A01', 2, '1A01_locations.txt', 'swindon_locations.txt', 'defaultTimatableWithEntryPoint.txt', 'EUPBAD', 3600, 10, 'IEP 800/3 - Bi Mode - 9 Car')
+create_timetable_with_spec_entry('1A01', 2, '1A01_KEY_locations.txt', 'swindon_locations.txt', 'defaultTimetableWithEntryPoint.txt', 'EUPBAD', 3600, 10, 'IEP 800/3 - Bi Mode - 9 Car')
+create_timetable_with_spec_entry('1H02', 2, '1H02_KEY_locations.txt', 'swindon_locations.txt', 'defaultTimetableWithEntryPoint.txt', 'EDNMAIN', 3600, 10, 'IEP 800/0 - Bi Mode -10 Car')
+create_timetable_with_spec_entry('1B03', 2, '1B03_KEY_locations.txt', 'swindon_locations.txt', 'defaultTimetableWithEntryPoint.txt', 'EDNMAIN', 3600, 10, 'IEP 800/3 - Bi Mode - 9 Car')
