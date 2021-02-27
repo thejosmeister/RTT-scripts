@@ -65,8 +65,8 @@ tt_list_for_file.append(create_timetable_with_spec_entry('1F25', 2, 'SWI_KEY_loc
 # 1f coming up from pompey
 # 1f06 to 1f30
 tt_list_for_file.append(create_timetable_with_spec_entry('1F06', 2, 'SWI_KEY_locations/1F06_KEY_locations.txt', 'swindon_locations.txt', 'templates/timetables/defaultTimetableWithEntryPoint.txt','EDNTROW', 3600, 13, 'Cl 165/3', 0, None))
-# 1f32 arr swi 2152 -> 5f32 dep 2207
-tt_list_for_file.append(create_timetable_with_spec_entry('1F32', 0, 'SWI_KEY_locations/1F06_KEY_locations.txt', 'swindon_locations.txt', 'templates/timetables/defaultTimetableWithEntryPoint.txt','EDNTROW', convert_time_to_secs('2152') - convert_time_to_secs('0854'), 1, 'Cl 165/3', 0, '5F32+0+0'))
+# 1f32 arr swi 2152 -> 5f32 dep 2207 ***** Plat wrong for 1F32 ******
+tt_list_for_file.append(create_timetable_with_spec_entry('1F32', 0, 'SWI_KEY_locations/1F06_KEY_locations.txt', 'swindon_locations.txt', 'templates/timetables/defaultTimetableWithEntryPoint.txt','EDNTROW', 0, 1, 'Cl 165/3', convert_time_to_secs('2152') - convert_time_to_secs('0854'), '5F32+0+0'))
 tt_list_for_file.append(create_timetable_with_spec_entry('5F32', 0, 'SWI_KEY_locations/5F32_KEY_locations.txt', 'swindon_locations.txt', 'templates/timetables/defaultTimetableNoEP.txt', None, 3600, 1, 'Cl 165/3', 0, None))
 
 
