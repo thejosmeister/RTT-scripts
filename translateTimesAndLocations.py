@@ -35,12 +35,14 @@ def return_value(inp: dict):
         return inp['arr']
 
 
-def sub_in_tiploc(sorted_locations: list, tiploc_dict: dict) -> list:
+def sub_in_tiploc(sorted_locations: list, tiploc_dict: dict, origin: str) -> list:
     out = []
     entry_time = ''
     for l in sorted_locations:
         for t in tiploc_dict.keys():
             if l['location'] in tiploc_dict[t]:
+                if origin == l['location']:
+                    l['isOrigin'] = 'yes'
                 l['location'] = str(t)
                 out.append(l)
             elif 'Entry' in l['location']:
@@ -56,16 +58,22 @@ def produce_dict_with_times_and_locations(location_template_filename: str, tiplo
 
     for l in list_of_locations:
         if 'dep' in l:
-            l['dep'] = convert_time_to_secs(l['dep'])
+            if l['dep'] == '':
+                l.pop('dep', None)
+            else:
+                l['dep'] = convert_time_to_secs(l['dep'])
         if 'arr' in l:
-            l['arr'] = convert_time_to_secs(l['arr'])
+            if l['arr'] == '':
+                l.pop('arr', None)
+            else:
+                l['arr'] = convert_time_to_secs(l['arr'])
 
     sorted_locations = sorted(list_of_locations, key=lambda x: return_value(x))
     origin = sorted_locations[0]['location']
     origin_time = convert_sec_to_time(sorted_locations[0]['dep'])
     dest = sorted_locations[-1]['location']
     dest_time = convert_sec_to_time(sorted_locations[-1]['arr'])
-    [locations_on_sim, entry_time] = sub_in_tiploc(sorted_locations, tiploc_dict)
+    [locations_on_sim, entry_time] = sub_in_tiploc(sorted_locations, tiploc_dict, origin)
 
     return [origin_time, origin, entry_time, dest_time, dest, locations_on_sim]
 

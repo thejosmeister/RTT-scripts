@@ -1,0 +1,13 @@
+[   {'dep': '0646', 'location': 'Bath Spa [BTH]', 'plat': '2'},
+    {'dep': '0649.5', 'location': 'Bathampton Jn Entry'},
+    {'dep': '0655', 'location': 'Thingley Jn'},
+    {   'arr': '0657.5',
+        'dep': '0700',
+        'location': 'Chippenham [CPM]',
+        'plat': '2'},
+    {'dep': '0704', 'location': 'Dauntsey'},
+    {   'dep': '0707',
+        'eng allow': '1',
+        'line': 'UM',
+        'location': 'Wootton Bassett Jn'},
+    {'arr': '0712', 'location': 'Swindon [SWI]', 'path': 'UR', 'plat': '3', 'activities': {'trainBecomes': '3T01+0+0'}}]

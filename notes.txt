@@ -1,0 +1,10 @@
+
+
+UID Format: Headcode + A,B,C,...
+Replacement uid: UID+N+n where we sub out * for old one + n
+
+Locations:
+- Dont have thing ej for up trains
+- Dont have westerleigh for up trains
+- SWI - WTTBST needs to be line ML
+-

@@ -96,8 +96,8 @@ def create_tiploc_dict(file_location: str) -> list:
     return [entry_points, tiploc_locations]
 
 
-d = pull_train_categories_out_of_xml()
-print(d)
+# d = pull_train_categories_out_of_xml()
+# print(d)
 
 # [e,l] = create_tiploc_dict('swindon_locations.txt')
 #

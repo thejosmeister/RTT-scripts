@@ -1,1 +1,1 @@
-<Activity><Activity>3</Activity><AssociatedUID>${joinTrainUID}</AssociatedUID></Activity>
+<Activity><Activity>3</Activity><AssociatedUID>${UID}</AssociatedUID></Activity>

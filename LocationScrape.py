@@ -4,7 +4,7 @@ import csv
 import sys
 
 # pageurl = sys.argv[1]
-pageurl = 'https://www.realtimetrains.co.uk/train/W30599/2021-02-20/detailed'
+pageurl = 'https://www.realtimetrains.co.uk/train/V32895/2021-02-20/detailed'
 # filename = 'test_locations'
 # The page we want to find the list of services for a station
 page = requests.get(pageurl)

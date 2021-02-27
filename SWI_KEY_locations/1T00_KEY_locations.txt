@@ -1,0 +1,8 @@
+[   {'dep': '0756', 'line': 'ML', 'location': 'Swindon [SWI]', 'plat': '3'},
+    {'dep': '0800', 'line': 'DM', 'location': 'Wootton Bassett Jn'},
+    {'dep': '0802.5', 'location': 'Dauntsey'},
+    {'arr': '0806', 'dep': '0808', 'location': 'Chippenham [CPM]', 'plat': '1'},
+    {'dep': '0810', 'location': 'Thingley East Junction'},
+    {'dep': '0810.5', 'eng allow': '1', 'location': 'Thingley Jn'},
+    {'dep': '0816', 'line': 'UM', 'location': 'Bathampton Jn', 'path': 'DM'},
+    {'arr': '0820', 'location': 'Bath Spa [BTH]', 'path': 'UM', 'plat': '2'}]
