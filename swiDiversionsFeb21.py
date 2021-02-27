@@ -44,7 +44,7 @@ tt_list_for_file.append(create_timetable_with_spec_entry('1T27', 4, 'SWI_KEY_loc
 # CREATE 1G31
 
 # 3t38 arr swi 2156 -> 1t28 dep swi 2202,
-tt_list_for_file.append(create_timetable_with_spec_entry('3T38', 0, 'SWI_KEY_locations/3T00_KEY_locations.txt', 'swindon_locations.txt', 'templates/timetables/defaultTimetableWithEntryPoint.txt','EUPBAD', 3600, 1, 'IEP 800/0 - Bi Mode - 5 Car', convert_time_to_secs('2156') - convert_time_to_secs('0738'), '1T28+0+0'))
+tt_list_for_file.append(create_timetable_with_spec_entry('3T28', 0, 'SWI_KEY_locations/3T00_KEY_locations.txt', 'swindon_locations.txt', 'templates/timetables/defaultTimetableWithEntryPoint.txt','EUPBAD', 3600, 1, 'IEP 800/0 - Bi Mode - 5 Car', convert_time_to_secs('2156') - convert_time_to_secs('0738'), '1T28+0+0'))
 tt_list_for_file.append(create_timetable_with_spec_entry('1T28', 4, 'SWI_KEY_locations/1T00_KEY_locations.txt', 'swindon_locations.txt', 'templates/timetables/defaultTimetableNoEP.txt', None, 7200, 1, 'IEP 800/0 - Bi Mode - 5 Car', 13*3600 + 49*60 + 17*60, None))
 
 # 1t29 arr swi p1 2235 -> 5t04
