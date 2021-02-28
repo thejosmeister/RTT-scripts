@@ -1,8 +1,8 @@
 
-def pull_tiploc_out_of_xml():
+def pull_tiploc_out_of_xml(file_to_pull_tiploc_out, out_filename):
     entry_points = []
     locations = []
-    f = open('SavedTimetable.xml', "r")
+    f = open(file_to_pull_tiploc_out, "r")
     for file_line in f:
         if 'EntryPoint' in file_line:
             entry_points.append(file_line.split('<EntryPoint>')[1].split('</EntryPoint>')[0])
@@ -14,7 +14,7 @@ def pull_tiploc_out_of_xml():
     set_of_entry_points = set(entry_points)
     set_of_locations = set(locations)
 
-    with open('sim_location_files/swindon_locations.txt', mode='w') as emails_file:
+    with open(out_filename, mode='w') as emails_file:
         print('Entry Points: ', file=emails_file)
         for e in set_of_entry_points:
             print(e, file=emails_file)
@@ -25,7 +25,7 @@ def pull_tiploc_out_of_xml():
 
 
 def pull_train_categories_out_of_xml() -> dict:
-    f = open('TrainCategories.xml', "r")
+    f = open('templates/TrainCategories.xml', "r")
     categories_dict = {}
     _id = ''
     description = ''
