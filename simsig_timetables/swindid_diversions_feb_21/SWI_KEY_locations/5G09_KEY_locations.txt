@@ -1,0 +1,7 @@
+[   {'dep': '1010', 'location': 'Swindon [SWI]', 'plat': '1'},
+    {'arr': '1012', 'dep': '1022', 'location': 'Swindon Loco Yard'},
+    {   'arr': '1024',
+        'dep': '',
+        'location': 'Swindon [SWI]',
+        'plat': '1',
+        'activities': {'trainBecomes': '*G**-4+0'}}]

@@ -1,0 +1,126 @@
+baseFilePaths:
+  train_json_tt_location: 'simsig_timetables/swindid_diversions_feb_21/SWI_KEY_locations/'
+  locations_on_sim: 'sim_location_files/'
+  timetable_template_location: 'templates/timetables/'
+
+
+defaults:
+  headcode_template: 'XXXX'
+  headcode_increment: 0
+  train_json_tt_location: ''
+  locations_on_sim: 'swindon_locations.txt'
+  timetable_template_location: 'defaultTimetableWithEntryPoint.txt'
+  entry_point:
+  frequency: 0
+  number_of: 1
+  train_category:
+  initial_offset: 0
+  next_uid:
+  op_code: 'GW'
+
+timetables:
+  # The 1Axx
+  - {headcode_template: '1A01', headcode_increment: 3, train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 2, train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  - {headcode_template: '1A12', headcode_increment: 2, train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 11, train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT2H'}
+  - {headcode_template: '1A33', headcode_increment: 3, train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 3, train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT13H30M'}
+  - {headcode_template: '1A40', train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT17H15M'}
+  # The 1Hxx
+  - {headcode_template: '1H02', headcode_increment: 2, train_json_tt_location: '1H02_KEY_locations.txt', entry_point: 'EDNMAIN', frequency: 'PT1H', number_of: 11, train_category: 'IEP 800/0 - Bi Mode -10 Car'}
+  - {headcode_template: '1H25', headcode_increment: 3, train_json_tt_location: '1H02_KEY_locations.txt', entry_point: 'EDNMAIN', frequency: 'PT1H', number_of: 3, train_category: 'IEP 800/0 - Bi Mode -10 Car', initial_offset: 'PT11H3M'}
+  - {headcode_template: '1H33',  train_json_tt_location: '1H02_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode -10 Car', initial_offset: 'PT14H'}
+  - {headcode_template: '1U36', headcode_increment: 1, train_json_tt_location: '1H02_KEY_locations.txt', entry_point: 'EDNMAIN', frequency: 'PT1H', number_of: 2, train_category: 'IEP 800/0 - Bi Mode -10 Car', initial_offset: 'PT15H33M'}
+
+  # 1Lxx swansea
+  - {headcode_template: '1L01', train_json_tt_location: '1L01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  - {headcode_template: '1L04', headcode_increment: 4, train_json_tt_location: '1L04_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 2, train_category: 'IEP 800/0 - Bi Mode -10 Car'}
+  - {headcode_template: '1L10', headcode_increment: 4, train_json_tt_location: '1L04_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 13, train_category: 'IEP 800/0 - Bi Mode -10 Car', initial_offset: 'PT2H1M'}
+
+  # 1Bxx PAD TO SWA
+  # 1b03 to 1b21
+  - {headcode_template: '1B03', headcode_increment: 2, train_json_tt_location: '1B03_KEY_locations.txt', entry_point: 'EDNMAIN', frequency: 'PT1H', number_of: 10, train_category: 'IEP 800/0 - Bi Mode -10 Car'}
+  # 1b24 9h later to 1b30
+  - {headcode_template: '1B24', headcode_increment: 3, train_json_tt_location: '1B03_KEY_locations.txt', entry_point: 'EDNMAIN', frequency: 'PT1H', number_of: 3, train_category: 'IEP 800/0 - Bi Mode -10 Car', initial_offset: 'PT10H'}
+  # 1b32 12h later
+  - {headcode_template: '1B32',  train_json_tt_location: '1B03_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode -10 Car', initial_offset: 'PT13H'}
+  # 1b35 13h18m later
+  - {headcode_template: '1B35', train_json_tt_location: '1B03_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode -10 Car', initial_offset: 'PT14H18M' }
+
+  # 1Lxx cnm
+  # 1l64 0801, 1l66 0904, 1l70 1104, 1l76 1404, 1l78 1502, 1l82 1704, 1l84 1804, 1l88 2004, 1l90 2104, 1l92 2206
+  - {headcode_template: '1L64', train_json_tt_location: '1L64_KEY_locations.txt', entry_point: 'EUPKEMB', train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  - {headcode_template: '1L66', headcode_increment: 4, train_json_tt_location: '1L64_KEY_locations.txt',  frequency: 'PT2H', number_of: 2, entry_point: 'EUPKEMB', train_category: 'IEP 800/0 - Bi Mode - 5 Car' , initial_offset: 'PT1H3M'}
+  - {headcode_template: '1L76', headcode_increment: 2, train_json_tt_location: '1L64_KEY_locations.txt',  frequency: 'PT58M', number_of: 2, entry_point: 'EUPKEMB', train_category: 'IEP 800/0 - Bi Mode - 5 Car' , initial_offset: 'PT6H3M'}
+  - {headcode_template: '1L82', headcode_increment: 2, train_json_tt_location: '1L64_KEY_locations.txt',  frequency: 'PT1H', number_of: 2, entry_point: 'EUPKEMB', train_category: 'IEP 800/0 - Bi Mode - 5 Car' , initial_offset: 'PT9H3M'}
+  - {headcode_template: '1L88', headcode_increment: 2, train_json_tt_location: '1L64_KEY_locations.txt',  frequency: 'PT1H', number_of: 3, entry_point: 'EUPKEMB', train_category: 'IEP 800/0 - Bi Mode - 5 Car' , initial_offset: 'PT12H3M'}
+  # 1l68 1001 -> 5g09, 1l72 1203 -> 5u72, 1l74 1300 -> 5G15, 1l80 1601 -> 5g21, 1l86 1903 -> 5U86
+  - {headcode_template: '1L68', train_json_tt_location: '1L68_KEY_locations.txt', entry_point: 'EUPKEMB', train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  - {headcode_template: '1L72', headcode_increment: 14, train_json_tt_location: '1L68_KEY_locations.txt',  frequency: 'PT7H', number_of: 2, entry_point: 'EUPKEMB', train_category: 'IEP 800/0 - Bi Mode - 5 Car' , initial_offset: 'PT2H2M', next_uid: '5U**+0+0'}
+  - {headcode_template: '1L74', headcode_increment: 6, train_json_tt_location: '1L68_KEY_locations.txt',  frequency: 'PT3H1M', number_of: 2, entry_point: 'EUPKEMB', train_category: 'IEP 800/0 - Bi Mode - 5 Car' , initial_offset: 'PT2H58M', next_uid: '5G**+0-59'}
+  - {headcode_template: '5U72', headcode_increment: 14, train_json_tt_location: '5U72_KEY_locations.txt',  frequency: 'PT7H', number_of: 2, timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+
+  # 1Gxx
+  - {headcode_template: '5G03', train_json_tt_location: '5G03_KEY_locations.txt', entry_point: 'EUPBAD', train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  # 1g03 0729, 1g07
+  - {headcode_template: '1G03', headcode_increment: 4, train_json_tt_location: '1G03_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', frequency: 'PT2H3M', number_of: 2, train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  # 1g09 1032, 1g15 1332, 1g21 1632,
+  - {headcode_template: '1G09', headcode_increment: 6, train_json_tt_location: '1G03_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', frequency: 'PT3H', number_of: 3, train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT3H3M'}
+  # ECS for above
+  - {headcode_template: '3G07', train_json_tt_location: '5G03_KEY_locations.txt', entry_point: 'EUPBAD', train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT2H2M', next_uid: '1G07+0+0'}
+  - {headcode_template: '5G09', headcode_increment: 6, train_json_tt_location: '5G09_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', frequency: 'PT3H', number_of: 3, train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  # 1g05, 1g11, 1g13, 1g17, 1g19, 1g23, 1g25, 1g27, 1g29,
+  - {headcode_template: '1G05', train_json_tt_location: '1G05_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  - {headcode_template: '1G11', headcode_increment: 2, train_json_tt_location: '1G05_KEY_locations.txt', frequency: 'PT1H', number_of: 2, entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT3H'}
+  - {headcode_template: '1G17', headcode_increment: 2, train_json_tt_location: '1G05_KEY_locations.txt', frequency: 'PT1H', number_of: 2, entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT6H'}
+  - {headcode_template: '1G23', headcode_increment: 2, train_json_tt_location: '1G05_KEY_locations.txt', frequency: 'PT1H', number_of: 4, entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT9H'}
+
+  # 1Txx
+  - {headcode_template: '3T99', train_json_tt_location: '3T99_KEY_locations.txt', entry_point: 'EUPBAD', train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  - {headcode_template: '1T99', train_json_tt_location: '1T99_KEY_locations.txt', entry_point: 'EUPMAIN', train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  - {headcode_template: '3T01', train_json_tt_location: '3T01_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  - {headcode_template: '3T00', train_json_tt_location: '3T00_KEY_locations.txt', entry_point: 'EUPBAD', train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  - {headcode_template: '1T00', train_json_tt_location: '1T00_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt',  train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  # 1T04 - 1T24
+  - {headcode_template: '1T04', headcode_increment: 4, train_json_tt_location: '1T00_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', frequency: 'PT2H', number_of: 6, train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT1H49M'}
+  # 1T02 - 1T26
+  - {headcode_template: '1T02', headcode_increment: 4, train_json_tt_location: '1T00_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', frequency: 'PT2H', number_of: 7, train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT49M'}
+  # 1T01 - 1T25
+  - {headcode_template: '1T01', headcode_increment: 4, train_json_tt_location: '1T01_KEY_locations.txt', entry_point: 'EUPMAIN', frequency: 'PT2H', number_of: 7, train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  # 1T03 - 1T23
+  - {headcode_template: '1T03', headcode_increment: 4, train_json_tt_location: '1T01_KEY_locations.txt', entry_point: 'EUPMAIN', frequency: 'PT2H', number_of: 6, train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT1H'}
+  # 1t27 arr swi 2114 -> 1g31 dep swi 2132,
+  - {headcode_template: '1T27', train_json_tt_location: '1T01_KEY_locations.txt', entry_point: 'EUPMAIN', train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT13H', next_uid: '1G31+0+0'}
+  # CREATE 1G31
+  - {headcode_template: '1G31', train_json_tt_location: '1G03_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT14H3M'}
+  # 3t38 arr swi 2156 -> 1t28 dep swi 2202,
+  - {headcode_template: '3T28', train_json_tt_location: '3T00_KEY_locations.txt', entry_point: 'EUPBAD', train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: '2156 - 0738', next_uid: '1T28+0+0'}
+  - {headcode_template: '1T28', train_json_tt_location: '1T00_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt',train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT14H6M'}
+
+  # 1t29 arr swi p1 2235 -> 5t04
+  # 1t31 arr swi p1 2320 -> 5t05
+
+  # 1Fxx pompey harbours
+  # 2b62 -> 1f05
+  - {headcode_template: '2B62', train_json_tt_location: '2B62_KEY_locations.txt', entry_point: 'EUPKEMB', train_category: 'Cl 165/3'}
+  # 5f07 -> 1f07
+  - {headcode_template: '5F07', train_json_tt_location: '5F07_KEY_locations.txt', entry_point: 'EUPBAD', train_category: 'Cl 165/3'}
+  # 1f to pompey 1f05 to 1f19
+  - {headcode_template: '1F05', headcode_increment: 2, train_json_tt_location: '1F05_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', frequency: 'PT1H', number_of: 8, train_category: 'Cl 165/3'}
+  # 1f to pompey 1f21 to 1f23 at 21 past the hour
+  - {headcode_template: '1F21', headcode_increment: 2, train_json_tt_location: '1F05_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', frequency: 'PT1H', number_of: 2, train_category: 'Cl 165/3', initial_offset: 'PT7H57M'}
+  # 1f to pompey 1f25 to 1f33 at 24 past the hour
+  - {headcode_template: '1F25', headcode_increment: 2, train_json_tt_location: '1F05_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', frequency: 'PT1H', number_of: 5, train_category: 'Cl 165/3', initial_offset: 'PT10H'}
+  # 1f coming up from pompey
+  # 1f06 to 1f30
+  - {headcode_template: '1F06', headcode_increment: 2, train_json_tt_location: '1F06_KEY_locations.txt', entry_point: 'EDNTROW', frequency: 'PT1H', number_of: 13, train_category: 'Cl 165/3'}
+  # 1f32 arr swi 2152 -> 5f32 dep 2207 ***** Plat wrong for 1F32 ******
+  - {headcode_template: '1F32', train_json_tt_location: '1F06_KEY_locations.txt', entry_point: 'EDNTROW', train_category: 'Cl 165/3', initial_offset: '2152 - 0854', next_uid: '5F32+0+0'}
+  - {headcode_template: '5F32', train_json_tt_location: '5F32_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 165/3'}
+
+  # 2B98 -> 2G93
+  - {headcode_template: '2B98', train_json_tt_location: '2B62_KEY_locations.txt', entry_point: 'EUPKEMB', train_category: 'Cl 158/2', next_uid: '2G93+0+0', initial_offset: 'PT15H37M'}
+  - {headcode_template: '2G93', train_json_tt_location: '2G93_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 158/2',initial_offset: 'PT15H11M'}
+
+
+
+
+

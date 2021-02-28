@@ -1,0 +1,12 @@
+[ {   'arr': '',
+        'dep': '1211',
+        'location': 'Swindon [SWI]',
+        'plat': '1'},
+    {   'dep': '1215.5',
+        'line': 'DB',
+        'location': 'Wootton Bassett Jn',
+        'path': 'DM'},
+    {'dep': '1222', 'eng allow': '1', 'location': 'Hullavington'},
+    {'dep': '1229.5', 'location': 'Westerleigh Jn'},
+    {   'arr': '1245',
+        'location': 'Stoke Gifford'}]

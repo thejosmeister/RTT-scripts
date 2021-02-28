@@ -14,7 +14,7 @@ def pull_tiploc_out_of_xml():
     set_of_entry_points = set(entry_points)
     set_of_locations = set(locations)
 
-    with open('swindon_locations.txt', mode='w') as emails_file:
+    with open('sim_location_files/swindon_locations.txt', mode='w') as emails_file:
         print('Entry Points: ', file=emails_file)
         for e in set_of_entry_points:
             print(e, file=emails_file)
