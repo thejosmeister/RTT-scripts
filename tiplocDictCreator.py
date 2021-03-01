@@ -1,5 +1,17 @@
+"""
+Some utils for extracting stuff from xml files
+"""
+
 
 def pull_tiploc_out_of_xml(file_to_pull_tiploc_out, out_filename):
+    """
+    Will fetch any location codes within a Simsig TT and output a list to a text file.
+    Separates the entry locations from others.
+    I used it to create a dictionary of locations in a sim where there is not one provided in the documentation.
+
+    :param file_to_pull_tiploc_out: The Simsig TT.
+    :param out_filename: Name of ouput file.
+    """
     entry_points = []
     locations = []
     f = open(file_to_pull_tiploc_out, "r")
@@ -24,8 +36,15 @@ def pull_tiploc_out_of_xml(file_to_pull_tiploc_out, out_filename):
             print(e, file=emails_file)
 
 
-def pull_train_categories_out_of_xml() -> dict:
-    f = open('templates/TrainCategories.xml', "r")
+def pull_train_categories_out_of_xml(file_with_categories: str) -> dict:
+    """
+    Will take an xml excerpt just containing the TrainCategories root from a Simsig TT and give a map of categories
+    with the Description as the key. This relies on the descriptions being unique.
+
+    :param file_with_categories: File containing train categories xml.
+    :return: A map/python dict of categories with the Description as the key.
+    """
+    f = open(file_with_categories, "r")
     categories_dict = {}
     _id = ''
     description = ''
@@ -70,6 +89,19 @@ def pull_train_categories_out_of_xml() -> dict:
 
 
 def create_tiploc_dict(file_location: str) -> list:
+    """
+    Takes a file containing a map of location codes to the various names you want these codes to match to.
+    e.g: File with maps
+
+    Locations:
+    SDONLY: Swindon Loco Yard
+    STRUMLC:St. Mary's Level Crossing
+
+    Will become {'locations': {'SDONLY':['Swindon Loco Yard'], 'STRUMLC': 'St. Mary's Level Crossing'}
+
+    :param file_location: File with locations map in format shown above.
+    :return: List of 2 maps, Entry Points and Locations, with location code as the key.
+    """
     tiploc_locations = {}
     entry_points = {}
     is_entry_points = False
