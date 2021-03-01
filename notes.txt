@@ -10,11 +10,8 @@ Locations:
 
 
 TODO:
-- Refactor to make it a bit nicer to look at
-- Make uid pattern reader more robust, handle 5+ uids
-- Better way of handling overridden next_uid
-- Unit tests
-- Look at a way of specifying platforms, can pass in different properties.
+- Unit tests - Started
+- Test amended_locations property on 1T27.
 - Whole TT writing, spec an initial blurb.
 - Bulk rules writing, can the tt analyser do it?
 - Convert xml tt to json tt
