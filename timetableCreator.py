@@ -80,11 +80,8 @@ def create_trip(location: dict, time_increment, initial_offset, uid, next_uid: s
         out += '<EngAllowance>' + location['eng allow'] + '</EngAllowance>'
     if 'pth allow' in location:
         out += '<PathAllowance>' + location['pth allow'] + '</PathAllowance>'
-    # norm_bit = '<AutoLine>-1</AutoLine><AutoPath>-1</AutoPath><IsPassTime>-1</IsPassTime><DownDirection>-1</DownDirection><PrevPathEndDown>-1</PrevPathEndDown><NextPathStartDown>-1</NextPathStartDown>'
 
-    # out += norm_bit
-
-    # Need to add activities
+    # Add activities
     if 'activities' in location:
         out += add_location_activities(location, uid, next_uid)
 
@@ -112,7 +109,7 @@ def create_timetable_with_spec_entry(config_dict):
     tt_template = read_in_tt_template(config_dict['timetable_template_location'])
     [origin_time, origin, _entry_time, dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
         config_dict['train_json_tt_location'], create_tiploc_dict(config_dict['locations_on_sim'])[1])
-    train_cat_dict = pull_train_categories_out_of_xml()[config_dict['train_category']]
+    train_cat_dict = pull_train_categories_out_of_xml('templates/TrainCategories.xml')[config_dict['train_category']]
 
     entry_point = config_dict['entry_point']
     frequency = parse_time_expression(config_dict['frequency'])
@@ -170,80 +167,3 @@ def create_timetable_with_spec_entry(config_dict):
 
 
     return list_of_timetables
-    # with open(headcode_template + '_timetables.xml', 'w') as f_to_write:
-    #     for tt in list_of_timetables:
-    #         print(tt, file=f_to_write)
-
-
-
-
-#***************************************************************************************************************************************************************
-
-def create_timetable_with_spec_entry_non_dict(headcode_template, headcode_increment, train_json_tt_location, locations_on_sim,
-                                     timetable_template_location, entry_point, frequency, number_of, train_category, initial_offset, next_uid):
-
-
-
-    tt_template = read_in_tt_template(timetable_template_location)
-    [origin_time, origin, _entry_time, dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
-        train_json_tt_location, create_tiploc_dict(locations_on_sim)[1])
-    train_cat_dict = pull_train_categories_out_of_xml()[train_category]
-
-    if _entry_time == '' and entry_point is not None:
-        entry_time = convert_time_to_secs(input('Input Entry Time'))
-    else:
-        entry_time = _entry_time
-
-    list_of_timetables = []
-    for i in range(number_of):
-        time_increment = frequency * i
-        headcode = headcode_template[:2] + f"{int(headcode_template[2:]) + (headcode_increment * i):02d}"
-        uid = headcode
-        trips = ''.join([create_trip(l, time_increment, initial_offset, uid, next_uid) for l in locations_on_sim])
-        AccelBrakeIndex = train_cat_dict['AccelBrakeIndex']
-        if entry_point is not None:
-            DepartTime = str(entry_time + time_increment + initial_offset)
-        else:
-            DepartTime = ''
-        MaxSpeed = train_cat_dict['MaxSpeed']
-        IsFreight = train_cat_dict['IsFreight']
-        TrainLength = train_cat_dict['TrainLength']
-        Electrification = train_cat_dict['Electrification']
-        OriginName = origin
-        DestinationName = dest
-        OriginTime = str(convert_time_to_secs(origin_time) + time_increment + initial_offset)
-        description = convert_sec_to_time(int(OriginTime)) + ' ' + origin + ' - ' + dest + ' ' + train_category
-        DestinationTime = str(convert_time_to_secs(dest_time) + time_increment + initial_offset)
-        OperatorCode = 'GW'
-        StartTraction = train_cat_dict['Electrification']
-        SpeedClass = train_cat_dict['SpeedClass']
-        Category = train_cat_dict['id']
-        DwellTimes = ''
-        if 'DwellTimes' in train_cat_dict:
-            DwellTimes = '<Join>' + train_cat_dict['DwellTimes']['Join'] + '</Join><Divide>' +\
-                         train_cat_dict['DwellTimes']['Divide'] + '</Divide><CrewChange>' + train_cat_dict['DwellTimes']['CrewChange'] + '</CrewChange>'
-
-
-        tt_string = tt_template.replace('${ID}', headcode).replace('${UID}', uid).replace('${AccelBrakeIndex}', AccelBrakeIndex) \
-            .replace('${Description}', description) \
-            .replace('${MaxSpeed}', MaxSpeed).replace('${isFreight}', IsFreight).replace('${TrainLength}', TrainLength) \
-            .replace('${Electrification}', Electrification).replace('${OriginName}', OriginName).replace(
-                '${DestinationName}', DestinationName) \
-            .replace('${OriginTime}', OriginTime).replace('${DestinationTime}', DestinationTime).replace(
-                '${OperatorCode}', OperatorCode).replace('${StartTraction}', StartTraction).replace('${SpeedClass}', SpeedClass) \
-            .replace('${Category}', Category).replace('${Trips}', trips).replace('${DwellTimes}', DwellTimes)
-
-        if entry_point is None:
-            list_of_timetables.append(tt_string)
-        else:
-            list_of_timetables.append(tt_string.replace('${EntryPoint}', entry_point).replace('${DepartTime}', DepartTime))
-
-
-    return list_of_timetables
-    # with open(headcode_template + '_timetables.xml', 'w') as f_to_write:
-    #     for tt in list_of_timetables:
-    #         print(tt, file=f_to_write)
-
-
-
-

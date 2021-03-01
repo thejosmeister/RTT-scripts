@@ -1,33 +1,65 @@
+"""
+Some bits I wrote to transform the information in the json locations files to values that Simsig recognises
+"""
 import ast
 import math
-from tiplocDictCreator import create_tiploc_dict
+import re
+
 
 def convert_time_to_secs(time: str) -> int:
-    hours = int(time[:2])
-    mins = int(time[2:4])
-    if len(time) == 6:
-        has_half_min = 30
+    """
+    Converts a time string in the format hhmm to seconds past midnight
+    :param time: Time string, format hhmm
+    :return: The time as seconds from midnight
+    """
+    match = re.match("(\\d{2})(\\d{2})(?:\\.(\\d+))?", time)
+    hours = int(match.group(1))
+    mins = int(match.group(2))
+    if len(time) > 4:
+        secs = math.floor(60 * float('0.' + match.group(3)))
     else:
-        has_half_min = 0
+        secs = 0
 
-    return (3600 * hours) + (60 * mins) + has_half_min
+    return (3600 * hours) + (60 * mins) + secs
+
 
 def convert_sec_to_time(time: int) -> str:
+    """
+    Converts seconds past midnight to a time string in the format hhmm.
+    :param time: Seconds past midnight
+    :return:
+    """
     hours = math.floor(time / 3600)
     mins = math.floor((time - (hours * 3600))/60)
+    secs = math.floor(time - (hours * 3600) - (mins * 60))
 
-    if hours < 10:
-        h_prefix = '0'
+    if secs > 0:
+        return f"{hours:02d}{mins:02d}." + str(round(secs/60, 1))[2:3]
     else:
-        h_prefix = ''
-    if mins < 10:
-        m_prefix = '0'
-    else:
-        m_prefix = ''
-
-    return h_prefix + str(hours) + m_prefix + str(mins)
+        return f"{hours:02d}{mins:02d}"
 
 
+# Will create a new location list which only contains sim locations with the relevant location code.
+def sub_in_tiploc(sorted_locations: list, tiploc_dict: dict, origin: str) -> list:
+    out = []
+    entry_time = ''
+    for l in sorted_locations:
+        for t in tiploc_dict.keys():
+            if l['location'] in tiploc_dict[t]:
+                # isOrigin is used to tell whether the location needs a pass time flag.
+                if origin == l['location']:
+                    l['isOrigin'] = 'yes'
+
+                l['location'] = str(t)
+                out.append(l)
+            elif 'Entry' in l['location']:
+                # Used as a way to specify entry time in original location list.
+                entry_time = l['dep']
+
+    return [out, entry_time]
+
+
+# Used in sorting lambda.
 def return_value(inp: dict):
     if 'dep' in inp:
         return inp['dep']
@@ -35,23 +67,19 @@ def return_value(inp: dict):
         return inp['arr']
 
 
-def sub_in_tiploc(sorted_locations: list, tiploc_dict: dict, origin: str) -> list:
-    out = []
-    entry_time = ''
-    for l in sorted_locations:
-        for t in tiploc_dict.keys():
-            if l['location'] in tiploc_dict[t]:
-                if origin == l['location']:
-                    l['isOrigin'] = 'yes'
-                l['location'] = str(t)
-                out.append(l)
-            elif 'Entry' in l['location']:
-                entry_time = l['dep']
-
-    return [out, entry_time]
-
-
-def produce_dict_with_times_and_locations(location_template_filename: str, tiploc_dict: dict):
+def produce_dict_with_times_and_locations(location_template_filename: str, tiploc_dict: dict) -> list:
+    """
+    Takes a list of json locations for a train and outputs in a list:
+     - origin time in hhmm format
+     - origin name (not TIPLOC)
+     - the entry time of the train into the sim according to 'Entry' being the location field.
+     - destination time in hhmm format
+     - destination name (not TIPLOC)
+     - json list of locations of a train on the sim, time is in seconds past midnight and location names are TIPLOC
+    :param location_template_filename: json list train tt.
+    :param tiploc_dict: Map of TIPLOC codes to place names.
+    :return: Specified above.
+    """
     f = open(location_template_filename, "r")
     list_of_locations = ast.literal_eval(f.read())
     f.close()
@@ -77,7 +105,4 @@ def produce_dict_with_times_and_locations(location_template_filename: str, tiplo
 
     return [origin_time, origin, entry_time, dest_time, dest, locations_on_sim]
 
-#
-# a = produce_dict_with_times_and_locations('1A01_KEY_locations.txt', create_tiploc_dict('swindon_locations.txt')[1])
-#
-# [print(x) for x in a]
+
