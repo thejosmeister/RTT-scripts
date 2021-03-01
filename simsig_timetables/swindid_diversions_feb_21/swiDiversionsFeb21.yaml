@@ -15,7 +15,6 @@ defaults:
   number_of: 1
   train_category:
   initial_offset: 0
-  next_uid:
   op_code: 'GW'
 
 timetables:

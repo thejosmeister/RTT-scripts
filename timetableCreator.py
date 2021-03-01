@@ -1,10 +1,15 @@
+"""
+Will create a TT for an individual train spec (so can create repeats if specified)
+"""
 import isodate
+import re
+import unittest
 
 from tiplocDictCreator import pull_train_categories_out_of_xml, create_tiploc_dict
-from translateTimesAndLocations import produce_dict_with_times_and_locations, convert_time_to_secs, convert_sec_to_time
-import re
+from translateTimesAndLocations import produce_dict_with_times_and_locations, convert_time_to_secs, convert_sec_to_time, produce_train_locations
 
 
+# Reads in TT template file which will be the bare bones of a TT for an individual train.
 def read_in_tt_template(timetable_template_location) -> str:
     f = open(timetable_template_location, "r")
     out = ''
@@ -15,52 +20,57 @@ def read_in_tt_template(timetable_template_location) -> str:
     return out
 
 
-def get_increments_from_pattern(uid_pattern: str):
-    return [re.match(".{4}((?:\\+|\\-)\\d+)((?:\\+|\\-)\\d+)", uid_pattern).group(1), re.match(".{4}((?:\\+|\\-)\\d+)((?:\\+|\\-)\\d+)", uid_pattern).group(2)]
-
-
+# Parse uid pattern for next uid
 def parse_uid_to_insert(uid_pattern: str, current_uid: str) -> str:
     out = ''
-    if len(uid_pattern) < 8:
+    # Group 1: uid, Group 2: uid[0], Group 3: uid[1], Group 4: uid[2:4], Group 5: rest of uid, Group 6: 1st increment,
+    # Group 7: 2nd increment
+    uid_regex = "^(([0-9\\*])([A-Z])([0-9]{2}|\\*\\*)([A-Z0-9]*))(?:((?:\\+|\\-)\\d+)((?:\\+|\\-)\\d+))?$"
+    match_object = re.match(uid_regex, uid_pattern)
+    if match_object is None:
         print('Bad uid pattern, pattern:' + uid_pattern + ' headcode: ' + current_uid)
         return ''
-    if '*' not in uid_pattern:
-        return uid_pattern[:-4]
+    first_incr = match_object.group(6)
+    second_incr = match_object.group(7)
+    if match_object.group(2) == '*':
+        if first_incr is not None:
+            out += str((int(current_uid[0]) + int(first_incr)) % 10)
+        else:
+            out += current_uid[0]
     else:
-        [first_incr, second_incr] = get_increments_from_pattern(uid_pattern)
-        if '*' == uid_pattern[0]:
-            out += str(int(current_uid[0]) + int(first_incr))
+        out += match_object.group(2)
+
+    out += match_object.group(3)
+
+    if match_object.group(4) == '**':
+        if second_incr is not None:
+            out += f"{(int(current_uid[2:4]) + int(second_incr)) % 100:02d}"
         else:
-            out += uid_pattern[0]
+            out += current_uid[2:4]
+    else:
+        out += match_object.group(4)
 
-        out += uid_pattern[1]
+    if match_object.group(5) is not None:
+        out += match_object.group(5)
 
-        if '*' == uid_pattern[2]:
-            out += f"{int(current_uid[2:4]) + int(second_incr):02d}"
-        else:
-            out += uid_pattern[2:4]
-
-        # out += uid_pattern[4:-4]
-        return out
-# headcode_template[:2] + f"{int(headcode_template[2:]) + (headcode_increment * i):02d}"
+    return out
 
 
-def add_location_activities(location: dict, uid: str, next_uid: str) -> str:
+# Adds activities if specified in a location
+def add_location_activities(location: dict, uid: str) -> str:
     out = '<Activities>'
     for activity in location['activities'].keys():
         f = open('templates/activities/' + str(activity) + 'Template.txt', "r")
 
         for fl in f:
-            if next_uid is not None and 'trainBecomes' in str(activity):
-                uid_to_insert = parse_uid_to_insert(next_uid, uid)
-            else:
-                uid_to_insert = parse_uid_to_insert(location['activities'][activity], uid)
+            uid_to_insert = parse_uid_to_insert(location['activities'][activity], uid)
             out += fl.rstrip().replace('${UID}', uid_to_insert)
         f.close()
+
     return out + '</Activities>'
 
 
-def create_trip(location: dict, time_increment, initial_offset, uid, next_uid: str) -> str:
+def create_trip(location: dict, time_increment, initial_offset, uid) -> str:
     out = '<Trip><Location>' + location['location'] + '</Location>'
     if 'dep' in location:
         out += '<DepPassTime>' + str(location['dep'] + time_increment + initial_offset) + '</DepPassTime>'
@@ -83,7 +93,7 @@ def create_trip(location: dict, time_increment, initial_offset, uid, next_uid: s
 
     # Add activities
     if 'activities' in location:
-        out += add_location_activities(location, uid, next_uid)
+        out += add_location_activities(location, uid)
 
     return out + '</Trip>'
 
@@ -104,11 +114,35 @@ def parse_time_expression(frequency_expression) -> int:
     else:
         return frequency_expression
 
+
+def amend_locations(train_locations: list, config_dict: dict) -> list:
+    if 'amended_locations' in config_dict:
+        for tl in train_locations:
+            for al in config_dict['amended_locations']:
+                if tl['location'] == al['location']:
+                    for prop in al.keys():
+                        tl[str(prop)] = al[prop]
+
+    if 'next_uid' in config_dict:
+        for tl in train_locations:
+            if 'activities' in tl:
+                if 'trainBecomes' in tl['activities']:
+                    tl['activities']['trainBecomes'] = config_dict['next_uid']
+
+    return train_locations
+
+
 def create_timetable_with_spec_entry(config_dict):
 
     tt_template = read_in_tt_template(config_dict['timetable_template_location'])
+
+    train_locations = produce_train_locations(config_dict['train_json_tt_location'])
+    if 'amended_locations' in config_dict or 'next_uid' in config_dict:
+        train_locations = amend_locations(train_locations, config_dict)
+
     [origin_time, origin, _entry_time, dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
-        config_dict['train_json_tt_location'], create_tiploc_dict(config_dict['locations_on_sim'])[1])
+        train_locations, create_tiploc_dict(config_dict['locations_on_sim'])[1])
+
     train_cat_dict = pull_train_categories_out_of_xml('templates/TrainCategories.xml')[config_dict['train_category']]
 
     entry_point = config_dict['entry_point']
@@ -120,13 +154,13 @@ def create_timetable_with_spec_entry(config_dict):
     else:
         entry_time = _entry_time
 
-
     list_of_timetables = []
+
     for i in range(config_dict['number_of']):
         time_increment = frequency * i
         headcode = config_dict['headcode_template'][:2] + f"{int(config_dict['headcode_template'][2:]) + (config_dict['headcode_increment'] * i):02d}"
         uid = headcode
-        trips = ''.join([create_trip(l, time_increment, initial_offset, uid, config_dict['next_uid']) for l in locations_on_sim])
+        trips = ''.join([create_trip(l, time_increment, initial_offset, uid) for l in locations_on_sim])
         AccelBrakeIndex = train_cat_dict['AccelBrakeIndex']
         if entry_point is not None:
             DepartTime = str(entry_time + time_increment + initial_offset)
@@ -167,3 +201,22 @@ def create_timetable_with_spec_entry(config_dict):
 
 
     return list_of_timetables
+
+
+# UTs
+class TestTimetableCreator(unittest.TestCase):
+    def test_parse_uid_to_insert(self):
+        self.assertEqual(parse_uid_to_insert('1F99', '1F99'), '1F99', "Should be '1F99'")
+        self.assertEqual(parse_uid_to_insert('1F9', '1F99'), '', "Should be ''")
+        self.assertEqual(parse_uid_to_insert('1F99+0+0', '1F99'), '1F99', "Should be '1F99'")
+        self.assertEqual(parse_uid_to_insert('1F**', '1F99'), '1F99', "Should be '1F99'")
+        self.assertEqual(parse_uid_to_insert('1F**+0+1', '1F98'), '1F99', "Should be '1F99'")
+        self.assertEqual(parse_uid_to_insert('1F**+0-1', '1F99'), '1F98', "Should be '1F98'")
+        self.assertEqual(parse_uid_to_insert('1F**+0+1', '1F99'), '1F00', "Should be '1F99'")
+        self.assertEqual(parse_uid_to_insert('1F**+0-1', '1F00'), '1F99', "Should be '1F99'")
+        self.assertEqual(parse_uid_to_insert('*F99+1+1', '1F99'), '2F99', "Should be '2F99'")
+        self.assertEqual(parse_uid_to_insert('*F99-1+1', '1F99'), '0F99', "Should be '0F99'")
+        self.assertEqual(parse_uid_to_insert('*F99-1+1', '0F99'), '9F99', "Should be '9F99'")
+        self.assertEqual(parse_uid_to_insert('*F88-1+1', '2F99'), '1F88', "Should be '1F88'")
+        self.assertEqual(parse_uid_to_insert('*F**-1+1', '2F99'), '1F00', "Should be '1F00'")
+        self.assertEqual(parse_uid_to_insert('*F**QQQ-1+1', '2F99'), '1F00QQQ', "Should be '1F00QQQ'")

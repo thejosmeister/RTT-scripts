@@ -67,18 +67,11 @@ def return_value(inp: dict):
         return inp['arr']
 
 
-def produce_dict_with_times_and_locations(location_template_filename: str, tiploc_dict: dict) -> list:
+def produce_train_locations(location_template_filename: str) -> list:
     """
-    Takes a list of json locations for a train and outputs in a list:
-     - origin time in hhmm format
-     - origin name (not TIPLOC)
-     - the entry time of the train into the sim according to 'Entry' being the location field.
-     - destination time in hhmm format
-     - destination name (not TIPLOC)
-     - json list of locations of a train on the sim, time is in seconds past midnight and location names are TIPLOC
-    :param location_template_filename: json list train tt.
-    :param tiploc_dict: Map of TIPLOC codes to place names.
-    :return: Specified above.
+    Takes a file containing list of json locations for a train and outputs it to a python list of dicts.
+    :param location_template_filename: json list train TT.
+    :return: json list of locations of a train on the sim.
     """
     f = open(location_template_filename, "r")
     list_of_locations = ast.literal_eval(f.read())
@@ -96,6 +89,22 @@ def produce_dict_with_times_and_locations(location_template_filename: str, tiplo
             else:
                 l['arr'] = convert_time_to_secs(l['arr'])
 
+    return list_of_locations
+
+
+def produce_dict_with_times_and_locations(list_of_locations: list, tiploc_dict: dict) -> list:
+    """
+    Takes a list of json locations for a train and outputs in a list:
+     - origin time in hhmm format
+     - origin name (not TIPLOC)
+     - the entry time of the train into the sim according to 'Entry' being the location field.
+     - destination time in hhmm format
+     - destination name (not TIPLOC)
+     - json list of locations of a train on the sim, time is in seconds past midnight and location names are TIPLOC
+    :param list_of_locations: list of train TT maps.
+    :param tiploc_dict: Map of TIPLOC codes to place names.
+    :return: Specified above.
+    """
     sorted_locations = sorted(list_of_locations, key=lambda x: return_value(x))
     origin = sorted_locations[0]['location']
     origin_time = convert_sec_to_time(sorted_locations[0]['dep'])
