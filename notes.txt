@@ -10,6 +10,7 @@ Locations:
 
 
 TODO:
+- Add readme.
 - Unit tests - Started
 - Test amended_locations property on 1T27.
 - Whole TT writing, spec an initial blurb.
