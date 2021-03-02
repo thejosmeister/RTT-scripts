@@ -12,17 +12,6 @@ from translateTimesAndLocations import produce_dict_with_times_and_locations, co
 FILE_WITH_CATEGORIES = 'templates/TrainCategories.xml'
 
 
-# Reads in TT template file which will be the bare bones of a TT for an individual train.
-def read_in_tt_template(timetable_template_location) -> str:
-    f = open(timetable_template_location, "r")
-    out = ''
-    for fl in f:
-        out += fl.rstrip()
-    f.close()
-
-    return out
-
-
 # Parse uid pattern for next uid
 def parse_uid_to_insert(uid_pattern: str, current_uid: str) -> str:
     out = ''
@@ -60,46 +49,27 @@ def parse_uid_to_insert(uid_pattern: str, current_uid: str) -> str:
 
 
 # Adds activities if specified in a trip
-def add_location_activities(location: dict, uid: str) -> str:
-    out = '<Activities>'
-    for activity in location['activities'].keys():
-        f = open('templates/activities/' + str(activity) + 'Template.txt', "r")
+def add_location_activities(location: dict, uid: str) -> dict:
+    out = {}
+    for activity_title in location['activities'].keys():
+        out[str(activity_title)] = parse_uid_to_insert(location['activities'][activity_title], uid)
 
-        for fl in f:
-            uid_to_insert = parse_uid_to_insert(location['activities'][activity], uid)
-            out += fl.rstrip().replace('${UID}', uid_to_insert)
-        f.close()
-
-    return out + '</Activities>'
+    return out
 
 
 # Creates a trip within a TT, this translates as a location the train visits.
-def create_trip(location: dict, time_increment, initial_offset, uid) -> str:
-    out = '<Trip><Location>' + location['location'] + '</Location>'
+def create_trip(location: dict, time_increment, initial_offset, uid) -> dict:
+    out = location.copy()
     if 'dep' in location:
-        out += '<DepPassTime>' + str(location['dep'] + time_increment + initial_offset) + '</DepPassTime>'
-        if 'arr' not in location and 'isOrigin' not in location:
-            out += '<IsPassTime>-1</IsPassTime>'
+        out['dep'] = convert_sec_to_time(location['dep'] + time_increment + initial_offset)
     if 'arr' in location:
-        out += '<ArrTime>' + str(location['arr'] + time_increment + initial_offset) + '</ArrTime>'
-    if 'plat' in location:
-        out += '<Platform>' + location['plat'] + '</Platform>'
-    if 'line' in location:
-        out += '<Line>' + location['line'] + '</Line>'
-    if 'path' in location:
-        out += '<Path>' + location['path'] + '</Path>'
-    if 'pth allow' in location:
-        out += '<PathAllowance>' + location['pth allow'] + '</PathAllowance>'
-    if 'eng allow' in location:
-        out += '<EngAllowance>' + location['eng allow'] + '</EngAllowance>'
-    if 'pth allow' in location:
-        out += '<PathAllowance>' + location['pth allow'] + '</PathAllowance>'
+        out['arr'] = convert_sec_to_time(location['arr'] + time_increment + initial_offset)
 
     # Add activities
     if 'activities' in location:
-        out += add_location_activities(location, uid)
+        out['activities'] = add_location_activities(location, uid)
 
-    return out + '</Trip>'
+    return out
 
 
 # Parse time expressions written in the yaml TT def to seconds past midnight.
@@ -132,9 +102,9 @@ def amend_locations(train_locations: list, config_dict: dict) -> list:
     return train_locations
 
 
-def create_timetable_with_spec_entry(config_dict):
+def create_json_timetables_with_spec_entry(config_dict: dict):
     """
-    Creates an xml TT for a train or number of trains depending on number_of specified in config.
+    Creates json TTs for the number of trains specified in each line of a timetable spec.
 
     Currently handles the following config:
      - headcode_template: Is the UID for the train(s), format: <headcode><extra-chars>
@@ -151,16 +121,15 @@ def create_timetable_with_spec_entry(config_dict):
      - next_uid: A pattern defining what the next uid/headcode is if the train becomes another. Format in readme.
      - amended_locations: List of changes we want to make at a location found in the locations file i.e. plat change
     :param config_dict: Map of config values.
-    :return: A list of strings that each are an xml TT for writing to a file.
+    :return: A list of json objects that are train TTs.
     """
-    tt_template = read_in_tt_template(config_dict['timetable_template_location'])
 
     train_locations = produce_train_locations(config_dict['train_json_tt_location'])
     if 'amended_locations' in config_dict or 'next_uid' in config_dict:
         train_locations = amend_locations(train_locations, config_dict)
 
     # Now we have quite a few bits.
-    [origin_time, origin, _entry_time, dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
+    [original_o_time, origin, _entry_time, original_dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
         train_locations, create_tiploc_dict(config_dict['locations_on_sim'])[1])
 
     train_cat_dict = pull_train_categories_out_of_xml(FILE_WITH_CATEGORIES)[config_dict['train_category']]
@@ -174,9 +143,10 @@ def create_timetable_with_spec_entry(config_dict):
     else:
         entry_time = _entry_time
 
-    list_of_timetables = []
+    list_of_json_timetables = []
 
     for i in range(config_dict['number_of']):
+        train_tt = {}
         # Work out time increment from last train.
         time_increment = frequency * i
 
@@ -184,50 +154,42 @@ def create_timetable_with_spec_entry(config_dict):
         uid = headcode + config_dict['headcode_template'][4:]
 
         # Create the trips in the TT
-        trips = ''.join([create_trip(l, time_increment, initial_offset, uid) for l in locations_on_sim])
+        trips = [create_trip(l, time_increment, initial_offset, uid) for l in locations_on_sim]
 
+        origin_time = convert_sec_to_time(convert_time_to_secs(original_o_time) + time_increment + initial_offset)
+        destination_time = convert_sec_to_time(convert_time_to_secs(original_dest_time) + time_increment + initial_offset)
         # Sort all the parameters to plug in to template.
-        accel_brake_index = train_cat_dict['AccelBrakeIndex']
         if entry_point is not None:
-            depart_time = str(entry_time + time_increment + initial_offset)
-        else:
-            depart_time = ''
-        max_speed = train_cat_dict['MaxSpeed']
-        is_freight = train_cat_dict['IsFreight']
-        train_length = train_cat_dict['TrainLength']
-        electrification = train_cat_dict['Electrification']
-        origin_name = origin
-        destination_name = dest
-        origin_time = str(convert_time_to_secs(origin_time) + time_increment + initial_offset)
-        description = convert_sec_to_time(int(origin_time)) + ' ' + origin + ' - ' + dest + ' ' + config_dict['train_category']
-        destination_time = str(convert_time_to_secs(dest_time) + time_increment + initial_offset)
-        operator_code = config_dict['op_code']
-        start_traction = train_cat_dict['Electrification']
-        speed_class = train_cat_dict['SpeedClass']
-        category = train_cat_dict['id']
-        dwell_times = ''
+            train_tt['entry_point'] = entry_point
+            train_tt['entry_time'] = convert_sec_to_time(entry_time + time_increment + initial_offset)
+
+        train_tt['headcode'] = headcode
+        train_tt['uid'] = uid
+        train_tt['max_speed'] = train_cat_dict['MaxSpeed']
+        train_tt['accel_brake_index'] = train_cat_dict['AccelBrakeIndex']
+        train_tt['is_freight'] = train_cat_dict['IsFreight']
+        train_tt['train_length'] = train_cat_dict['TrainLength']
+        train_tt['electrification'] = train_cat_dict['Electrification']
+        train_tt['origin_name'] = origin
+        train_tt['destination_name'] = dest
+        train_tt['origin_time'] = origin_time
+        train_tt['description'] = origin_time + ' ' + origin + ' - ' + dest + ' ' + config_dict['train_category']
+        train_tt['destination_time'] = destination_time
+        train_tt['operator_code'] = config_dict['op_code']
+        train_tt['start_traction'] = train_cat_dict['Electrification']
+        train_tt['speed_class'] = train_cat_dict['SpeedClass']
+        train_tt['category'] = train_cat_dict['id']
+        train_tt['tt_template'] = config_dict['timetable_template_location']
+        train_tt['locations'] = trips
         if 'DwellTimes' in train_cat_dict:
-            dwell_times = '<Join>' + train_cat_dict['DwellTimes']['Join'] + '</Join><Divide>' + \
-                         train_cat_dict['DwellTimes']['Divide'] + '</Divide><CrewChange>' + \
-                         train_cat_dict['DwellTimes']['CrewChange'] + '</CrewChange>'
+            train_tt['dwell_times'] = {'join': train_cat_dict['DwellTimes']['Join'],
+                                       'divide': train_cat_dict['DwellTimes']['Divide'],
+                                       'crew_change': train_cat_dict['DwellTimes']['CrewChange']}
 
-        # Compose our string that makes up a TT.
-        tt_string = tt_template.replace('${ID}', headcode).replace('${UID}', uid)\
-            .replace('${AccelBrakeIndex}', accel_brake_index).replace('${Description}', description)\
-            .replace('${MaxSpeed}', max_speed).replace('${isFreight}', is_freight).replace('${TrainLength}', train_length) \
-            .replace('${Electrification}', electrification).replace('${OriginName}', origin_name)\
-            .replace('${DestinationName}', destination_name).replace('${OriginTime}', origin_time)\
-            .replace('${DestinationTime}', destination_time).replace('${OperatorCode}', operator_code)\
-            .replace('${StartTraction}', start_traction).replace('${SpeedClass}', speed_class) \
-            .replace('${Category}', category).replace('${Trips}', trips).replace('${DwellTimes}', dwell_times)
+        list_of_json_timetables.append(train_tt)
 
-        # Add entry point and time if needed.
-        if entry_point is None:
-            list_of_timetables.append(tt_string)
-        else:
-            list_of_timetables.append(tt_string.replace('${EntryPoint}', entry_point).replace('${DepartTime}', depart_time))
+    return list_of_json_timetables
 
-    return list_of_timetables
 
 
 # UTs
@@ -249,15 +211,14 @@ class TestTimetableCreator(unittest.TestCase):
         self.assertEqual(parse_uid_to_insert('*F**QQQ-1+1', '2F99'), '1F00QQQ', "Should be '1F00QQQ'")
 
     def test_create_trip(self):
-        location = {'arr': 100, 'line': 'UM', 'location': 'SDON', 'plat': '1',
-        'activities': {'trainBecomes': '5G09+0+0'}}
-        trip = '<Trip><Location>SDON</Location><ArrTime>100</ArrTime><Platform>1</Platform><Line>UM</Line><Activities>'\
-               '<Activity><Activity>0</Activity><AssociatedUID>5G09</AssociatedUID></Activity></Activities></Trip>'
-
+        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1','activities': {'trainBecomes': '5G09+0+0'}}
+        trip = {'arr': '0010', 'line': 'UM', 'location': 'SDON', 'plat': '1','activities': {'trainBecomes': '5G09'}}
         self.assertEqual(create_trip(location, 0, 0, '1L88'), trip)
 
-        location = {'dep': 100, 'line': 'UM', 'location': 'SDON'}
-        trip = '<Trip><Location>SDON</Location><DepPassTime>100</DepPassTime><IsPassTime>-1</IsPassTime><Line>UM' \
-               '</Line></Trip>'
-
+        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1','activities': {'trainBecomes': '*G**+1+1'}}
+        trip = {'arr': '0010', 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '2G89'}}
         self.assertEqual(create_trip(location, 0, 0, '1L88'), trip)
+
+        location = {'dep': 0, 'line': 'UM', 'location': 'SDON'}
+        trip = {'dep': '0002', 'line': 'UM', 'location': 'SDON'}
+        self.assertEqual(create_trip(location, 60, 60, '1L88'), trip)
