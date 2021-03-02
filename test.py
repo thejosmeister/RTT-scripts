@@ -1,28 +1,16 @@
-from elasticsearch import Elasticsearch
+import yaml
+import isodate
+import re
+from tinydb import Query, TinyDB
+from translateTimesAndLocations import convert_time_to_secs
 
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+db = TinyDB('db/db.json')
 
-body = {'query': {'bool': {'must': {'match': {'uid': 'uid1'}}}}}
-list_of_source = es.search(body=body,index='testindex', filter_path=['hits.hits._source'])['hits']['hits']
+TT = Query()
+Location = Query()
 
-[print(a['_source']) for a in list_of_source]
+result = db.search(TT.locations.any((Location.location == 'Challow') & (Location.dep.matches('08\\d{2}') )))
 
+for tt in result:
+    print( tt['headcode'] + str(tt['locations'][0]) )
 
-# body = {
-#     "query" : {
-#         "terms" : {
-#             "TT" : {
-#                 "index" : "testindex",
-#                 "type" : "TT",
-#                 "id": "uid1",
-#                 "path" : "locations"
-#             }
-#         }
-#     }
-# }
-#
-#
-#
-# list_of_source = es.search(body=body, index='testindex', filter_path=['hits.hits._source'])['hits']['hits']
-#
-# [print(a['_source']) for a in list_of_source]

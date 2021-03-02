@@ -3,6 +3,7 @@ For building up a list of train TTs to insert into a Simsig xml TT.
 """
 from jsonTimetableCreator import create_json_timetables_with_spec_entry
 from xmlTimetableCreator import convert_individual_json_tt_to_xml
+from tinydb import TinyDB
 import yaml
 
 
@@ -44,6 +45,8 @@ def build_list_of_tts(config_file_location: str, ouput_filename: str):
         for tt in create_json_timetables_with_spec_entry(sub_in_defaults_etc(timetable, yaml_data['defaults'], yaml_data['baseFilePaths'])):
             json_tt_list_for_file.append(tt)
 
+    db = TinyDB('db/db.json')
+    db.insert_multiple(json_tt_list_for_file)
 
     for tt in json_tt_list_for_file:
         print('Building xml TT for ' + tt['uid'])
