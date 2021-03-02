@@ -1,11 +1,14 @@
+"""
+Will scrape locations of a train from RTT and for a list of json objects with the location properties if present:
+location, dep, arr, path, line, eng allow, path allow, prf allow
+"""
 import requests
+import pprint
 from bs4 import BeautifulSoup
-import csv
-import sys
 
-# pageurl = sys.argv[1]
-pageurl = 'https://www.realtimetrains.co.uk/train/V32895/2021-02-20/detailed'
-# filename = 'test_locations'
+pageurl = input(' Paste RTT link:')
+location_of_file = 'simsig_timetables/swindid_diversions_feb_21/tts/'
+
 # The page we want to find the list of services for a station
 page = requests.get(pageurl)
 
@@ -31,8 +34,8 @@ for a in locations.find_all('div', class_='location'):
             location['dep'] = a.find('div', {'class': 'wtt'}).find('div', {'class': 'dep'}).text.replace('½', '.5')
 
         # Platform
-        if a.find('div',{'class': 'platform'}) is not None:
-            platform = a.find('div',{'class': 'platform'}).text
+        if a.find('div', {'class': 'platform'}) is not None:
+            platform = a.find('div', {'class': 'platform'}).text
             if len(platform) > 0:
                 location['plat'] = platform
 
@@ -57,17 +60,13 @@ for a in locations.find_all('div', class_='location'):
             allowance = addl.find('span', {'class': 'allowance'})
             if allowance is not None:
                 if allowance.find('span', {'class': 'eng'}) is not None:
-
                     location['eng allow'] = allowance.find('span', {'class': 'eng'}).text.replace('½', '.5')
                 if allowance.find('span', {'class': 'pth'}) is not None:
                     location['pth allow'] = allowance.find('span', {'class': 'pth'}).text.replace('½', '.5')
                 if allowance.find('span', {'class': 'prf'}) is not None:
                     location['prf allow'] = allowance.find('span', {'class': 'prf'}).text.replace('½', '.5')
 
-
         dicts_of_locations.append(location)
-
-import pprint
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -75,13 +74,6 @@ pp.pprint(dicts_of_locations)
 
 header = soup.find('div', class_='header')
 filename = header.text[:4] + '_locations'
-# with open('1F05_locations.csv', mode='w') as location_file:
-#     fieldnames = ['location', 'arr', 'dep']
-#     writer = csv.DictWriter(location_file, fieldnames=fieldnames)
-#
-#     writer.writeheader()
-#     for row in dicts_of_locations:
-#         writer.writerow(row)
 
-with open(filename + '.txt', 'w') as f_to_write:
+with open(location_of_file + filename + '.txt', 'w') as f_to_write:
     f_to_write.write(pp.pformat(dicts_of_locations))
