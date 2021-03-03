@@ -1,5 +1,5 @@
 """
-Will create an xml TT for an individual json train TT
+Will create an xml TT for a json train TT
 """
 import unittest
 
