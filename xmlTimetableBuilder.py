@@ -34,3 +34,6 @@ def build_xml_list_of_tts(tt_name: str, output_filename: str, sim_locations_file
 
     create_xml_tt_list_file(xml_tts, output_filename)
 
+
+def build_full_xml_tt(tt_name: str, output_filename: str, sim_locations_file: str):
+    pass
