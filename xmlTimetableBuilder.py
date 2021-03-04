@@ -2,7 +2,7 @@
 For building up a list of train TTs to insert into a Simsig xml TT.
 """
 from jsonTimetableCreator import create_json_timetables_with_spec_entry
-from xmlTimetableCreator import convert_individual_json_tt_to_xml
+from xmlTimetableCreator import convert_individual_json_tt_to_xml, build_xml_rule
 from tinydb import TinyDB
 from dbClient import *
 import yaml

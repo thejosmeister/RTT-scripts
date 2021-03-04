@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 from translateTimesAndLocations import convert_sec_to_time
 from dbClient import *
-from tiplocDictCreator import create_tiploc_dict
+from tiplocDictCreator import create_tiploc_dict, pull_train_categories_out_of_xml_by_id
 
 
 def parse_xml_trips(list_of_trip_elts, tiploc_dict: dict, first_loc_is_stop: bool) -> list:
@@ -42,7 +42,7 @@ def parse_xml_trips(list_of_trip_elts, tiploc_dict: dict, first_loc_is_stop: boo
     return out
 
 
-def parse_individual_xml_tt(xml_tt: ET.Element, tiploc_dict: dict) -> dict:
+def parse_individual_xml_tt(xml_tt: ET.Element, tiploc_dict: dict, categories_dict: dict) -> dict:
     json_tt = {}
     first_loc_is_stop = False
     if xml_tt.find('EntryPoint') is None:
@@ -54,41 +54,49 @@ def parse_individual_xml_tt(xml_tt: ET.Element, tiploc_dict: dict) -> dict:
     else:
         json_tt['tt_template'] = 'templates/timetables/defaultTimetableWithEntryPoint.txt'
 
-    # TODO add in train cat
-    if xml_tt.find('AccelBrakeIndex') is not None:
-        json_tt['accel_brake_index'] = xml_tt.find('AccelBrakeIndex').text
+    json_tt['category'] = xml_tt.find('Category').text
     json_tt['uid'] = xml_tt.find('UID').text
     json_tt['headcode'] = xml_tt.find('ID').text
     json_tt['max_speed'] = xml_tt.find('MaxSpeed').text
+    json_tt['train_length'] = xml_tt.find('TrainLength').text
+    json_tt['electrification'] = xml_tt.find('Electrification').text
+    json_tt['description'] = xml_tt.find('Description').text
+    json_tt['start_traction'] = xml_tt.find('StartTraction').text
 
-    # TODO add in train cat
+    if xml_tt.find('AccelBrakeIndex') is not None:
+        json_tt['accel_brake_index'] = xml_tt.find('AccelBrakeIndex').text
+    else:
+        json_tt['accel_brake_index'] = categories_dict[json_tt['category']]['AccelBrakeIndex']
     if xml_tt.find('IsFreight') is not None:
         json_tt['is_freight'] = xml_tt.find('IsFreight').text
     else:
-        json_tt['is_freight'] = '-1'
-    json_tt['train_length'] = xml_tt.find('TrainLength').text
-    json_tt['electrification'] = xml_tt.find('Electrification').text
-    # TODO add default
+        json_tt['is_freight'] = categories_dict[json_tt['category']]['IsFreight']
     if xml_tt.find('OriginName') is not None:
         json_tt['origin_name'] = xml_tt.find('OriginName').text
-    # TODO add default
+    else:
+        json_tt['origin_name'] = 'Default'
     if xml_tt.find('DestinationName') is not None:
         json_tt['destination_name'] = xml_tt.find('DestinationName').text
-    # TODO add default
+    else:
+        json_tt['destination_name'] = 'Default'
     if xml_tt.find('OriginTime') is not None:
         json_tt['origin_time'] = convert_sec_to_time(int(xml_tt.find('OriginTime').text))
-    json_tt['description'] = xml_tt.find('Description').text
-    # TODO add default
+    else:
+        json_tt['origin_time'] = '0000'
     if xml_tt.find('DestinationTime') is not None:
         json_tt['destination_time'] = convert_sec_to_time(int(xml_tt.find('DestinationTime').text))
+    else:
+        json_tt['destination_time'] = '0000'
     if xml_tt.find('OperatorCode') is not None:
         json_tt['operator_code'] = xml_tt.find('OperatorCode').text
-    json_tt['start_traction'] = xml_tt.find('StartTraction').text
-
-    # TODO add in train cat
+    else:
+        json_tt['operator_code'] = 'ZZ'
     if xml_tt.find('SpeedClass') is not None:
         json_tt['speed_class'] = xml_tt.find('SpeedClass').text
-    json_tt['category'] = xml_tt.find('Category').text
+    else:
+        json_tt['speed_class'] = categories_dict[json_tt['category']]['SpeedClass']
+
+    # Some actually optional stuff
     if xml_tt.find('EntryPoint') is not None:
         json_tt['entry_point'] = xml_tt.find('EntryPoint').text
     if xml_tt.find('SeedPoint') is not None:
@@ -166,13 +174,14 @@ def parse_full_xml_tt(file: str, locations_file: str, overwrite_existing: bool):
     header_db.add_header(tt_header)
     header_db.add_categories_string(get_categories_as_string(file))
 
+    categories_dict = pull_train_categories_out_of_xml_by_id(file)
     list_of_tt_elts = root.find('Timetables').findall('Timetable')
 
     for tt in list_of_tt_elts:
         if overwrite_existing is True:
-            tt_db.add_tt(parse_individual_xml_tt(tt, tiploc_dict))
+            tt_db.add_tt(parse_individual_xml_tt(tt, tiploc_dict, categories_dict))
         else:
-            tt_db.add_tt_if_not_present(parse_individual_xml_tt(tt, tiploc_dict))
+            tt_db.add_tt_if_not_present(parse_individual_xml_tt(tt, tiploc_dict, categories_dict))
 
     if root.find('TimetableRules') is not None:
         list_of_rule_elts = root.find('TimetableRules').findall('TimetableRule')
@@ -183,4 +192,5 @@ def parse_full_xml_tt(file: str, locations_file: str, overwrite_existing: bool):
             else:
                 rules_db.add_rule_if_not_present(parse_individual_xml_rule(rule))
 
-parse_full_xml_tt('SavedTimetable.xml', 'sim_location_files/swindon_locations.txt')
+
+parse_full_xml_tt('SavedTimetable.xml', 'sim_location_files/swindon_locations.txt', True)

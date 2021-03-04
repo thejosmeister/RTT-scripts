@@ -1,6 +1,7 @@
 """
 Some utils for extracting stuff from xml files
 """
+import xml.etree.ElementTree as ET
 
 
 def pull_tiploc_out_of_xml(file_to_pull_tiploc_out, out_filename):
@@ -44,48 +45,97 @@ def pull_train_categories_out_of_xml(file_with_categories: str) -> dict:
     :param file_with_categories: File containing train categories xml.
     :return: A map/python dict of categories with the Description as the key.
     """
-    f = open(file_with_categories, "r")
-    categories_dict = {}
-    _id = ''
-    description = ''
-    dwell_times = False
-    for file_line in f:
-        if '<TrainCategory' in file_line:
-            _id = file_line.split('"')[1]
-        elif 'Description' in file_line:
-            description = file_line.split('<Description>')[1].split('</Description>')[0]
-            categories_dict[description] = { 'id': _id }
-        elif 'AccelBrakeIndex' in file_line:
-            categories_dict[description]['AccelBrakeIndex'] = file_line.split('<AccelBrakeIndex>')[1].split('</AccelBrakeIndex>')[0]
-        elif 'IsFreight' in file_line:
-            categories_dict[description]['IsFreight'] = file_line.split('<IsFreight>')[1].split('</IsFreight>')[0]
-        elif 'CanUseGoodsLines' in file_line:
-            categories_dict[description]['CanUseGoodsLines'] = file_line.split('<CanUseGoodsLines>')[1].split('</CanUseGoodsLines>')[0]
-        elif 'MaxSpeed' in file_line:
-            categories_dict[description]['MaxSpeed'] = file_line.split('<MaxSpeed>')[1].split('</MaxSpeed>')[0]
-        elif 'TrainLength' in file_line:
-            categories_dict[description]['TrainLength'] = file_line.split('<TrainLength>')[1].split('</TrainLength>')[0]
-        elif 'SpeedClass' in file_line:
-            categories_dict[description]['SpeedClass'] = file_line.split('<SpeedClass>')[1].split('</SpeedClass>')[0]
-        elif 'PowerToWeightCategory' in file_line:
-            categories_dict[description]['PowerToWeightCategory'] = file_line.split('<PowerToWeightCategory>')[1].split('</PowerToWeightCategory>')[0]
-        elif '<DwellTimes' in file_line:
-            if 'DwellTimes/' not in file_line:
-                categories_dict[description]['DwellTimes'] = {}
-                dwell_times = True
-                continue
-        elif dwell_times is True:
-            if 'Join' in file_line:
-                categories_dict[description]['DwellTimes']['Join'] = file_line.split('<Join>')[1].split('</Join>')[0]
-            elif 'Divide' in file_line:
-                categories_dict[description]['DwellTimes']['Divide'] = file_line.split('<Divide>')[1].split('</Divide>')[0]
-            elif 'CrewChange' in file_line:
-                categories_dict[description]['DwellTimes']['CrewChange'] = file_line.split('<CrewChange>')[1].split('</CrewChange>')[0]
-                dwell_times = False
-        elif 'Electrification' in file_line:
-            categories_dict[description]['Electrification'] = file_line.split('<Electrification>')[1].split('</Electrification>')[0]
+    tree = ET.parse(file_with_categories)
+    root = tree.getroot()
+    if 'TrainCategories' in root.tag:
+        cat_root = root
+    else:
+        cat_root = root.find('TrainCategories')
 
-    f.close()
+    categories_dict = {}
+    for category in cat_root.findall('TrainCategory'):
+        description = category.find('Description')
+        categories_dict[description] = {'id': category.attrib['ID']}
+        if category.find('AccelBrakeIndex') is not None:
+            categories_dict[description]['AccelBrakeIndex'] = category.find('AccelBrakeIndex').text
+        if category.find('IsFreight') is not None:
+            categories_dict[description]['IsFreight'] = category.find('IsFreight').text
+        if category.find('CanUseGoodsLines') is not None:
+            categories_dict[description]['CanUseGoodsLines'] = category.find('CanUseGoodsLines').text
+        if category.find('MaxSpeed') is not None:
+            categories_dict[description]['MaxSpeed'] = category.find('MaxSpeed').text
+        if category.find('TrainLength') is not None:
+            categories_dict[description]['TrainLength'] = category.find('TrainLength').text
+        if category.find('SpeedClass') is not None:
+            categories_dict[description]['SpeedClass'] = category.find('SpeedClass').text
+        if category.find('PowerToWeightCategory') is not None:
+            categories_dict[description]['PowerToWeightCategory'] = category.find('PowerToWeightCategory').text
+        if category.find('Electrification') is not None:
+            categories_dict[description]['Electrification'] = category.find('Electrification').text
+        if category.find('DwellTimes') is not None:
+            dwell_times = category.find('DwellTimes')
+            dwell_times_dict = {}
+            if dwell_times.find('Join') is not None:
+                dwell_times_dict['Join'] = dwell_times.find('Join').text
+            if dwell_times.find('Divide') is not None:
+                dwell_times_dict['Divide'] = dwell_times.find('Divide').text
+            if dwell_times.find('CrewChange') is not None:
+                dwell_times_dict['CrewChange'] = dwell_times.find('CrewChange').text
+
+            if len(dwell_times_dict) > 0:
+                categories_dict[description]['DwellTimes'] = dwell_times_dict
+
+    return categories_dict
+
+
+def pull_train_categories_out_of_xml_by_id(file_with_categories: str) -> dict:
+    """
+    Will take an xml excerpt just containing the TrainCategories root from a Simsig TT and give a map of categories
+    with the ID as the key. This relies on the descriptions being unique.
+
+    :param file_with_categories: File containing train categories xml.
+    :return: A map/python dict of categories with the ID as the key.
+    """
+    tree = ET.parse(file_with_categories)
+    root = tree.getroot()
+    if 'TrainCategories' in root.tag:
+        cat_root = root
+    else:
+        cat_root = root.find('TrainCategories')
+
+    categories_dict = {}
+    for category in cat_root.findall('TrainCategory'):
+        _id = category.attrib['ID']
+        categories_dict[_id] = {'Description': category.find('Description').text}
+        if category.find('AccelBrakeIndex') is not None:
+            categories_dict[_id]['AccelBrakeIndex'] = category.find('AccelBrakeIndex').text
+        if category.find('IsFreight') is not None:
+            categories_dict[_id]['IsFreight'] = category.find('IsFreight').text
+        if category.find('CanUseGoodsLines') is not None:
+            categories_dict[_id]['CanUseGoodsLines'] = category.find('CanUseGoodsLines').text
+        if category.find('MaxSpeed') is not None:
+            categories_dict[_id]['MaxSpeed'] = category.find('MaxSpeed').text
+        if category.find('TrainLength') is not None:
+            categories_dict[_id]['TrainLength'] = category.find('TrainLength').text
+        if category.find('SpeedClass') is not None:
+            categories_dict[_id]['SpeedClass'] = category.find('SpeedClass').text
+        if category.find('PowerToWeightCategory') is not None:
+            categories_dict[_id]['PowerToWeightCategory'] = category.find('PowerToWeightCategory').text
+        if category.find('Electrification') is not None:
+            categories_dict[_id]['Electrification'] = category.find('Electrification').text
+        if category.find('DwellTimes') is not None:
+            dwell_times = category.find('DwellTimes')
+            dwell_times_dict = {}
+            if dwell_times.find('Join') is not None:
+                dwell_times_dict['Join'] = dwell_times.find('Join').text
+            if dwell_times.find('Divide') is not None:
+                dwell_times_dict['Divide'] = dwell_times.find('Divide').text
+            if dwell_times.find('CrewChange') is not None:
+                dwell_times_dict['CrewChange'] = dwell_times.find('CrewChange').text
+
+            if len(dwell_times_dict) > 0:
+                categories_dict[_id]['DwellTimes'] = dwell_times_dict
+
     return categories_dict
 
 
@@ -127,4 +177,3 @@ def create_tiploc_dict(file_location: str) -> list:
             tiploc_locations[code] = names
 
     return [entry_points, tiploc_locations]
-
