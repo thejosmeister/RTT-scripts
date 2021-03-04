@@ -113,6 +113,25 @@ class RulesDb:
         """
         return self.db.all()
 
+    def add_rule(self, rule: dict):
+        """
+        Adds Rule to Rules DB overwriting one with the same id if present.
+        :param rule: Rule to add.
+        """
+        doc_id = generate_id_from_uid(rule['train_x'] + rule['name'])
+        if self.db.contains(doc_id=doc_id):
+            self.db.remove(doc_ids=[doc_id])
+        self.db.insert(table.Document(rule, doc_id=doc_id))
+
+    def add_rule_if_not_present(self, rule: dict):
+        """
+        Adds Rule to Rules DB if one with the same id is NOT already present.
+        :param rule: Rule to add.
+        """
+        doc_id = generate_id_from_uid(rule['train_x'] + rule['name'])
+        if not self.db.contains(doc_id=doc_id):
+            self.db.insert(table.Document(rule, doc_id=doc_id))
+
 
 class MainHeaderDb:
     """
@@ -131,3 +150,32 @@ class MainHeaderDb:
         """
         return self.db.all()
 
+    def add_header(self, header: dict):
+        """
+        Adds the TT header to the main header DB overwriting one if present.
+        :param header: Header to add.
+        """
+        if self.db.contains(doc_id=1):
+            self.db.remove(doc_ids=[1])
+        self.db.insert(table.Document(header, doc_id=1))
+
+    def add_categories_string(self, cat_str: str):
+        """
+        Adds the string of xml train categories to the main header DB overwriting one if present.
+        :param header: xml train categories string to add.
+        """
+        if self.db.contains(doc_id=2):
+            self.db.remove(doc_ids=[2])
+        self.db.insert(table.Document({'categories_string': cat_str}, doc_id=2))
+
+    def get_header(self) -> dict:
+        """
+        :return: TT header stored.
+        """
+        return self.db.get(doc_id=1)
+
+    def get_categories_string(self) -> str:
+        """
+        :return: train categories string stored.
+        """
+        return self.db.get(doc_id=2)['categories_string']

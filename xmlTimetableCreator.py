@@ -23,10 +23,13 @@ def add_xml_location_activities(location: dict) -> str:
     out = '<Activities>'
     for activity in location['activities'].keys():
         f = open('templates/activities/' + str(activity) + 'Template.txt', "r")
-
-        for fl in f:
-            uid_to_insert = location['activities'][activity]
-            out += fl.rstrip().replace('${UID}', uid_to_insert)
+        if 'crewChange' in str(activity):
+            for fl in f:
+                out += fl.rstrip()
+        else:
+            for fl in f:
+                uid_to_insert = location['activities'][activity]
+                out += fl.rstrip().replace('${UID}', uid_to_insert)
         f.close()
 
     return out + '</Activities>'
@@ -50,8 +53,6 @@ def create_xml_trip(location: dict) -> str:
         out += '<PathAllowance>' + location['pth allow'] + '</PathAllowance>'
     if 'eng allow' in location:
         out += '<EngAllowance>' + location['eng allow'] + '</EngAllowance>'
-    if 'pth allow' in location:
-        out += '<PathAllowance>' + location['pth allow'] + '</PathAllowance>'
 
     # Add activities
     if 'activities' in location:
@@ -110,11 +111,31 @@ def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str) -> st
         entry_point = json_tt['entry_point']
         depart_time = str(convert_time_to_secs(json_tt['entry_time']))
         return tt_string.replace('${EntryPoint}', entry_point).replace('${DepartTime}', depart_time)
+    elif 'seed_point' in json_tt:
+        seed_point = json_tt['seed_point']
+        depart_time = str(convert_time_to_secs(json_tt['entry_time']))
+        return tt_string.replace('${SeedPoint}', seed_point).replace('${DepartTime}', depart_time)
     else:
         return tt_string
 
 
 
+def build_xml_rule(json_rule: dict):
+    RULE_NAMES_DICT = {'0': 'AppAfterEnt', '1': 'AppAfterLve', '2': 'AppAfterArr??', '3': 'NotIf', '4': '???',
+                       '5': 'DepAfterEnt', '6': 'DepAfterLve', '7': 'DepAfterJoin', '8': 'DepAfterDiv',
+                       '9': 'DepAfterForm', '10': '	MutExc', '11': 'AppAfterJoin', '12': '	AppAfterDiv',
+                       '13': 'AppAfterForm', '14': 'Alternatives'}
+
+    for num in RULE_NAMES_DICT.keys():
+        if RULE_NAMES_DICT[num] == json_rule['name']:
+            rule_num = str(num)
+
+    out = '<TimetableRule><Rule>' + rule_num + '</Rule><TrainUID>' + json_rule['train_x'] + '</TrainUID>' \
+          + '<Train2UID>' + json_rule['train_y'] + '</Train2UID>'
+    if 'time' in json_rule:
+        out += '<Time>' + json_rule['time'] + '</Time>'
+    if 'location' in json_rule:
+        out += '<Location>' + json_rule['location'] + '</Location>'
 
 
 # UTs

@@ -15,4 +15,5 @@ TODO:
 - Test amended_locations property on 1T27.
 - Whole TT writing, spec an initial blurb.
 - Bulk rules writing, can the tt analyser do it?
-- Convert xml tt to json tt
+- Convert xml tt to json tt - look at xml parser
+- Create map for rules

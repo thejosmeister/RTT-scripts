@@ -36,11 +36,11 @@ def build_list_of_tts(config_file_location: str, tt_name: str, overwrite_old_tts
         for tt in create_json_timetables_with_spec_entry(sub_in_defaults_etc(timetable, yaml_data['defaults'], yaml_data['baseFilePaths'])):
             json_tt_list_for_file.append(tt)
 
-    tt_db = get_train_tt_db(tt_name)
+    tt_db = TrainTtDb(tt_name)
 
     if overwrite_old_tts is True:
         for tt in json_tt_list_for_file:
-            add_tt(tt_db, tt)
+            tt_db.add_tt(tt)
     else:
         for tt in json_tt_list_for_file:
-            add_tt_if_not_present(tt_db, tt)
+            tt_db.add_tt_if_not_present(tt)

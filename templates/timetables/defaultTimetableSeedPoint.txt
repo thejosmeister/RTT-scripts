@@ -3,10 +3,11 @@
 <UID>${UID}</UID>
 <AccelBrakeIndex>${AccelBrakeIndex}</AccelBrakeIndex>
 <AsRequiredPercent>50</AsRequiredPercent>
-<DepartTime>${DepartTime}</DepartTime>
 <Description>${Description}</Description>
+<SeedPoint>${SeedPoint}</SeedPoint>
+<DepartTime>${DepartTime}</DepartTime>
 <SeedingGap>15</SeedingGap>
-<EntryPoint>${EntryPoint}</EntryPoint>
+<Started>-1</Started>
 <MaxSpeed>${MaxSpeed}</MaxSpeed>
 <SpeedClass>${SpeedClass}</SpeedClass>
 <IsFreight>${isFreight}</IsFreight>

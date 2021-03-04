@@ -85,6 +85,7 @@ def pull_train_categories_out_of_xml(file_with_categories: str) -> dict:
         elif 'Electrification' in file_line:
             categories_dict[description]['Electrification'] = file_line.split('<Electrification>')[1].split('</Electrification>')[0]
 
+    f.close()
     return categories_dict
 
 
