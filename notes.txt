@@ -18,3 +18,26 @@ TODO:
 - Ignore certain TTs in yaml spec
 - Add tt header parser for yaml
 - Some timetable analysing functions - view all trains sorted by headcode etc.
+
+, PostArrives: AppAfterArr?
+, PostDeparts: DepAfterArr?
+
+  PostEnters: AppAfterEnt
+, DepartsPostEnters: DepAfterEnt
+
+  PostExits: AppAfterLve
+, DepartsPostExits: DepAfterLve
+
+  EntersPostJoins: AppAfterJoin
+, PostJoins: DepAfterJoin
+
+, EntersPostDivides: AppAfterDiv
+, PostDivides: DepAfterDiv
+
+, EntersPostFormed: AppAfterForm
+, PostFormed: DepAfterForm
+
+, SingleXOR: NotIf
+, MultipleXOR: 	MutExc
+
+, Alternative: Alternatives
