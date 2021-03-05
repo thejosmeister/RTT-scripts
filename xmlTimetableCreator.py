@@ -120,7 +120,7 @@ def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str) -> st
 
 
 
-def build_xml_rule(json_rule: dict):
+def build_xml_rule(json_rule: dict) -> str:
     RULE_NAMES_DICT = {'0': 'AppAfterEnt', '1': 'AppAfterLve', '2': 'AppAfterArr??', '3': 'NotIf', '4': '???',
                        '5': 'DepAfterEnt', '6': 'DepAfterLve', '7': 'DepAfterJoin', '8': 'DepAfterDiv',
                        '9': 'DepAfterForm', '10': '	MutExc', '11': 'AppAfterJoin', '12': '	AppAfterDiv',
@@ -137,6 +137,7 @@ def build_xml_rule(json_rule: dict):
     if 'location' in json_rule:
         out += '<Location>' + json_rule['location'] + '</Location>'
 
+    return out + '</TimetableRule>'
 
 # UTs
 class TestTimetableCreator(unittest.TestCase):

@@ -1,11 +1,10 @@
 """
 For building up a list of train TTs to insert into a Simsig xml TT.
 """
-from jsonTimetableCreator import create_json_timetables_with_spec_entry
 from xmlTimetableCreator import convert_individual_json_tt_to_xml, build_xml_rule
-from tinydb import TinyDB
 from dbClient import *
-import yaml
+import os
+import zipfile
 
 
 # Creates the file that we write the list of TTs to.
@@ -13,6 +12,19 @@ def create_xml_tt_list_file(list_of_tts: list, filename: str):
     with open(filename, 'w') as f_to_write:
         for tt in list_of_tts:
             print(tt, file=f_to_write)
+
+
+def build_xml_header(header_db: MainHeaderDb) -> str:
+    json_tt_header = header_db.get_header()
+    out = '<SimSigTimetable ID="' + json_tt_header['id'] + '" Version="' + json_tt_header['version'] + '">' + \
+          '<Name>' + json_tt_header['name'] + '</Name><Description>' + json_tt_header['description'] + '</Description>' + \
+          '<StartTime>' + json_tt_header['start_time'] + '</StartTime><FinishTime>' + json_tt_header['finish_time'] + \
+          '</FinishTime><VMajor>' + json_tt_header['v_major'] + '</VMajor><VMinor>' + json_tt_header['v_minor'] + \
+          '</VMinor><VBuild>' + json_tt_header['v_build'] + '</VBuild>' + '<TrainDescriptionTemplate>' + \
+          json_tt_header['train_description_template'] + \
+          '</TrainDescriptionTemplate><SeedGroupSummary></SeedGroupSummary><ScenarioOptions></ScenarioOptions>'
+
+    return out
 
 
 def build_xml_list_of_tts(tt_name: str, output_filename: str, sim_locations_file: str):
@@ -36,13 +48,51 @@ def build_xml_list_of_tts(tt_name: str, output_filename: str, sim_locations_file
 
 
 def build_xml_list_of_rules(tt_name):
-
     rules_db = RulesDb(tt_name)
     xml_rules = []
     for rule in rules_db.get_all_in_db():
         xml_rules.append(build_xml_rule(rule))
 
+    return xml_rules
+
 
 def build_full_xml_tt(tt_name: str, output_filename: str, sim_locations_file: str):
-
+    header_db = MainHeaderDb(tt_name)
+    header = build_xml_header(header_db)
+    categories = header_db.get_categories_string()
+    build_xml_list_of_tts(tt_name, output_filename + 'TT_List.xml', sim_locations_file)
     rules = build_xml_list_of_rules(tt_name)
+
+    if os.path.exists(output_filename) is False:
+        os.mkdir(output_filename)
+
+    with open(output_filename + '/SavedTimetable.xml', 'w') as f_to_write:
+        print(header, file=f_to_write)
+        print(categories, file=f_to_write)
+
+        print('<Timetables>', file=f_to_write)
+
+        f = open(output_filename + 'TT_List.xml', mode='r')
+        for fl in f:
+            print(fl.rstrip(), file=f_to_write)
+        f.close()
+
+        print('</Timetables>', file=f_to_write)
+
+        if len(rules) > 0:
+            print('<TimetableRules>', file=f_to_write)
+
+            for rule in rules:
+                print(rule, file=f_to_write)
+            print('<TimetableRules>', file=f_to_write)
+
+        print('</SimSigTimetable>', file=f_to_write)
+
+    with open(output_filename + '/TimetableHeader.xml', 'w') as f_to_write:
+        print(header, file=f_to_write)
+        print('</SimSigTimetable>', file=f_to_write)
+
+    zf = zipfile.ZipFile( output_filename + ".WTT", "w")
+    zf.write(output_filename + '/SavedTimetable.xml')
+    zf.write(output_filename + '/TimetableHeader.xml')
+    zf.close()

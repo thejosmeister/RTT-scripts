@@ -1,4 +1,4 @@
-timetableHeader:
+timetable_header:
   id: 'swindid'
   version: 'ver'
   name: 'swindid_diversions_feb_21'
@@ -10,8 +10,9 @@ timetableHeader:
   v_build: '1'
   train_description_template: '$originTime $originName-$destName $operator ($stock)'
 
+train_categories_file: 'templates/TrainCategories.xml'
 
-baseFilePaths:
+base_file_paths:
   train_json_tt_location: 'simsig_timetables/swindid_diversions_feb_21/SWI_KEY_locations/'
   locations_on_sim: 'sim_location_files/'
   timetable_template_location: 'templates/timetables/'
@@ -138,8 +139,8 @@ timetables:
 
 
 rules:
-  - {train1: '3T99', train2: '1T99', two_enters_after_one: 'PT15M'}
-  - {train1: '3T01', train2: '1T01', two_enters_after_one: 'PT15M'}
-  - {train1: '1T00', train2: '1T03', two_enters_after_one: 'PT15M', headcode_increment: 2, number_of: 10}
+  - {train_y: '3T99', train_x: '1T99', two_enters_after_one: 'PT15M'}
+  - {train_y: '3T01', train_x: '1T01', two_enters_after_one: 'PT15M'}
+  - {train_y: '1T00', train_x: '1T03', two_enters_after_one: 'PT15M', headcode_increment: 2, number_of: 10}
 
 

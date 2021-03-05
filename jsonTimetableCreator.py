@@ -9,9 +9,6 @@ from tiplocDictCreator import pull_train_categories_out_of_xml, create_tiploc_di
 from translateTimesAndLocations import produce_dict_with_times_and_locations, convert_time_to_secs, convert_sec_to_time, produce_train_locations
 
 
-FILE_WITH_CATEGORIES = 'templates/TrainCategories.xml'
-
-
 # Parse uid pattern for next uid
 def parse_uid_to_insert(uid_pattern: str, current_uid: str) -> str:
     out = ''
@@ -102,7 +99,7 @@ def amend_locations(train_locations: list, config_dict: dict) -> list:
     return train_locations
 
 
-def create_json_timetables_with_spec_entry(config_dict: dict):
+def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location: str):
     """
     Creates json TTs for the number of trains specified in each line of a timetable spec.
 
@@ -121,6 +118,7 @@ def create_json_timetables_with_spec_entry(config_dict: dict):
      - next_uid: A pattern defining what the next uid/headcode is if the train becomes another. Format in readme.
      - amended_locations: List of changes we want to make at a location found in the locations file i.e. plat change
     :param config_dict: Map of config values.
+    :param train_cat_location: Location of file containing train categories.
     :return: A list of json objects that are train TTs.
     """
 
@@ -132,7 +130,7 @@ def create_json_timetables_with_spec_entry(config_dict: dict):
     [original_o_time, origin, _entry_time, original_dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
         train_locations, create_tiploc_dict(config_dict['locations_on_sim'])[1])
 
-    train_cat_dict = pull_train_categories_out_of_xml(FILE_WITH_CATEGORIES)[config_dict['train_category']]
+    train_cat_dict = pull_train_categories_out_of_xml(train_cat_location)[config_dict['train_category']]
     entry_point = config_dict['entry_point']
     frequency = parse_time_expression(config_dict['frequency'])
     initial_offset = parse_time_expression(config_dict['initial_offset'])
@@ -190,6 +188,9 @@ def create_json_timetables_with_spec_entry(config_dict: dict):
 
     return list_of_json_timetables
 
+
+def create_json_rules_with_spec_entry(config_dict: dict) -> list:
+    return []
 
 
 # UTs
