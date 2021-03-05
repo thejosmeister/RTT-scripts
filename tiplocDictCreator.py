@@ -54,7 +54,7 @@ def pull_train_categories_out_of_xml(file_with_categories: str) -> dict:
 
     categories_dict = {}
     for category in cat_root.findall('TrainCategory'):
-        description = category.find('Description')
+        description = category.find('Description').text
         categories_dict[description] = {'id': category.attrib['ID']}
         if category.find('AccelBrakeIndex') is not None:
             categories_dict[description]['AccelBrakeIndex'] = category.find('AccelBrakeIndex').text

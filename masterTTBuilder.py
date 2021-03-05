@@ -15,4 +15,4 @@ def build_xml_tt_list_from_spec(tt_name: str, locations_filename: str, xml_outpu
     build_xml_list_of_tts(tt_name, xml_output_filename, locations_filename)
 
 
-build_xml_tt_list_from_spec('swindid_diversions_feb_21', 'swindon_locations.txt', 'ttlist.xml', False)
+build_xml_tt_list_from_spec('swindid_diversions_feb_21', 'swindon_locations.txt', 'ttlist.xml', True)

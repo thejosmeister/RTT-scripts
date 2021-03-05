@@ -14,6 +14,7 @@ TODO:
 - Unit tests - Started
 - Test amended_locations property on 1T27.
 - Whole TT writing, spec an initial blurb.
-- Bulk rules writing, can the tt analyser do it?
-- Convert xml tt to json tt - look at xml parser
-- Create map for rules
+- Bulk rules writing - have some spec in place, can the tt analyser do it?
+- Ignore certain TTs in yaml spec
+- Add tt header parser for yaml
+- Some timetable analysing functions - view all trains sorted by headcode etc.

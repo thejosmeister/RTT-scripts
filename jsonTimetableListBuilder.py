@@ -33,7 +33,7 @@ def build_list_of_tts(config_file_location: str, tt_name: str, overwrite_old_tts
 
     for timetable in yaml_data['timetables']:
         print('Building json TT for ' + timetable['headcode_template'])
-        for tt in create_json_timetables_with_spec_entry(sub_in_defaults_etc(timetable, yaml_data['defaults'], yaml_data['baseFilePaths'])):
+        for tt in create_json_timetables_with_spec_entry(sub_in_defaults_etc(timetable, yaml_data['tt_defaults'], yaml_data['baseFilePaths'])):
             json_tt_list_for_file.append(tt)
 
     tt_db = TrainTtDb(tt_name)

@@ -211,11 +211,11 @@ class TestTimetableCreator(unittest.TestCase):
         self.assertEqual(parse_uid_to_insert('*F**QQQ-1+1', '2F99'), '1F00QQQ', "Should be '1F00QQQ'")
 
     def test_create_trip(self):
-        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1','activities': {'trainBecomes': '5G09+0+0'}}
-        trip = {'arr': '0010', 'line': 'UM', 'location': 'SDON', 'plat': '1','activities': {'trainBecomes': '5G09'}}
+        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '5G09+0+0'}}
+        trip = {'arr': '0010', 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '5G09'}}
         self.assertEqual(create_trip(location, 0, 0, '1L88'), trip)
 
-        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1','activities': {'trainBecomes': '*G**+1+1'}}
+        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '*G**+1+1'}}
         trip = {'arr': '0010', 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '2G89'}}
         self.assertEqual(create_trip(location, 0, 0, '1L88'), trip)
 
