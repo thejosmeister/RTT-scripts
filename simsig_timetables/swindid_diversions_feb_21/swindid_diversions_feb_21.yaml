@@ -1,9 +1,9 @@
 timetable_header:
   id: 'swindid'
-  version: 'ver'
+  version: '4.0.14'
   name: 'swindid_diversions_feb_21'
   description: 'Descr'
-  start_time: '0000'
+  start_time: '0545'
   finish_time: '2500'
   v_major: '0'
   v_minor: '0'
@@ -36,6 +36,7 @@ rule_defaults:
   number_of: 1
 
 timetables:
+  - IGNORE
   # The 1Axx
   - {headcode_template: '1A01', headcode_increment: 3, train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 2, train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
   - {headcode_template: '1A12', headcode_increment: 2, train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 11, train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT2H'}
@@ -136,11 +137,12 @@ timetables:
   # 2B98 -> 2G93
   - {headcode_template: '2B98', train_json_tt_location: '2B62_KEY_locations.txt', entry_point: 'EUPKEMB', train_category: 'Cl 158/2', next_uid: '2G93+0+0', initial_offset: 'PT15H37M'}
   - {headcode_template: '2G93', train_json_tt_location: '2G93_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 158/2',initial_offset: 'PT15H11M'}
+  - IGNORE_END
 
 
 rules:
-  - {train_y: '3T99', train_x: '1T99', two_enters_after_one: 'PT15M'}
-  - {train_y: '3T01', train_x: '1T01', two_enters_after_one: 'PT15M'}
-  - {train_y: '1T00', train_x: '1T03', two_enters_after_one: 'PT15M', headcode_increment: 2, number_of: 10}
+  - {train_y: '3T99', train_x: '1T99', XAppAfterYLve: 'PT15M'}
+  - {train_y: '3T01', train_x: '1T01', XAppAfterYLve: 'PT15M'}
+  - {train_y: '1T00', train_x: '1T03', XAppAfterYLve: 'PT15M', headcode_increment: 2, number_of: 10}
 
 

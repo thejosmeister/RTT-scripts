@@ -47,11 +47,11 @@ def build_xml_list_of_tts(tt_name: str, output_filename: str, sim_locations_file
     create_xml_tt_list_file(xml_tts, output_filename)
 
 
-def build_xml_list_of_rules(tt_name):
+def build_xml_list_of_rules(tt_name: str, sim_locations_file: str):
     rules_db = RulesDb(tt_name)
     xml_rules = []
     for rule in rules_db.get_all_in_db():
-        xml_rules.append(build_xml_rule(rule))
+        xml_rules.append(build_xml_rule(rule, 'sim_location_files/' + sim_locations_file))
 
     return xml_rules
 
@@ -61,7 +61,7 @@ def build_full_xml_tt(tt_name: str, output_filename: str, sim_locations_file: st
     header = build_xml_header(header_db)
     categories = header_db.get_categories_string()
     build_xml_list_of_tts(tt_name, output_filename + 'TT_List.xml', sim_locations_file)
-    rules = build_xml_list_of_rules(tt_name)
+    rules = build_xml_list_of_rules(tt_name, sim_locations_file)
 
     if os.path.exists(output_filename) is False:
         os.mkdir(output_filename)
@@ -84,7 +84,7 @@ def build_full_xml_tt(tt_name: str, output_filename: str, sim_locations_file: st
 
             for rule in rules:
                 print(rule, file=f_to_write)
-            print('<TimetableRules>', file=f_to_write)
+            print('</TimetableRules>', file=f_to_write)
 
         print('</SimSigTimetable>', file=f_to_write)
 
@@ -92,7 +92,7 @@ def build_full_xml_tt(tt_name: str, output_filename: str, sim_locations_file: st
         print(header, file=f_to_write)
         print('</SimSigTimetable>', file=f_to_write)
 
-    zf = zipfile.ZipFile( output_filename + ".WTT", "w")
-    zf.write(output_filename + '/SavedTimetable.xml')
-    zf.write(output_filename + '/TimetableHeader.xml')
+    zf = zipfile.ZipFile( output_filename + ".zip", "w")
+    zf.write(output_filename + '/SavedTimetable.xml', 'SavedTimetable.xml')
+    zf.write(output_filename + '/TimetableHeader.xml', 'TimetableHeader.xml')
     zf.close()

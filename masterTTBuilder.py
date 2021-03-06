@@ -23,7 +23,8 @@ def build_complete_tt(tt_name: str, locations_filename: str, xml_output_filename
     header_db.add_categories_string(read_cat_file(categories))
 
     build_list_of_tts(list_of_tt_configs, tt_name, categories, overwrite_existing_trains_and_rules)
-    build_list_of_rules(list_of_rule_configs, tt_name, overwrite_existing_trains_and_rules)
+    if len(list_of_rule_configs) > 0:
+        build_list_of_rules(list_of_rule_configs, tt_name, overwrite_existing_trains_and_rules)
 
     build_full_xml_tt(tt_name, xml_output_filename, locations_filename)
 

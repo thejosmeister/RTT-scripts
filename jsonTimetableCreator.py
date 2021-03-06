@@ -6,7 +6,8 @@ import re
 import unittest
 
 from tiplocDictCreator import pull_train_categories_out_of_xml, create_tiploc_dict
-from translateTimesAndLocations import produce_dict_with_times_and_locations, convert_time_to_secs, convert_sec_to_time, produce_train_locations
+from translateTimesAndLocations import produce_dict_with_times_and_locations, convert_time_to_secs, convert_sec_to_time, \
+    produce_train_locations
 
 
 # Parse uid pattern for next uid
@@ -127,7 +128,8 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
         train_locations = amend_locations(train_locations, config_dict)
 
     # Now we have quite a few bits.
-    [original_o_time, origin, _entry_time, original_dest_time, dest, locations_on_sim] = produce_dict_with_times_and_locations(
+    [original_o_time, origin, _entry_time, original_dest_time, dest,
+     locations_on_sim] = produce_dict_with_times_and_locations(
         train_locations, create_tiploc_dict(config_dict['locations_on_sim'])[1])
 
     train_cat_dict = pull_train_categories_out_of_xml(train_cat_location)[config_dict['train_category']]
@@ -148,14 +150,16 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
         # Work out time increment from last train.
         time_increment = frequency * i
 
-        headcode = config_dict['headcode_template'][:2] + f"{int(config_dict['headcode_template'][2:4]) + (config_dict['headcode_increment'] * i):02d}"
+        headcode = config_dict['headcode_template'][
+                   :2] + f"{(int(config_dict['headcode_template'][2:4]) + (config_dict['headcode_increment'] * i)) % 100:02d}"
         uid = headcode + config_dict['headcode_template'][4:]
 
         # Create the trips in the TT
         trips = [create_trip(l, time_increment, initial_offset, uid) for l in locations_on_sim]
 
         origin_time = convert_sec_to_time(convert_time_to_secs(original_o_time) + time_increment + initial_offset)
-        destination_time = convert_sec_to_time(convert_time_to_secs(original_dest_time) + time_increment + initial_offset)
+        destination_time = convert_sec_to_time(
+            convert_time_to_secs(original_dest_time) + time_increment + initial_offset)
         # Sort all the parameters to plug in to template.
         if entry_point is not None:
             train_tt['entry_point'] = entry_point
@@ -190,7 +194,48 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
 
 
 def create_json_rules_with_spec_entry(config_dict: dict) -> list:
-    return []
+    """
+    Creates json rules for the number of rules specified in each line of a rule spec.
+
+    Currently handles the following config:
+     - train_x: Is the UID pattern for the train(s) that is affected by the rule.
+     - train_y: Is the UID pattern for the train(s) that triggers the rule.
+     - location: The location that the rule is applied to (if present).
+     - <rule_name>: Name of rule that should match the rule names dict.
+     - headcode_increment: Path and name of sim locations file
+     - number_of: How many repeats of this rule.
+    :param config_dict: Map of config values.
+    :return: List of json rules.
+    """
+    RULES_DICT = {'XAppAfterYEnt': '0', 'XAppAfterYLve': '1', 'XAppAfterYArr': '2', 'XNotIfY': '3',
+                  'XDepAfterYArr': '4', 'XDepAfterYEnt': '5', 'XDepAfterYLve': '6', 'XDepAfterYJoin': '7',
+                  'XDepAfterYDiv': '8', 'XDepAfterYForm': '9', 'XYMutExc': '10', 'XAppAfterYJoin': '11',
+                  'XAppAfterYDiv': '12', 'XAppAfterYForm': '13', 'XYAlternatives': '14'}
+
+    for name in RULES_DICT.keys():
+        if str(name) in config_dict:
+            rule_name = str(name)
+    if rule_name not in ['XNotIfY', 'XYMutExc']:
+        time_period = str(parse_time_expression(config_dict[rule_name]))
+
+    list_of_rules = []
+
+    for i in range(config_dict['number_of']):
+        rule = {'name': rule_name}
+        rule['train_x'] = config_dict['train_x'][
+              :2] + f"{(int(config_dict['train_x'][2:4]) + (config_dict['headcode_increment'] * i)) % 100:02d}" + \
+              config_dict['train_x'][4:]
+        rule['train_y'] = config_dict['train_y'][
+              :2] + f"{(int(config_dict['train_y'][2:4]) + (config_dict['headcode_increment'] * i)) % 100:02d}" + \
+              config_dict['train_y'][4:]
+        if 'location' in config_dict:
+            rule['location'] = config_dict['location']
+        if time_period is not None:
+            rule['time'] = time_period
+
+        list_of_rules.append(rule)
+
+    return list_of_rules
 
 
 # UTs
@@ -212,11 +257,13 @@ class TestTimetableCreator(unittest.TestCase):
         self.assertEqual(parse_uid_to_insert('*F**QQQ-1+1', '2F99'), '1F00QQQ', "Should be '1F00QQQ'")
 
     def test_create_trip(self):
-        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '5G09+0+0'}}
+        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1',
+                    'activities': {'trainBecomes': '5G09+0+0'}}
         trip = {'arr': '0010', 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '5G09'}}
         self.assertEqual(create_trip(location, 0, 0, '1L88'), trip)
 
-        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '*G**+1+1'}}
+        location = {'arr': 600, 'line': 'UM', 'location': 'SDON', 'plat': '1',
+                    'activities': {'trainBecomes': '*G**+1+1'}}
         trip = {'arr': '0010', 'line': 'UM', 'location': 'SDON', 'plat': '1', 'activities': {'trainBecomes': '2G89'}}
         self.assertEqual(create_trip(location, 0, 0, '1L88'), trip)
 

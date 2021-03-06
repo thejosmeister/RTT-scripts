@@ -65,6 +65,7 @@ def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str) -> st
     """
     Takes a json timetable for a train and produces an xml one for insertion into a Simsig xml TT.
     :param json_tt: json timetable for a train.
+    :param tiploc_location: will give a map of sim locations.
     :return: XML string with TT.
     """
 
@@ -120,11 +121,18 @@ def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str) -> st
 
 
 
-def build_xml_rule(json_rule: dict) -> str:
-    RULE_NAMES_DICT = {'0': 'AppAfterEnt', '1': 'AppAfterLve', '2': 'AppAfterArr??', '3': 'NotIf', '4': '???',
-                       '5': 'DepAfterEnt', '6': 'DepAfterLve', '7': 'DepAfterJoin', '8': 'DepAfterDiv',
-                       '9': 'DepAfterForm', '10': '	MutExc', '11': 'AppAfterJoin', '12': '	AppAfterDiv',
-                       '13': 'AppAfterForm', '14': 'Alternatives'}
+def build_xml_rule(json_rule: dict, tiploc_location: str) -> str:
+    """
+
+    :param json_rule: json rule for a train.
+    :param tiploc_location: will give a map of sim locations.
+    :return:
+    """
+    RULE_NAMES_DICT = {'0': 'XAppAfterYEnt', '1': 'XAppAfterYLve', '2': 'XAppAfterYArr', '3': 'XNotIfY', '4': 'XDepAfterYArr',
+                       '5': 'XDepAfterYEnt', '6': 'XDepAfterYLve', '7': 'XDepAfterYJoin', '8': 'XDepAfterYDiv',
+                       '9': 'XDepAfterYForm', '10': 'XYMutExc', '11': 'XAppAfterYJoin', '12': 'XAppAfterYDiv',
+                       '13': 'XAppAfterYForm', '14': 'XYAlternatives'}
+    tiploc_dict = create_tiploc_dict(tiploc_location)[1]
 
     for num in RULE_NAMES_DICT.keys():
         if RULE_NAMES_DICT[num] == json_rule['name']:
@@ -135,7 +143,10 @@ def build_xml_rule(json_rule: dict) -> str:
     if 'time' in json_rule:
         out += '<Time>' + json_rule['time'] + '</Time>'
     if 'location' in json_rule:
-        out += '<Location>' + json_rule['location'] + '</Location>'
+        for tiploc in tiploc_dict:
+            if json_rule['location'] in tiploc_dict[tiploc]:
+                location = str(tiploc)
+        out += '<Location>' + location + '</Location>'
 
     return out + '</TimetableRule>'
 

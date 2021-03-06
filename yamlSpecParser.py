@@ -42,12 +42,28 @@ def parse_yaml_tt_spec(config_file_location: str) -> list:
 
     list_of_tt_configs = []
     if 'timetables' in yaml_data:
+        ignore = False
         for timetable in yaml_data['timetables']:
-            list_of_tt_configs.append(sub_in_tt_defaults_etc(timetable, yaml_data['tt_defaults'], yaml_data['base_file_paths']))
+            if timetable == 'IGNORE':
+                ignore = True
+                continue
+            if timetable == 'IGNORE_END':
+                ignore = False
+                continue
+            if ignore is False:
+                list_of_tt_configs.append(sub_in_tt_defaults_etc(timetable, yaml_data['tt_defaults'], yaml_data['base_file_paths']))
 
     list_of_rule_configs = []
     if 'rules' in yaml_data:
+        ignore = False
         for rule in yaml_data['rules']:
-            list_of_rule_configs.append(sub_in_rule_defaults_etc(rule, yaml_data['rule_defaults']))
+            if rule == 'IGNORE':
+                ignore = True
+                continue
+            if rule == 'IGNORE_END':
+                ignore = False
+                continue
+            if ignore is False:
+                list_of_rule_configs.append(sub_in_rule_defaults_etc(rule, yaml_data['rule_defaults']))
 
     return [header, categories, list_of_tt_configs, list_of_rule_configs]
