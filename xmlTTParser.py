@@ -159,6 +159,7 @@ def parse_full_xml_tt(file: str, locations_file: str, overwrite_existing: bool):
     tt_header = {'id': root.attrib['ID'],
                  'version': root.attrib['Version'],
                  'name': root.find('Name').text.replace(' ', '_'),
+                 'actual_name': root.find('Name').text,
                  'description': root.find('Description').text,
                  'start_time': convert_sec_to_time(int(root.find('StartTime').text)),
                  'finish_time': convert_sec_to_time(int(root.find('FinishTime').text)),

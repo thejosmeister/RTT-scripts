@@ -16,8 +16,12 @@ def create_xml_tt_list_file(list_of_tts: list, filename: str):
 
 def build_xml_header(header_db: MainHeaderDb) -> str:
     json_tt_header = header_db.get_header()
+    if 'actual_name' in json_tt_header:
+        name = json_tt_header['actual_name']
+    else:
+        name = json_tt_header['name']
     out = '<SimSigTimetable ID="' + json_tt_header['id'] + '" Version="' + json_tt_header['version'] + '">' + \
-          '<Name>' + json_tt_header['name'] + '</Name><Description>' + json_tt_header['description'] + '</Description>' + \
+          '<Name>' + name + '</Name><Description>' + json_tt_header['description'] + '</Description>' + \
           '<StartTime>' + json_tt_header['start_time'] + '</StartTime><FinishTime>' + json_tt_header['finish_time'] + \
           '</FinishTime><VMajor>' + json_tt_header['v_major'] + '</VMajor><VMinor>' + json_tt_header['v_minor'] + \
           '</VMinor><VBuild>' + json_tt_header['v_build'] + '</VBuild>' + '<TrainDescriptionTemplate>' + \
@@ -92,7 +96,7 @@ def build_full_xml_tt(tt_name: str, output_filename: str, sim_locations_file: st
         print(header, file=f_to_write)
         print('</SimSigTimetable>', file=f_to_write)
 
-    zf = zipfile.ZipFile( output_filename + ".zip", "w")
+    zf = zipfile.ZipFile( output_filename + ".WTT", "w")
     zf.write(output_filename + '/SavedTimetable.xml', 'SavedTimetable.xml')
     zf.write(output_filename + '/TimetableHeader.xml', 'TimetableHeader.xml')
     zf.close()

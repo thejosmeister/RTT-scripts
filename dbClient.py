@@ -69,18 +69,29 @@ class TrainTtDb:
             return True
         return False
 
-    def patch_tt_by_uid(self, uid: str, update: dict) -> bool:
+    def patch_tt_by_uid(self, uids: list, update: dict) -> bool:
         """
-        Overwrites or adds specified field(s) to a TT with specified uid.
-        :param uid: uid of the TT.
+        Overwrites or adds specified field(s) to a TT with specified uids.
+        :param uids: uids that we want to amend.
         :param update: values to patch.
         :return: True if successfully updated, False if not or no original record.
         """
-        doc_id = generate_id_from_uid(uid)
-        if self.db.contains(doc_id=doc_id):
-            self.db.update(update, doc_ids=[doc_id])
-            return True
-        return False
+        for uid in uids:
+            doc_id = generate_id_from_uid(uid)
+            if self.db.contains(doc_id=doc_id):
+                self.db.update(update, doc_ids=[doc_id])
+
+    def update_location_for_uids(self, uids: list, location_to_update: str, keys_to_update: dict):
+        for uid in uids:
+            doc_id = generate_id_from_uid(uid)
+            if self.db.contains(doc_id=doc_id):
+                tt = self.db.get(doc_id=doc_id)
+                for loc in tt['locations']:
+                    if location_to_update in loc['location']:
+                        for key in keys_to_update.keys():
+                            loc[str(key)] = keys_to_update[key]
+                self.db.remove(doc_ids=[doc_id])
+                self.db.insert(table.Document(tt, doc_id=doc_id))
 
     def return_uids_from_query(self, query: Query) -> list:
         """

@@ -177,17 +177,67 @@ timetables:
   - {headcode_template: '1M30', headcode_increment: 8, number_of: 6, frequency: 'PT2H', train_json_tt_location: '1M30_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10'}
   # Only goes to BHM
   - {headcode_template: '1M78', train_json_tt_location: '1M30_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10', initial_offset: 'PT12H'}
-  - IGNORE_END
   # 1o02 - 1o26 1st one BHM origin, 1o06 NOT, rest MAN
   - {headcode_template: '1O02', train_json_tt_location: '1O02_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
   - {headcode_template: '1O06', train_json_tt_location: '1O06_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
   - {headcode_template: '1O10', headcode_increment: 4, number_of: 5, frequency: 'PT2H', train_json_tt_location: '1O10_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
   # 1O04 - 1028 1st one on mains
-  - IGNORE
   - {headcode_template: '1O04', headcode_increment: 4, number_of: 7, frequency: 'PT2H', train_json_tt_location: '1O04_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 221/10'}
   # 1o30, 1o34, 34 goes to SOU
   - {headcode_template: '1O30', headcode_increment: 4, number_of: 2, frequency: 'PT1H', train_json_tt_location: '1O04_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 221', initial_offset: 'PT13H'}
+
+
+  # 1W,1D etc.
+  # 1W05, 1D41, 1W37, 1P41 stop at DID
+  # GMVs
+  - {headcode_template: '1W05', train_json_tt_location: '1W05_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  - {headcode_template: '1W07', headcode_increment: 2, number_of: 3, frequency: 'PT1H', train_json_tt_location: '1W07_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  - {headcode_template: '1W21', headcode_increment: 2, number_of: 3, frequency: 'PT1H', train_json_tt_location: '1W07_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT7H'}
+  - {headcode_template: '1W33', train_json_tt_location: '1W07_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT13H'}
+  # WOS
+  - {headcode_template: '1W37', train_json_tt_location: '1W37_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  # WOF
+  - {headcode_template: '1W15', headcode_increment: 4, number_of: 2, frequency: 'PT2H', train_json_tt_location: '1W15_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 802/1 - Bi Mode - 9 Car'}
+  - {headcode_template: '1W29', train_json_tt_location: '1W15_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: 'PT7H'}
+  # HFDs
+  - {headcode_template: '1W14', headcode_increment: 4, number_of: 2, frequency: 'PT2H', train_json_tt_location: '1W14_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 802/0 - Bi Mode - 5 Car'}
+  - {headcode_template: '1W27', headcode_increment: 4, number_of: 2, frequency: 'PT2H', train_json_tt_location: '1W14_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 802/0 - Bi Mode - 5 Car', initial_offset: 'PT7H'}
+  - {headcode_template: '1D41', train_json_tt_location: '1D41_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+
+  # Up direction ex GMV
+  - {headcode_template: '1P11', train_json_tt_location: '1P11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
+  - {headcode_template: '1P17', headcode_increment: 2, number_of: 4, frequency: 'PT1H', train_json_tt_location: '1P11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT3H'}
   - IGNORE_END
+  - {headcode_template: '1P33', headcode_increment: 2, number_of: 3, frequency: 'PT1H', train_json_tt_location: '1P11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT11H'}
+  # HFD
+  - {headcode_template: '1P13', headcode_increment: 2, number_of: 2, frequency: 'PT1H', train_json_tt_location: '1P13_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 802/0 - Bi Mode - 5 Car'}
+  - {headcode_template: '1P27', headcode_increment: 4, number_of: 2, frequency: 'PT2H', train_json_tt_location: '1P13_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 802/0 - Bi Mode - 5 Car', initial_offset: 'PT7H'}
+  - IGNORE
+  - {headcode_template: '1P41', train_json_tt_location: '1P41_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 802/0 - Bi Mode - 5 Car'}
+  # WOF
+  - {headcode_template: '1P66', train_json_tt_location: '1P66_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 800/0 - Bi Mode - 5 Car'}
+  - {headcode_template: '1P25', headcode_increment: 4, number_of: 2, frequency: 'PT2H', train_json_tt_location: '1P66_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: '1441 - 1000'}
+  - {headcode_template: '1P39', train_json_tt_location: '1P66_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'IEP 800/0 - Bi Mode - 5 Car', initial_offset: '2142 - 1000'}
+
+  # 387 stoppers
+  - {headcode_template: '5P15', train_json_tt_location: '5P15_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8'}
+  - {headcode_template: '2P15', train_json_tt_location: '2P15_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 387/8'}
+  - {headcode_template: '2P19', headcode_increment: 4, number_of: 5, frequency: 'PT1H', train_json_tt_location: '2P15_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 387/8', initial_offset: '0638 - 0544', amended_locations: [{'dep': '0544', 'location': 'Didcot Parkway [DID]', 'plat': '5', 'line': 'RL'}]}
+  - {headcode_template: '2P39', train_json_tt_location: '2P15_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 387/8', initial_offset: '1138 - 0544'}
+  - {headcode_template: '2P43', headcode_increment: 4, number_of: 9, frequency: 'PT1H', train_json_tt_location: '2P15_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 387/8', initial_offset: '1238 - 0544', amended_locations: [{'dep': '0544', 'location': 'Didcot Parkway [DID]', 'plat': '5', 'line': 'RL'}]}
+  - {headcode_template: '2P80', train_json_tt_location: '2P15_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 387/8', initial_offset: '2142 - 0544', amended_locations: [{'dep': '0544', 'location': 'Didcot Parkway [DID]', 'plat': '5', 'line': 'RL'}]}
+  - {headcode_template: '2L84', train_json_tt_location: '2L84_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 387/8'}
+  - {headcode_template: '2P86', train_json_tt_location: '2P15_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 387/8', initial_offset: '2345 - 0544'}
+
+  - {headcode_template: '2L02', train_json_tt_location: '2L02_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8'}
+  - {headcode_template: '2N12', headcode_increment: 4, number_of: 4, frequency: 'PT1H', train_json_tt_location: '2L02_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8', initial_offset: 'PT1H', next_uid: '2P**+0+11'}
+  - {headcode_template: '2N28', train_json_tt_location: '2L02_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8', initial_offset: '1117 - 0621', amended_locations: [ { 'arr': '0621', 'location': 'Didcot Parkway [DID]','path': 'UR', 'plat': '4', 'activities': { 'trainBecomes': '2P39' } }]}
+  - IGNORE_END
+  - {headcode_template: '2N32', headcode_increment: 4, number_of: 9, frequency: 'PT1H', train_json_tt_location: '2L02_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8', initial_offset: 'PT6H', next_uid: '2P**+0+11'}
+  - IGNORE
+  - {headcode_template: '2N68', train_json_tt_location: '2L02_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8', initial_offset: '2118 - 0621', next_uid: '2P80'}
+  - {headcode_template: '2N72', train_json_tt_location: '2L02_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8', initial_offset: '2223 - 0621', next_uid: '2L84'}
+  - {headcode_template: '2N76', train_json_tt_location: '2L02_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8', initial_offset: '2330 - 0621', amended_locations: [ { 'arr': '0621', 'location': 'Didcot Parkway [DID]','path': 'UR', 'plat': '4', 'activities': { 'trainBecomes': '2P86' } }]}
 
 
 rules:
