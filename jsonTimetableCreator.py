@@ -72,12 +72,13 @@ def create_trip(location: dict, time_increment, initial_offset, uid) -> dict:
 
 # Parse time expressions written in the yaml TT def to seconds past midnight.
 # Expression is either ISO duration or (hhmm - hhmm)
-def parse_time_expression(frequency_expression) -> int:
+def parse_time_expression(frequency_expression: str) -> int:
     if not isinstance(frequency_expression, int):
         if 'PT' in frequency_expression:
             return int(isodate.parse_duration(frequency_expression).seconds)
         else:
-            return convert_time_to_secs(frequency_expression[:4]) - convert_time_to_secs(frequency_expression[7:])
+            frequency_expression_parts = frequency_expression.replace(' ', '').split('-')
+            return convert_time_to_secs(frequency_expression_parts[0]) - convert_time_to_secs(frequency_expression_parts[1])
     else:
         return frequency_expression
 

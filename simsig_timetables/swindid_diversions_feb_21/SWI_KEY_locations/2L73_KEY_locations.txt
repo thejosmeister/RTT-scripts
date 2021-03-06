@@ -1,0 +1,12 @@
+[   {'arr': '', 'dep': '2137', 'location': 'Oxford [OXF]', 'plat': '3'},
+    {'dep': '2140', 'location': 'Kennington Jn Entry'},
+    {   'arr': '2143',
+        'dep': '2143.5',
+        'eng allow': '1',
+        'location': 'Radley [RAD]',
+        'plat': '2'},
+    {'dep': '2146.5', 'location': 'Culham [CUM]'},
+    {'dep': '2147.5', 'location': 'Appleford [APF]'},
+    {'dep': '2148.5', 'location': 'Appleford L.C.'},
+    {'dep': '2149', 'location': 'Didcot North Jn'},
+    {'arr': '2152', 'dep': '', 'location': 'Didcot Parkway [DID]', 'plat': '4', 'activities': {'trainBecomes': '2L66'}}]

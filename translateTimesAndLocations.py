@@ -91,13 +91,9 @@ def produce_train_locations(location_template_filename: str) -> list:
         if 'dep' in l:
             if l['dep'] == '':
                 l.pop('dep', None)
-            else:
-                l['dep'] = convert_time_to_secs(l['dep'])
         if 'arr' in l:
             if l['arr'] == '':
                 l.pop('arr', None)
-            else:
-                l['arr'] = convert_time_to_secs(l['arr'])
 
     return list_of_locations
 
@@ -115,6 +111,13 @@ def produce_dict_with_times_and_locations(list_of_locations: list, tiploc_dict: 
     :param tiploc_dict: Map of TIPLOC codes to place names.
     :return: Specified above.
     """
+
+    for l in list_of_locations:
+        if 'dep' in l:
+            l['dep'] = convert_time_to_secs(l['dep'])
+        if 'arr' in l:
+            l['arr'] = convert_time_to_secs(l['arr'])
+
     sorted_locations = sorted(list_of_locations, key=lambda x: return_value(x))
     origin = sorted_locations[0]['location']
     origin_time = convert_sec_to_time(sorted_locations[0]['dep'])

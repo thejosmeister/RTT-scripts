@@ -3,7 +3,7 @@ timetable_header:
   version: '4.0.14'
   name: 'swindid_diversions_feb_21'
   description: 'Descr'
-  start_time: '0545'
+  start_time: '0400'
   finish_time: '2500'
   v_major: '0'
   v_minor: '0'
@@ -137,12 +137,64 @@ timetables:
   # 2B98 -> 2G93
   - {headcode_template: '2B98', train_json_tt_location: '2B62_KEY_locations.txt', entry_point: 'EUPKEMB', train_category: 'Cl 158/2', next_uid: '2G93+0+0', initial_offset: 'PT15H37M'}
   - {headcode_template: '2G93', train_json_tt_location: '2G93_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 158/2',initial_offset: 'PT15H11M'}
+
+  # 2L05 coming from OXF
+  - {headcode_template: '2L05', train_json_tt_location: '2L05_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3'}
+  - {headcode_template: '2L07', train_json_tt_location: '2L07_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3'}
+  - {headcode_template: '2L13', train_json_tt_location: '2L13_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3'}
+  - {headcode_template: '2L21', train_json_tt_location: '2L21_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3'}
+  - {headcode_template: '2L29', headcode_increment: 8, number_of: 5, frequency: 'PT2H', train_json_tt_location: '2L21_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3', initial_offset: 'PT1H53M'}
+  - {headcode_template: '2L69', train_json_tt_location: '2L69_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3'}
+  - {headcode_template: '2L73', train_json_tt_location: '2L73_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3'}
+  - {headcode_template: '2L75', train_json_tt_location: '2L21_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3', initial_offset: 'PT13H28M'}
+  # 2Vxx from BAN
+  - {headcode_template: '2V11', train_json_tt_location: '2V11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3'}
+  - {headcode_template: '2V13', train_json_tt_location: '2V11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3', initial_offset: 'PT2H', next_uid: '2M18'}
+  - {headcode_template: '2V15', train_json_tt_location: '2V11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3', initial_offset: 'PT4H', next_uid: '2M26'}
+  - {headcode_template: '2V17', train_json_tt_location: '2V11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3', initial_offset: 'PT6H5M', next_uid: '2M34'}
+  - {headcode_template: '2V19', train_json_tt_location: '2V11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3', initial_offset: 'PT8H', next_uid: '2M42'}
+  - {headcode_template: '2V21', train_json_tt_location: '2V11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3', initial_offset: 'PT10H', next_uid: '2M50'}
+  - {headcode_template: '2V23', train_json_tt_location: '2V11_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 165/3', initial_offset: 'PT12H', next_uid: '2L58'}
+
+  # 2Mxx heading to BAN
+  - {headcode_template: '2M00', train_json_tt_location: '2M00_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 165/3'}
+  # 2m10 - 2m50
+  - {headcode_template: '2M10', headcode_increment: 8, number_of: 6, frequency: 'PT2H', train_json_tt_location: '2M10_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 165/3'}
+  - {headcode_template: '2M62', train_json_tt_location: '2M62_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 165/3'}
+  # 2Lxx heading to OXF
+  - {headcode_template: '2L06', train_json_tt_location: '2L06_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 165/3'}
+  # 2l14 - 2l54
+  - {headcode_template: '2L14', headcode_increment: 8, number_of: 6, frequency: 'PT2H', train_json_tt_location: '2L14_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 165/3'}
+  # 2l58 - 2l66 - 58 add cum, minus apf - 66 minus apf
+  - {headcode_template: '2L58', headcode_increment: 8, number_of: 2, frequency: 'PT2H', train_json_tt_location: '2L14_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 165/3', initial_offset: 'PT10H58M', amended_locations: [{ 'dep': '0910.5','location': 'Appleford [APF]'}]}
+  - {headcode_template: '2L68', train_json_tt_location: '2L14_KEY_locations.txt', timetable_template_location: 'defaultTimetableNoEP.txt', train_category: 'Cl 165/3', initial_offset: '2239 - 0906', amended_locations: [{ 'dep': '0910.5','location': 'Appleford [APF]'}]}
+
+  # XC services
+  # 1m18 - 1m74
+  - {headcode_template: '1M18', headcode_increment: 8, number_of: 8, frequency: 'PT2H', train_json_tt_location: '1M18_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 220/8'}
+  # 1m22 - 1m78
+  - {headcode_template: '1M22', train_json_tt_location: '1M22_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10'}
+  - {headcode_template: '1M30', headcode_increment: 8, number_of: 6, frequency: 'PT2H', train_json_tt_location: '1M30_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10'}
+  # Only goes to BHM
+  - {headcode_template: '1M78', train_json_tt_location: '1M30_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10', initial_offset: 'PT12H'}
+  - IGNORE_END
+  # 1o02 - 1o26 1st one BHM origin, 1o06 NOT, rest MAN
+  - {headcode_template: '1O02', train_json_tt_location: '1O02_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
+  - {headcode_template: '1O06', train_json_tt_location: '1O06_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
+  - {headcode_template: '1O10', headcode_increment: 4, number_of: 5, frequency: 'PT2H', train_json_tt_location: '1O10_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
+  # 1O04 - 1028 1st one on mains
+  - IGNORE
+  - {headcode_template: '1O04', headcode_increment: 4, number_of: 7, frequency: 'PT2H', train_json_tt_location: '1O04_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 221/10'}
+  # 1o30, 1o34, 34 goes to SOU
+  - {headcode_template: '1O30', headcode_increment: 4, number_of: 2, frequency: 'PT1H', train_json_tt_location: '1O04_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 221', initial_offset: 'PT13H'}
   - IGNORE_END
 
 
 rules:
+  - IGNORE
   - {train_y: '3T99', train_x: '1T99', XAppAfterYLve: 'PT15M'}
   - {train_y: '3T01', train_x: '1T01', XAppAfterYLve: 'PT15M'}
   - {train_y: '1T00', train_x: '1T03', XAppAfterYLve: 'PT15M', headcode_increment: 2, number_of: 10}
+  - IGNORE_END
 
 
