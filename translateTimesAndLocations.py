@@ -40,7 +40,7 @@ def convert_sec_to_time(time: int) -> str:
 
 
 # Will create a new location list which only contains sim locations with the relevant location code.
-def sub_in_tiploc(sorted_locations: list, tiploc_dict: dict, origin: str) -> list:
+def only_add_locations_in_sim(sorted_locations: list, tiploc_dict: dict, origin: str) -> list:
     out = []
     entry_time = ''
     for l in sorted_locations:
@@ -49,14 +49,24 @@ def sub_in_tiploc(sorted_locations: list, tiploc_dict: dict, origin: str) -> lis
                 # isOrigin is used to tell whether the location needs a pass time flag.
                 if origin == l['location']:
                     l['isOrigin'] = 'yes'
-
-                l['location'] = str(t)
                 out.append(l)
             elif 'Entry' in l['location']:
                 # Used as a way to specify entry time in original location list.
                 entry_time = l['dep']
 
     return [out, entry_time]
+
+
+# Will sub in TIPLOC codes for locations in the sim
+def sub_in_tiploc(sorted_locations: list, tiploc_dict: dict) -> list:
+    out = []
+    for l in sorted_locations:
+        for t in tiploc_dict.keys():
+            if l['location'] in tiploc_dict[t]:
+                l['location'] = str(t)
+                out.append(l)
+
+    return out
 
 
 # Used in sorting lambda.
@@ -100,7 +110,7 @@ def produce_dict_with_times_and_locations(list_of_locations: list, tiploc_dict: 
      - the entry time of the train into the sim according to 'Entry' being the location field.
      - destination time in hhmm format
      - destination name (not TIPLOC)
-     - json list of locations of a train on the sim, time is in seconds past midnight and location names are TIPLOC
+     - json list of locations of a train on the sim, time is in seconds past midnight and location names are NOT TIPLOC
     :param list_of_locations: list of train TT maps.
     :param tiploc_dict: Map of TIPLOC codes to place names.
     :return: Specified above.
@@ -110,7 +120,7 @@ def produce_dict_with_times_and_locations(list_of_locations: list, tiploc_dict: 
     origin_time = convert_sec_to_time(sorted_locations[0]['dep'])
     dest = sorted_locations[-1]['location']
     dest_time = convert_sec_to_time(sorted_locations[-1]['arr'])
-    [locations_on_sim, entry_time] = sub_in_tiploc(sorted_locations, tiploc_dict, origin)
+    [locations_on_sim, entry_time] = only_add_locations_in_sim(sorted_locations, tiploc_dict, origin)
 
     return [origin_time, origin, entry_time, dest_time, dest, locations_on_sim]
 

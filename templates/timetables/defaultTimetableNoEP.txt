@@ -6,6 +6,7 @@
 <Description>${Description}</Description>
 <SeedingGap>15</SeedingGap>
 <MaxSpeed>${MaxSpeed}</MaxSpeed>
+<SpeedClass>${SpeedClass}</SpeedClass>
 <IsFreight>${isFreight}</IsFreight>
 <TrainLength>${TrainLength}</TrainLength>
 <Electrification>${Electrification}</Electrification>
