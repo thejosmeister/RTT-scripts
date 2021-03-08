@@ -93,6 +93,36 @@ class TrainTtDb:
                 self.db.remove(doc_ids=[doc_id])
                 self.db.insert(table.Document(tt, doc_id=doc_id))
 
+    def update_origin_for_uids(self, uids: list, origin: str, origin_time: str):
+        for uid in uids:
+            doc_id = generate_id_from_uid(uid)
+            if self.db.contains(doc_id=doc_id):
+                tt = self.db.get(doc_id=doc_id)
+                tt['origin_name'] = origin
+                if origin_time is not None:
+                    tt['origin_time'] = origin_time
+                    tt['description'] = '{} {} -'.format(origin_time, origin) + tt['description'].split('-')[1]
+                else:
+                    tt['description'] = '{} {} -'.format(tt['origin_time'], origin) + tt['description'].split('-')[1]
+
+                self.db.remove(doc_ids=[doc_id])
+                self.db.insert(table.Document(tt, doc_id=doc_id))
+
+    def update_destination_for_uids(self, uids: list, destination: str):
+        for uid in uids:
+            doc_id = generate_id_from_uid(uid)
+            if self.db.contains(doc_id=doc_id):
+                tt = self.db.get(doc_id=doc_id)
+                tt['destination_name'] = destination
+                tt['description'] = tt['description'].split('- ')[0] + destination
+
+                self.db.remove(doc_ids=[doc_id])
+                self.db.insert(table.Document(tt, doc_id=doc_id))
+
+    def get_uid_for_headcode(self, headcode:str) -> list:
+        tts = self.db.search(Query().headcode == headcode)
+        return [tt['uid'] for tt in tts]
+
     def return_uids_from_query(self, query: Query) -> list:
         """
         Gives list of uids from the TTs returned by a query.

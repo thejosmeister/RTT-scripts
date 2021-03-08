@@ -119,6 +119,9 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
      - op_code: The operator code for the trains. e.g. 'GW'
      - next_uid: A pattern defining what the next uid/headcode is if the train becomes another. Format in readme.
      - amended_locations: List of changes we want to make at a location found in the locations file i.e. plat change
+     - origin: An overridden origin
+     - destination: An overridden destination.
+     - origin_time: An overridden origin time, still subject to offsets etc.
     :param config_dict: Map of config values.
     :param train_cat_location: Location of file containing train categories.
     :return: A list of json objects that are train TTs.
@@ -132,6 +135,13 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
     [original_o_time, origin, _entry_time, original_dest_time, dest,
      locations_on_sim] = produce_dict_with_times_and_locations(
         train_locations, create_tiploc_dict(config_dict['locations_on_sim'])[1])
+
+    if 'origin' in config_dict:
+        origin = config_dict['origin']
+    if 'destination' in config_dict:
+        dest = config_dict['destination']
+    if 'origin_time' in config_dict:
+        original_o_time = config_dict['origin_time']
 
     train_cat_dict = pull_train_categories_out_of_xml(train_cat_location)[config_dict['train_category']]
     entry_point = config_dict['entry_point']

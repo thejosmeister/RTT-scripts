@@ -102,7 +102,7 @@ def parse_individual_xml_tt(xml_tt: ET.Element, tiploc_dict: dict, categories_di
     if xml_tt.find('SeedPoint') is not None:
         json_tt['seed_point'] = xml_tt.find('SeedPoint').text
     if xml_tt.find('DepartTime') is not None:
-        json_tt['entry_time'] = xml_tt.find('DepartTime').text
+        json_tt['entry_time'] = convert_sec_to_time(int(xml_tt.find('DepartTime').text))
 
     if xml_tt.find('Join') is not None:
         json_tt['dwell_times'] = {}
