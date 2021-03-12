@@ -112,6 +112,7 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
      - locations_on_sim: Path and name of sim locations file
      - timetable_template_location: the TT template filepath.
      - entry_point: Location code of entry point into sim (if one exists)
+     - seed_point_and_time: Location code of seed point on sim (if one exists)
      - frequency: How often will the train repeat. (seconds)
      - number_of: How many repeats of this TT.
      - train_category: Train category description e.g. 'IEP 800/3 - Bi Mode - 9 Car'
@@ -132,6 +133,12 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
     [original_o_time, origin, _entry_time, original_dest_time, dest,
      locations_on_sim] = produce_dict_with_times_and_locations(
         train_locations, create_tiploc_dict(config_dict['locations_on_sim'])[1])
+
+    if 'seed_point_and_time' in config_dict:
+        seed_point = config_dict['seed_point_and_time'].split(' ')[0]
+        _entry_time = config_dict['seed_point_and_time'].split(' ')[1]
+    else:
+        seed_point = None
 
     train_cat_dict = pull_train_categories_out_of_xml(train_cat_location)[config_dict['train_category']]
     entry_point = config_dict['entry_point']
@@ -165,6 +172,10 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
         if entry_point is not None:
             train_tt['entry_point'] = entry_point
             train_tt['entry_time'] = convert_sec_to_time(entry_time + time_increment + initial_offset)
+
+        if seed_point is not None:
+            train_tt['seed_point'] = seed_point
+            train_tt['entry_time'] = entry_time
 
         train_tt['headcode'] = headcode
         train_tt['uid'] = uid

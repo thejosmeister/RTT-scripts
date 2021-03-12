@@ -2159,6 +2159,22 @@
       </DwellTimes>
       <Electrification>D</Electrification>
     </TrainCategory>
+    <TrainCategory ID="4DD410AF">
+      <Description>(6) - DB - 60 + 19 TEA - 363m</Description>
+      <AccelBrakeIndex>1</AccelBrakeIndex>
+      <IsFreight>0</IsFreight>
+      <CanUseGoodsLines>0</CanUseGoodsLines>
+      <MaxSpeed>60</MaxSpeed>
+      <TrainLength>363</TrainLength>
+      <SpeedClass>512</SpeedClass>
+      <PowerToWeightCategory>0</PowerToWeightCategory>
+      <DwellTimes>
+        <Join>240</Join>
+        <Divide>240</Divide>
+        <CrewChange>120</CrewChange>
+      </DwellTimes>
+      <Electrification>D</Electrification>
+    </TrainCategory>
     <TrainCategory ID="51696B99">
       <Description>(6) - DB - 66 + 22 IWA - 498m</Description>
       <AccelBrakeIndex>1</AccelBrakeIndex>
