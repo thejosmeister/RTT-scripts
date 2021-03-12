@@ -17,9 +17,9 @@ def pull_tiploc_out_of_xml(file_to_pull_tiploc_out, out_filename):
     locations = []
     f = open(file_to_pull_tiploc_out, "r")
     for file_line in f:
-        if 'EntryPoint' in file_line:
+        if '<EntryPoint>' in file_line:
             entry_points.append(file_line.split('<EntryPoint>')[1].split('</EntryPoint>')[0])
-        if 'Location' in file_line:
+        if '<Location>' in file_line:
             locations.append(file_line.split('<Location>')[1].split('</Location>')[0])
 
     f.close()
