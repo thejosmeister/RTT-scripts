@@ -18,7 +18,7 @@
         'path': 'ML'},
     {'dep': '0555.5', 'location': 'Uffington (Oxfordshire)'},
     {'dep': '0558', 'line': 'RL', 'location': 'Challow'},
-    {'arr': '0603', 'dep': '0630', 'location': 'Wantage Road', 'line': 'RL', 'path': 'RL'},
+    {'arr': '0603', 'dep': '0630', 'location': 'Wantage Road', 'line': 'ML', 'path': 'RL'},
     {'dep': '0641.5', 'line': 'RL', 'location': 'Milton Junction'},
     {'arr': '0644.5', 'dep': '0838', 'location': 'Foxhall Jn [XJF]'},
     {'dep': '0839', 'location': 'Didcot West Curve Jn'},

@@ -2483,6 +2483,30 @@
       <DwellTimes/>
       <Electrification>D</Electrification>
     </TrainCategory>
+    <TrainCategory ID="6XA9056B">
+      <Description>(6) - FLHH - 66 + 21 JNA - 378m</Description>
+      <AccelBrakeIndex>1</AccelBrakeIndex>
+      <IsFreight>-1</IsFreight>
+      <CanUseGoodsLines>0</CanUseGoodsLines>
+      <MaxSpeed>60</MaxSpeed>
+      <TrainLength>378</TrainLength>
+      <SpeedClass>512</SpeedClass>
+      <PowerToWeightCategory>0</PowerToWeightCategory>
+      <DwellTimes/>
+      <Electrification>D</Electrification>
+    </TrainCategory>
+    <TrainCategory ID="6YA9056B">
+      <Description>(6) - FLHH - 66 + 18 MRA - 341m</Description>
+      <AccelBrakeIndex>1</AccelBrakeIndex>
+      <IsFreight>-1</IsFreight>
+      <CanUseGoodsLines>0</CanUseGoodsLines>
+      <MaxSpeed>60</MaxSpeed>
+      <TrainLength>378</TrainLength>
+      <SpeedClass>512</SpeedClass>
+      <PowerToWeightCategory>0</PowerToWeightCategory>
+      <DwellTimes/>
+      <Electrification>D</Electrification>
+    </TrainCategory>
     <TrainCategory ID="2C9D65E4">
       <Description>(6) - FLHH - 66 + 17 HHA - 259m</Description>
       <AccelBrakeIndex>1</AccelBrakeIndex>
@@ -2497,6 +2521,18 @@
     </TrainCategory>
     <TrainCategory ID="285B9CE3">
       <Description>(6) - DB - 66 + 18 YEA - 350m</Description>
+      <AccelBrakeIndex>1</AccelBrakeIndex>
+      <IsFreight>-1</IsFreight>
+      <CanUseGoodsLines>0</CanUseGoodsLines>
+      <MaxSpeed>60</MaxSpeed>
+      <TrainLength>350</TrainLength>
+      <SpeedClass>512</SpeedClass>
+      <PowerToWeightCategory>0</PowerToWeightCategory>
+      <DwellTimes/>
+      <Electrification>D</Electrification>
+    </TrainCategory>
+    <TrainCategory ID="2XXB9CE3">
+      <Description>(6) - FLHH - 66 + 18 YEA - 350m</Description>
       <AccelBrakeIndex>1</AccelBrakeIndex>
       <IsFreight>-1</IsFreight>
       <CanUseGoodsLines>0</CanUseGoodsLines>
@@ -2593,6 +2629,18 @@
     </TrainCategory>
     <TrainCategory ID="8CFB3A79">
       <Description>(4) - FLHH - 66 + 15 YEA - 296m</Description>
+      <AccelBrakeIndex>1</AccelBrakeIndex>
+      <IsFreight>-1</IsFreight>
+      <CanUseGoodsLines>0</CanUseGoodsLines>
+      <MaxSpeed>75</MaxSpeed>
+      <TrainLength>296</TrainLength>
+      <SpeedClass>512</SpeedClass>
+      <PowerToWeightCategory>0</PowerToWeightCategory>
+      <DwellTimes/>
+      <Electrification>D</Electrification>
+    </TrainCategory>
+    <TrainCategory ID="8XFB3A79">
+      <Description>(4) - GBRF - 66 + 15 MJA - 296m</Description>
       <AccelBrakeIndex>1</AccelBrakeIndex>
       <IsFreight>-1</IsFreight>
       <CanUseGoodsLines>0</CanUseGoodsLines>

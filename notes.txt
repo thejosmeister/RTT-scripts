@@ -19,25 +19,18 @@ TODO:
 - Add tt header parser for yaml
 - Some timetable analysing functions - view all trains sorted by headcode etc.
 
-, PostArrives: AppAfterArr?
-, PostDeparts: DepAfterArr?
+- 6A15 STOCK ON 6Z51
+- 10 CARS PLAT 1 SWI
+- 5Z74 OFFSET WRONG
+- 4V52 NEEDS TO GO IN LOOP AT BAD
+- 5Gxx leave swi plat 1 earlier
+- Sync up stock with diags on london trains
+- 1Axx origins
+- 4o70 in way of 1A20 at badminton, make 30 early, does not need RL at wantage
+- 6c33 needs loop at hullavington, poss make 5 later, maybe CC at did
+- 0a34 wants RL at challow, poss dont need tho
+- 0v72 poss clash with 1b15
+- 0o12 needs dest changing, poss start earlier
+- 6z51 needs loop at hullavington
+- 2pxx are getting in the way of 1pxxs at some points
 
-  PostEnters: AppAfterEnt
-, DepartsPostEnters: DepAfterEnt
-
-  PostExits: AppAfterLve
-, DepartsPostExits: DepAfterLve
-
-  EntersPostJoins: AppAfterJoin
-, PostJoins: DepAfterJoin
-
-, EntersPostDivides: AppAfterDiv
-, PostDivides: DepAfterDiv
-
-, EntersPostFormed: AppAfterForm
-, PostFormed: DepAfterForm
-
-, SingleXOR: NotIf
-, MultipleXOR: 	MutExc
-
-, Alternative: Alternatives

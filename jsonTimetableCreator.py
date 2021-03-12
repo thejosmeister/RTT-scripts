@@ -75,7 +75,10 @@ def create_trip(location: dict, time_increment, initial_offset, uid) -> dict:
 def parse_time_expression(frequency_expression: str) -> int:
     if not isinstance(frequency_expression, int):
         if 'PT' in frequency_expression:
-            return int(isodate.parse_duration(frequency_expression).seconds)
+            if frequency_expression[0] == '-':
+                return int(isodate.parse_duration(frequency_expression[1:]).seconds) * -1
+            else:
+                return int(isodate.parse_duration(frequency_expression).seconds)
         else:
             frequency_expression_parts = frequency_expression.replace(' ', '').split('-')
             return convert_time_to_secs(frequency_expression_parts[0]) - convert_time_to_secs(frequency_expression_parts[1])

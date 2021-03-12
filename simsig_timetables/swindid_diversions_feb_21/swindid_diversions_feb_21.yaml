@@ -36,8 +36,9 @@ rule_defaults:
   number_of: 1
 
 timetables:
-  - IGNORE
   # The 1Axx
+  - {headcode_template: '5A02', train_json_tt_location: '5A02_KEY_locations.txt',  seed_point_and_time: 'S71 0400', train_category: 'IEP 800/3 - Bi Mode - 9 Car', timetable_template_location: 'defaultTimetableSeedPoint.txt'}
+  - IGNORE
   - {headcode_template: '1A01', headcode_increment: 3, train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 2, train_category: 'IEP 800/3 - Bi Mode - 9 Car'}
   - {headcode_template: '1A12', headcode_increment: 2, train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 11, train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT2H'}
   - {headcode_template: '1A33', headcode_increment: 3, train_json_tt_location: '1A01_KEY_locations.txt', entry_point: 'EUPBAD', frequency: 'PT1H', number_of: 3, train_category: 'IEP 800/3 - Bi Mode - 9 Car', initial_offset: 'PT13H30M'}
@@ -171,20 +172,20 @@ timetables:
 
   # XC services
   # 1m18 - 1m74
-  - {headcode_template: '1M18', headcode_increment: 8, number_of: 8, frequency: 'PT2H', train_json_tt_location: '1M18_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 220/8'}
+  - {headcode_template: '1M18', headcode_increment: 8, number_of: 8, frequency: 'PT2H', train_json_tt_location: '1M18_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 220/8', op_code: 'XC'}
   # 1m22 - 1m78
-  - {headcode_template: '1M22', train_json_tt_location: '1M22_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10'}
-  - {headcode_template: '1M30', headcode_increment: 8, number_of: 6, frequency: 'PT2H', train_json_tt_location: '1M30_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10'}
+  - {headcode_template: '1M22', train_json_tt_location: '1M22_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10', op_code: 'XC'}
+  - {headcode_template: '1M30', headcode_increment: 8, number_of: 6, frequency: 'PT2H', train_json_tt_location: '1M30_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10', op_code: 'XC'}
   # Only goes to BHM
-  - {headcode_template: '1M78', train_json_tt_location: '1M30_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10', initial_offset: 'PT12H'}
+  - {headcode_template: '1M78', train_json_tt_location: '1M30_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 221/10', initial_offset: 'PT12H', op_code: 'XC'}
   # 1o02 - 1o26 1st one BHM origin, 1o06 NOT, rest MAN
-  - {headcode_template: '1O02', train_json_tt_location: '1O02_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
-  - {headcode_template: '1O06', train_json_tt_location: '1O06_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
-  - {headcode_template: '1O10', headcode_increment: 4, number_of: 5, frequency: 'PT2H', train_json_tt_location: '1O10_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8'}
+  - {headcode_template: '1O02', train_json_tt_location: '1O02_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8', op_code: 'XC'}
+  - {headcode_template: '1O06', train_json_tt_location: '1O06_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8', op_code: 'XC'}
+  - {headcode_template: '1O10', headcode_increment: 4, number_of: 5, frequency: 'PT2H', train_json_tt_location: '1O10_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 220/8', op_code: 'XC'}
   # 1O04 - 1028 1st one on mains
-  - {headcode_template: '1O04', headcode_increment: 4, number_of: 7, frequency: 'PT2H', train_json_tt_location: '1O04_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 221/10'}
+  - {headcode_template: '1O04', headcode_increment: 4, number_of: 7, frequency: 'PT2H', train_json_tt_location: '1O04_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 221/10', op_code: 'XC'}
   # 1o30, 1o34, 34 goes to SOU
-  - {headcode_template: '1O30', headcode_increment: 4, number_of: 2, frequency: 'PT1H', train_json_tt_location: '1O04_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 221', initial_offset: 'PT13H'}
+  - {headcode_template: '1O30', headcode_increment: 4, number_of: 2, frequency: 'PT1H', train_json_tt_location: '1O04_KEY_locations.txt', entry_point: 'EUPOX', train_category: 'Cl 221', initial_offset: 'PT13H', op_code: 'XC'}
 
 
   # 1W,1D etc.
@@ -237,12 +238,27 @@ timetables:
   - {headcode_template: '2N76', train_json_tt_location: '2L02_KEY_locations.txt', entry_point: 'EDNRLF', train_category: 'Cl 387/8', initial_offset: '2330 - 0621', amended_locations: [ { 'arr': '0621', 'location': 'Didcot Parkway [DID]','path': 'UR', 'plat': '4', 'activities': { 'trainBecomes': '2P86' } }]}
 
   # dep 2245
-  - {headcode_template: '4V36', train_json_tt_location: '4V36_KEY_locations.txt', seed_point_and_time: 'S10 0400', train_category: '(4) - FLIM - 66 + 29 Flats - 634m', timetable_template_location: 'defaultTimetableSeedPoint.txt'}
-  - {headcode_template: '4V51', train_json_tt_location: '4V51_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: '(4) - FLIM - 66 + 24 Flats - 531m'}
-  - {headcode_template: '6A11', train_json_tt_location: '6A11_KEY_locations.txt', entry_point: 'EUPBAD', train_category: '(6) - DB - 60 + 19 TEA - 363m'}
-  - {headcode_template: '6A17', train_json_tt_location: '6A17_KEY_locations.txt', entry_point: 'EDNTROW', train_category: '(6) - FLHH - 66 + 21 JNA (Boxes) - 315m'}
-  - {headcode_template: '6A15', train_json_tt_location: '6A15_KEY_locations.txt', entry_point: 'EDNTROW', train_category: '(6) - DB - 66 + 21 JNA - 378m'}
+  - {headcode_template: '4V36', train_json_tt_location: '4V36_KEY_locations.txt', seed_point_and_time: 'S10 0400', train_category: '(4) - FLIM - 66 + 29 Flats - 634m', timetable_template_location: 'defaultTimetableSeedPoint.txt', op_code: 'ZZ'}
+  - {headcode_template: '4V51', train_json_tt_location: '4V51_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: '(4) - FLIM - 66 + 24 Flats - 531m', op_code: 'ZZ'}
+  - {headcode_template: '6A11', train_json_tt_location: '6A11_KEY_locations.txt', entry_point: 'EUPBAD', train_category: '(6) - DB - 60 + 19 TEA - 363m', op_code: 'ZZ'}
+  - {headcode_template: '6A17', train_json_tt_location: '6A17_KEY_locations.txt', entry_point: 'EDNTROW', train_category: '(6) - FLHH - 66 + 21 JNA (Boxes) - 315m', op_code: 'ZZ'}
+  - {headcode_template: '6A15', train_json_tt_location: '6A15_KEY_locations.txt', entry_point: 'EDNTROW', train_category: '(6) - DB - 66 + 21 JNA - 378m', op_code: 'ZZ'}
+  - {headcode_template: '4O54', train_json_tt_location: '4O54_KEY_locations.txt', entry_point: 'EUPBAD', train_category: '(4) - GBRF - 66 + 15 MJA - 296m', op_code: 'ZZ'}
   - IGNORE_END
+  - {headcode_template: '6Z34', train_json_tt_location: '6Z34_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - FLHH - 66 + 21 JNA - 378m', op_code: 'ZZ'}
+  - {headcode_template: '4V37', train_json_tt_location: '4V37_KEY_locations.txt', entry_point: 'EDNRLF', train_category: '(4) - FLIM - 66 + 16 Flats - 349m', op_code: 'ZZ'}
+  - {headcode_template: '4V52', train_json_tt_location: '4V50_KEY_locations.txt', entry_point: 'EDNRLF', train_category: '(4) - FLIM - 70 + 15 FEA / IKA - 474m', op_code: 'ZZ'}
+  - {headcode_template: '6Z35', train_json_tt_location: '6Z34_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - FLHH - 66 + 18 MRA - 341m', op_code: 'ZZ', initial_offset: '0906 - 0629'}
+  - {headcode_template: '6Z36', train_json_tt_location: '6Z34_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - FLHH - 66 + 18 YEA - 350m', op_code: 'ZZ', initial_offset: '1101 - 0629'}
+  - {headcode_template: '4O70', train_json_tt_location: '4O70_KEY_locations.txt', entry_point: 'EUPBAD', train_category: '(4) - FLIM - 66 + 24 Flats - 531m', op_code: 'ZZ'}
+  - {headcode_template: '0A34', train_json_tt_location: '0A34_KEY_locations.txt', entry_point: 'EDNTROW', train_category: '(0) - Class 66', op_code: 'ZZ', initial_offset: '-PT7H30M'}
+  - {headcode_template: '0V72', train_json_tt_location: '0V72_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(0) - Class 66', op_code: 'ZZ'}
+  - {headcode_template: '6C33', train_json_tt_location: '6C33_KEY_locations.txt', entry_point: 'EDNRLF', train_category: '(6) - DB - 66 + 12 FCA - 262m', op_code: 'ZZ'}
+  - {headcode_template: '0O12', train_json_tt_location: '0O12_KEY_locations.txt', entry_point: 'EUPBAD', train_category: '(0) - Class 66', op_code: 'ZZ'}
+  - {headcode_template: '6Z51', train_json_tt_location: '6Z51_KEY_locations.txt', entry_point: 'EARC', train_category: '(6) - FLHH - 66 + 21 JNA (Boxes) - 315m', op_code: 'ZZ'}
+  - {headcode_template: '6B11', train_json_tt_location: '6B11_KEY_locations.txt', entry_point: 'EDNRLF', train_category: '(6) - FLHH - 66 + 17 HHA - 259m', op_code: 'ZZ'}
+  - {headcode_template: '6Z37', train_json_tt_location: '6Z34_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - FLHH - 66 + 18 MRA - 341m', op_code: 'ZZ', initial_offset: '1602 - 0629'}
+  - {headcode_template: '5Z74', train_json_tt_location: '5Z74_KEY_locations.txt', entry_point: 'EDNMAIN', train_category: 'IEP 800/0 - Bi Mode -10 Car', initial_offset: '1614 - 0738'}
 
 
 
