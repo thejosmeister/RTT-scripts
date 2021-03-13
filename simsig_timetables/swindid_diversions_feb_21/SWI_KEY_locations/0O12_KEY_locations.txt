@@ -20,4 +20,4 @@
         'location': 'Goring & Streatley [GOR]',
         'pth allow': '1'},
     {'dep': '1534.5', 'location': 'Reading [RDG]'},
-    {'arr': '1726', 'dep': '', 'location': 'Southampton M.C.T.'}]
+    {'arr': '1726', 'dep': '', 'location': 'Eastleigh Trsmd'}]

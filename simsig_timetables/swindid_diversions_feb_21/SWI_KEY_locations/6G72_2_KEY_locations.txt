@@ -1,0 +1,13 @@
+[   {'arr': '', 'dep': '1752', 'location': 'Westbury Down T.C.'},
+    {'dep': '1945', 'location': 'Swindon Cocklebury Entry'},
+    {   'dep': '1949',
+        'location': 'Swindon [SWI]',
+        'plat': '3',
+        'pth allow': '.5', 'line': 'ML'},
+    {'dep': '1956', 'location': 'Wootton Bassett Jn'},
+    { 'dep': '2016',
+        'eng allow': '1',
+        'location': 'Hullavington',
+        'pth allow': '2'},
+    {'dep': '2031', 'location': 'Westerleigh Jn'},
+    {'arr': '2258', 'dep': '', 'location': 'Landore Jn'}]

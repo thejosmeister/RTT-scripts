@@ -13,7 +13,7 @@
         'dep': '1227',
         'line': 'RL',
         'location': 'Didcot Parkway [DID]',
-        'plat': '3'},
+        'plat': '3', 'activities': {'crewChange': 'yes'}},
     {'dep': '1229.5', 'line': 'ML', 'location': 'Foxhall Jn [XJF]'},
     {'dep': '1237.5', 'line': 'RL', 'location': 'Wantage Road'},
     {'arr': '1243', 'dep': '1247.5', 'location': 'Challow'},
@@ -27,7 +27,7 @@
         'dep': '1355',
         'eng allow': '1',
         'location': 'Hullavington',
-        'plat': 'DGL',
+        'plat': 'GL',
         'pth allow': '2'},
     {'dep': '1418.5', 'location': 'Westerleigh Jn'},
     {'arr': '1536', 'dep': '', 'location': 'Severnside Sita'}]

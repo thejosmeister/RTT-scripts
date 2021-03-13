@@ -26,7 +26,7 @@
         'path': 'UM',
         'plat': 'UML'},
     {'dep': '2019.5', 'location': 'Uffington (Oxfordshire)'},
-    {'dep': '2023.5', 'line': 'UM', 'location': 'Challow'},
+    {'dep': '2023.5', 'line': 'RL', 'location': 'Challow'},
     {'arr': '2028.5', 'dep': '2034.5', 'location': 'Wantage Road'},
     {'dep': '2042.5', 'line': 'RL', 'location': 'Milton Junction'},
     {   'dep': '2044.5',

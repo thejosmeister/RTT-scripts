@@ -18,6 +18,6 @@
         'dep': '1628',
         'eng allow': '1',
         'location': 'Hullavington',
-        'plat': 'DGL'},
+        'plat': 'GL'},
     {'dep': '1644', 'location': 'Westerleigh Jn'},
     {'arr': '1709', 'dep': '', 'location': 'Stoke Gifford (Fhh)'}]

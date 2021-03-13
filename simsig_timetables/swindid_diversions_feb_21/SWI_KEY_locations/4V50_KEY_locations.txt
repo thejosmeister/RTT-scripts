@@ -16,7 +16,7 @@
         'dep': '0820',
         'eng allow': '1',
         'location': 'Hullavington',
-        'plat': 'DGL'},
+        'plat': 'GL'},
     {'dep': '0828.5', 'location': 'Badminton'},
     {'dep': '0834.5', 'location': 'Chipping Sodbury'},
     {'dep': '0838', 'location': 'Westerleigh Jn'},

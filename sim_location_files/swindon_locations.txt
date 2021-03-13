@@ -63,3 +63,4 @@ STNHSE:Stonehouse [SHU]
 CULHAM:Culham [CUM]
 WTNBSFY:Wootton Bassett F.Y. (Flhh,Wootton Bassett F.Y. (Flhh),Wootton Bassett F.Y.
 UFNGTN:Uffington (Oxfordshire)
+SWINE:Swindon East

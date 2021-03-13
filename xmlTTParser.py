@@ -54,7 +54,8 @@ def parse_individual_xml_tt(xml_tt: ET.Element, tiploc_dict: dict, categories_di
     else:
         json_tt['tt_template'] = 'templates/timetables/defaultTimetableWithEntryPoint.txt'
 
-    json_tt['category'] = xml_tt.find('Category').text
+    cat_id = xml_tt.find('Category').text
+    json_tt['category'] = categories_dict[cat_id]['Description']
     json_tt['uid'] = xml_tt.find('UID').text
     json_tt['headcode'] = xml_tt.find('ID').text
     json_tt['max_speed'] = xml_tt.find('MaxSpeed').text
@@ -66,11 +67,11 @@ def parse_individual_xml_tt(xml_tt: ET.Element, tiploc_dict: dict, categories_di
     if xml_tt.find('AccelBrakeIndex') is not None:
         json_tt['accel_brake_index'] = xml_tt.find('AccelBrakeIndex').text
     else:
-        json_tt['accel_brake_index'] = categories_dict[json_tt['category']]['AccelBrakeIndex']
+        json_tt['accel_brake_index'] = categories_dict[cat_id]['AccelBrakeIndex']
     if xml_tt.find('IsFreight') is not None:
         json_tt['is_freight'] = xml_tt.find('IsFreight').text
     else:
-        json_tt['is_freight'] = categories_dict[json_tt['category']]['IsFreight']
+        json_tt['is_freight'] = categories_dict[cat_id]['IsFreight']
     if xml_tt.find('OriginName') is not None:
         json_tt['origin_name'] = xml_tt.find('OriginName').text
     else:
@@ -94,7 +95,7 @@ def parse_individual_xml_tt(xml_tt: ET.Element, tiploc_dict: dict, categories_di
     if xml_tt.find('SpeedClass') is not None:
         json_tt['speed_class'] = xml_tt.find('SpeedClass').text
     else:
-        json_tt['speed_class'] = categories_dict[json_tt['category']]['SpeedClass']
+        json_tt['speed_class'] = categories_dict[cat_id]['SpeedClass']
 
     # Some actually optional stuff
     if xml_tt.find('EntryPoint') is not None:

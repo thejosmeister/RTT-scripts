@@ -293,7 +293,7 @@
       <IsFreight>0</IsFreight>
       <CanUseGoodsLines>0</CanUseGoodsLines>
       <MaxSpeed>125</MaxSpeed>
-      <TrainLength>260</TrainLength>
+      <TrainLength>247</TrainLength>
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>

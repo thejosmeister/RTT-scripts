@@ -91,7 +91,7 @@ def pull_train_categories_out_of_xml(file_with_categories: str) -> dict:
 def pull_train_categories_out_of_xml_by_id(file_with_categories: str) -> dict:
     """
     Will take an xml excerpt just containing the TrainCategories root from a Simsig TT and give a map of categories
-    with the ID as the key. This relies on the descriptions being unique.
+    with the ID as the key.
 
     :param file_with_categories: File containing train categories xml.
     :return: A map/python dict of categories with the ID as the key.

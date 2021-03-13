@@ -7,7 +7,7 @@
     {'dep': '1208.5', 'location': 'Wootton Bassett Jn'},
     {'dep': '1214.5', 'location': 'Swindon [SWI]', 'plat': 'UML'},
     {'dep': '1226', 'location': 'Uffington (Oxfordshire)'},
-    {'dep': '1228.5', 'line': 'RL', 'location': 'Challow', 'pth allow': '6'},
+    {'dep': '1228.5', 'line': 'ML', 'location': 'Challow', 'pth allow': '6'},
     {'dep': '1239', 'location': 'Wantage Road'},
     {'dep': '1243.5', 'location': 'Milton Junction'},
     {'dep': '1245', 'line': 'RL', 'location': 'Foxhall Jn [XJF]'},
