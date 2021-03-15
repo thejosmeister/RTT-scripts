@@ -23,15 +23,17 @@ from dbClient import *
 # print(return_uids_from_query(db, Query().uid == '1F01'))
 # print(db.get(doc_id=1))
 
-db = TinyDB('db/swindid_diversions_feb_21/train_tts.json')
-results = db.search(Query().headcode.matches('(1|3)T\\d{2}'))
+db = TrainTtDb('Swindon_A_&_B_IECC_-_SWINDID_130220')
+db.update_location_for_uids(['Y94014'], 'Swindon [SWI]', {'dep': '2100'})
 
-for r in results:
-    if 'entry_time' in r:
-        print(r['entry_time'] + ' entry time ' + r['headcode'])
-    else:
-        print(r['headcode'])
-        print(r['locations'][-1])
+print(db.get_tt_by_uid('Y94014'))
+
+# for r in results:
+#     if 'entry_time' in r:
+#         print(r['entry_time'] + ' entry time ' + r['headcode'])
+#     else:
+#         print(r['headcode'])
+#         print(r['locations'][-1])
 
 #
 # TT = Query()

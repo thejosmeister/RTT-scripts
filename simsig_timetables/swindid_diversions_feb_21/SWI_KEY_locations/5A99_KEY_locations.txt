@@ -1,0 +1,11 @@
+[   {   'dep': '2233',
+        'location': 'Westbury [WSB]'},
+    {'dep': '2235', 'location': 'Hawkeridge Jn Entry'},
+    {'dep': '2238.5', 'location': 'Trowbridge [TRO]', 'plat': '1'},
+    {'dep': '2239.5', 'line': 'M', 'location': 'Bradford Jn', 'path': 'DT'},
+    {'dep': '2240',  'location': 'Melksham [MKM]', 'plat': '1'},
+    {'dep': '2244', 'line': 'DM', 'location': 'Thingley Jn', 'path': 'M'},
+    {'dep': '2246', 'eng allow': '1', 'location': 'Chippenham [CPM]', 'plat': '2'},
+    {'dep': '2250', 'location': 'Dauntsey'},
+    {'dep': '2254.5', 'line': 'UM', 'location': 'Wootton Bassett Jn'},
+    {'arr': '2300', 'location': 'Swindon [SWI]', 'plat': '2'}]

@@ -2495,6 +2495,18 @@
       <DwellTimes/>
       <Electrification>D</Electrification>
     </TrainCategory>
+    <TrainCategory ID="6XT4056B">
+      <Description>(6) - FLHH - 66 + 19 JNA - 346m</Description>
+      <AccelBrakeIndex>1</AccelBrakeIndex>
+      <IsFreight>-1</IsFreight>
+      <CanUseGoodsLines>0</CanUseGoodsLines>
+      <MaxSpeed>60</MaxSpeed>
+      <TrainLength>378</TrainLength>
+      <SpeedClass>512</SpeedClass>
+      <PowerToWeightCategory>0</PowerToWeightCategory>
+      <DwellTimes/>
+      <Electrification>D</Electrification>
+    </TrainCategory>
     <TrainCategory ID="6YA9056B">
       <Description>(6) - FLHH - 66 + 18 MRA - 341m</Description>
       <AccelBrakeIndex>1</AccelBrakeIndex>
