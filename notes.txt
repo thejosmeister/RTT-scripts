@@ -12,19 +12,15 @@ Locations:
 TODO:
 - Add readme.
 - Unit tests - Started
-- Test amended_locations property on 1T27.
-- Whole TT writing, spec an initial blurb.
-- Bulk rules writing - have some spec in place, can the tt analyser do it?
-- Ignore certain TTs in yaml spec
 - Add tt header parser for yaml
 - Some timetable analysing functions - view all trains sorted by headcode etc.
 
-- 10 CARS PLAT 1 SWI - changed len, check 250 ok
 - Sync up stock with diags on london trains
 - 1Axx origins
 - 2pxx are getting in the way of 1pxxs at some points
 - Make hinksey bth non ars
 - 1h25-31 get in the way of 1gxx a bit move forwards and change swi?
+- 6v37 gets in the way of fast services after did
 
 to add
 - All freights via did ej

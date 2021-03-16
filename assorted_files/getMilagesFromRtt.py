@@ -3,7 +3,7 @@ import pprint
 from bs4 import BeautifulSoup
 
 # pageurl = input(' Paste RTT link: ')
-pageurl = 'https://www.realtimetrains.co.uk/train/W30157/2021-03-09/detailed'
+pageurl = 'https://www.realtimetrains.co.uk/train/W30253/2021-03-11/detailed'
 # miles_from = input(' Miles start from: ')
 miles_from = 'Reading [RDG]'
 
@@ -47,5 +47,5 @@ for loc in dict_of_locations.keys():
 
 [dict_of_locations.pop(a) for a in list_to_remove]
 
-with open('dist_from_rdg.txt', 'w') as f_to_write:
+with open('dist_from_rdg_to_bth.txt', 'w') as f_to_write:
     f_to_write.write(str(dict_of_locations))

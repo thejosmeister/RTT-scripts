@@ -24,9 +24,18 @@ from dbClient import *
 # print(db.get(doc_id=1))
 
 db = TrainTtDb('Swindon_A_&_B_IECC_-_SWINDID_130220')
-db.update_location_for_uids(['Y94014'], 'Swindon [SWI]', {'dep': '2100'})
+TT = Query()
+Location = Query()
+results = db.db.search(TT.locations.any(Location.location == 'Didcot East Jn') & TT.locations.any(Location.location == 'Didcot North Jn') & TT.headcode.matches('^((0|4|5|6).)\\d{2}$'))
 
-print(db.get_tt_by_uid('Y94014'))
+new_r = []
+for r in results:
+    time = [x for x in r['locations'] if x['location'] == 'Didcot East Jn' ][0]['dep']
+    new_r.append({'headcode': r['headcode'], 'description': r['description'], 'time': time})
+
+new_r = sorted(new_r, key=lambda x: float(x['time']))
+
+[print(r['headcode'] + ' ' + r['description'] + ' ' + r['time']) for r in new_r]
 
 # for r in results:
 #     if 'entry_time' in r:
