@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 from translateTimesAndLocations import convert_sec_to_time
 from dbClient import *
-from tiplocDictCreator import create_tiploc_dict, pull_train_categories_out_of_xml_by_id
+from tiplocDictCreator import create_tiploc_dict, pull_train_categories_out_of_xml_file_by_id
 
 
 def parse_xml_trips(list_of_trip_elts, tiploc_dict: dict, first_loc_is_stop: bool) -> list:
@@ -176,7 +176,7 @@ def parse_full_xml_tt(file: str, locations_file: str, overwrite_existing: bool):
     header_db.add_header(tt_header)
     header_db.add_categories_string(get_categories_as_string(file))
 
-    categories_dict = pull_train_categories_out_of_xml_by_id(file)
+    categories_dict = pull_train_categories_out_of_xml_file_by_id(file)
     list_of_tt_elts = root.find('Timetables').findall('Timetable')
 
     for tt in list_of_tt_elts:

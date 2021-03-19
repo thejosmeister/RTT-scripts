@@ -5,7 +5,7 @@ import isodate
 import re
 import unittest
 
-from tiplocDictCreator import pull_train_categories_out_of_xml, create_tiploc_dict
+from tiplocDictCreator import pull_train_categories_out_of_xml_file, create_tiploc_dict
 from translateTimesAndLocations import produce_dict_with_times_and_locations, convert_time_to_secs, convert_sec_to_time, \
     produce_train_locations
 
@@ -153,7 +153,7 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
     if 'origin_time' in config_dict:
         original_o_time = config_dict['origin_time']
 
-    train_cat_dict = pull_train_categories_out_of_xml(train_cat_location)[config_dict['train_category']]
+    train_cat_dict = pull_train_categories_out_of_xml_file(train_cat_location)[config_dict['train_category']]
     entry_point = config_dict['entry_point']
     frequency = parse_time_expression(config_dict['frequency'])
     initial_offset = parse_time_expression(config_dict['initial_offset'])

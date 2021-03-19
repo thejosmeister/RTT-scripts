@@ -37,16 +37,26 @@ def pull_tiploc_out_of_xml(file_to_pull_tiploc_out, out_filename):
             print(e, file=emails_file)
 
 
-def pull_train_categories_out_of_xml(file_with_categories: str) -> dict:
+def pull_train_categories_out_of_xml_string(categories_string: str) -> dict:
+    root = ET.fromstring(categories_string)
+    return pull_train_categories_out_of_xml(root)
+
+
+def pull_train_categories_out_of_xml_file(file_with_categories: str) -> dict:
+    tree = ET.parse(file_with_categories)
+    root = tree.getroot()
+    return pull_train_categories_out_of_xml(root)
+
+
+def pull_train_categories_out_of_xml(root) -> dict:
     """
     Will take an xml excerpt just containing the TrainCategories root from a Simsig TT and give a map of categories
     with the Description as the key. This relies on the descriptions being unique.
 
-    :param file_with_categories: File containing train categories xml.
+    :param root: Element tree.
     :return: A map/python dict of categories with the Description as the key.
     """
-    tree = ET.parse(file_with_categories)
-    root = tree.getroot()
+
     if 'TrainCategories' in root.tag:
         cat_root = root
     else:
@@ -88,16 +98,25 @@ def pull_train_categories_out_of_xml(file_with_categories: str) -> dict:
     return categories_dict
 
 
-def pull_train_categories_out_of_xml_by_id(file_with_categories: str) -> dict:
+def pull_train_categories_out_of_xml_string_by_id(categories_string: str) -> dict:
+    root = ET.fromstring(categories_string)
+    return pull_train_categories_out_of_xml_by_id(root)
+
+
+def pull_train_categories_out_of_xml_file_by_id(file_with_categories: str) -> dict:
+    tree = ET.parse(file_with_categories)
+    root = tree.getroot()
+    return pull_train_categories_out_of_xml_by_id(root)
+
+
+def pull_train_categories_out_of_xml_by_id(root) -> dict:
     """
     Will take an xml excerpt just containing the TrainCategories root from a Simsig TT and give a map of categories
     with the ID as the key.
 
-    :param file_with_categories: File containing train categories xml.
+    :param root: Element tree.
     :return: A map/python dict of categories with the ID as the key.
     """
-    tree = ET.parse(file_with_categories)
-    root = tree.getroot()
     if 'TrainCategories' in root.tag:
         cat_root = root
     else:

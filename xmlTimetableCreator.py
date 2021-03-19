@@ -61,9 +61,11 @@ def create_xml_trip(location: dict) -> str:
     return out + '</Trip>'
 
 
-def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str) -> str:
+def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str, train_cat_by_id: dict, train_cat_by_desc: dict) -> str:
     """
     Takes a json timetable for a train and produces an xml one for insertion into a Simsig xml TT.
+    :param train_cat_by_desc:
+    :param train_cat_by_id:
     :param json_tt: json timetable for a train.
     :param tiploc_location: will give a map of sim locations.
     :return: XML string with TT.
@@ -89,7 +91,11 @@ def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str) -> st
     operator_code = json_tt['operator_code']
     start_traction = json_tt['start_traction']
     speed_class = json_tt['speed_class']
-    category = json_tt['category']
+
+    if json_tt['category'] in train_cat_by_id:
+        category = json_tt['category']
+    else:
+        category = train_cat_by_desc[json_tt['category']]['id']
     if 'dwell_times' in json_tt:
         dwell_times = '<Join>' + json_tt['dwell_times']['join'] + '</Join><Divide>' + \
                       json_tt['dwell_times']['divide'] + '</Divide><CrewChange>' + \
