@@ -1,0 +1,12 @@
+[   {'arr': '', 'dep': '1427', 'location': 'Castle Bromwich Jaguar'},
+    {'dep': '1653.5', 'eng allow': '1', 'location': 'Kennington Jn Entry'},
+    {'dep': '1656.5', 'location': 'Radley [RAD]'},
+    {'dep': '1659', 'location': 'Culham [CUM]'},
+    {'dep': '1700', 'location': 'Appleford [APF]'},
+    {'dep': '1701', 'location': 'Appleford L.C.'},
+    {'dep': '1701.5', 'location': 'Didcot North Jn'},
+    {'dep': '1702.5', 'location': 'Didcot East Jn', 'line': 'RL'},
+    {'dep': '1703.5', 'location': 'Moreton Cutting'},
+    {'dep': '1709.5', 'eng allow': '1', 'location': 'Goring & Streatley [GOR]'},
+    {'dep': '1721', 'location': 'Reading [RDG]'},
+    {'arr': '1905', 'dep': '', 'location': 'Southampton Eastern Docks [XSN]'}]

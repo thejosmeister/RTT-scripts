@@ -21,6 +21,9 @@ TODO:
 - Make hinksey bth non ars
 - 1h25-31 get in the way of 1gxx a bit move forwards and change swi?
 - 6v37 gets in the way of fast services after did
+- Make 6A11 wait at did
+- Try and solve ars not routing freights from AL to RL at did east jn - delete reading west jn from them
+- Rules for 6g71 and 72
 
 to add
 - All freights via did ej
