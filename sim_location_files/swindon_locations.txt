@@ -64,3 +64,5 @@ CULHAM:Culham [CUM]
 WTNBSFY:Wootton Bassett F.Y. (Flhh,Wootton Bassett F.Y. (Flhh),Wootton Bassett F.Y.
 UFNGTN:Uffington (Oxfordshire)
 SWINE:Swindon East
+CHPSDBY:Chipping Sodbury
+SN645:Wootton Bassett Gf,Swindon S645

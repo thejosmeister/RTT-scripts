@@ -37,6 +37,23 @@ new_r = sorted(new_r, key=lambda x: float(x['time']))
 
 [print(r['headcode'] + ' ' + r['description'] + ' ' + r['time']) for r in new_r]
 
+print('***************************************************************************')
+
+
+db = TrainTtDb('Swindon_February_2021')
+TT = Query()
+Location = Query()
+results = db.db.search(TT.locations.any(Location.location == 'Didcot East Jn') & TT.locations.any(Location.location == 'Didcot North Jn') & TT.headcode.matches('^((0|4|5|6).)\\d{2}$'))
+
+new_r = []
+for r in results:
+    time = [x for x in r['locations'] if x['location'] == 'Didcot East Jn' ][0]['dep']
+    new_r.append({'headcode': r['headcode'], 'description': r['origin_time'] + ' ' + r['origin_name'] + ' - ' + r['destination_name'], 'time': time})
+
+new_r = sorted(new_r, key=lambda x: float(x['time']))
+
+[print(r['headcode'] + ' ' + r['description'] + ' ' + r['time']) for r in new_r]
+
 # for r in results:
 #     if 'entry_time' in r:
 #         print(r['entry_time'] + ' entry time ' + r['headcode'])
