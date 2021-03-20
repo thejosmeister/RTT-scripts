@@ -26,11 +26,8 @@ TODO:
 
 
 - 2pxx are getting in the way of 1pxxs at some points
-- 6v37 gets in the way of fast services after did
 - Make 6A11 wait at did
-- 4M51 WAITS AT BAD POINT
 - 6V43 should bypass 1st 2 loops
-- 6c76 via mkm after 1f24 (i think)
 
 to add
 - All freights via did ej
