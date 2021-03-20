@@ -142,6 +142,18 @@ class TrainTtDb:
                 self.db.remove(doc_ids=[doc_id])
                 self.db.insert(table.Document(tt, doc_id=doc_id))
 
+    def update_category_for_uids(self, uids: list, category: str):
+        for uid in uids:
+            doc_id = generate_id_from_uid(uid)
+            if self.db.contains(doc_id=doc_id):
+                tt = self.db.get(doc_id=doc_id)
+                tt['category'] = category
+
+                tt['description'] = '{} {} - {} {}'.format(tt['origin_time'], tt['origin_name'], tt['destination_name'], tt['category'])
+
+                self.db.remove(doc_ids=[doc_id])
+                self.db.insert(table.Document(tt, doc_id=doc_id))
+
     def update_destination_for_uids(self, uids: list, destination: str):
         for uid in uids:
             doc_id = generate_id_from_uid(uid)

@@ -273,11 +273,12 @@ timetables:
   - {headcode_template: '6Z39', train_json_tt_location: '6Z34_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - FLHH - 66 + 21 JNA - 378m', op_code: 'ZZ', initial_offset: '2216 - 0629'}
   - {headcode_template: '6Z40', train_json_tt_location: '6Z34_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - FLHH - 66 + 19 JNA - 346m', op_code: 'ZZ', initial_offset: '2237 - 0629'}
   - {headcode_template: '6V59', train_json_tt_location: '6V59_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - GBRF - 66 + 18 JNAT - 273m', op_code: 'ZZ', initial_offset: '2100 - 0629'}
-  - IGNORE_END
   - {headcode_template: '0M63', train_json_tt_location: '0M63_KEY_locations.txt', entry_point: 'EDNRLF', train_category: '(0) - Class 66'}
   - {headcode_template: '4O20', train_json_tt_location: '4O20_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(4) - DB - 66 + 10 IPA - 628m'}
   - {headcode_template: '6A98', train_json_tt_location: '6A98_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - Colas  - 70 + 20 MRA - 363m'}
   - {headcode_template: '6A99', train_json_tt_location: '6A98_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(6) - Colas - 66 - SCO VAR - 203mm', initial_offset: '2258 - 2231'}
+  - {headcode_template: '0M83', train_json_tt_location: '0M83_KEY_locations.txt', entry_point: 'EUPOX', train_category: '(0) - Class 70', non_ars: True}
+  - IGNORE_END
 
 
 
@@ -288,6 +289,7 @@ rules:
   - {train_y: '3T99', train_x: '1T99', XAppAfterYLve: 'PT15M'}
   - {train_y: '3T01', train_x: '1T01', XAppAfterYLve: 'PT15M'}
   - {train_y: '1T00', train_x: '1T03', XAppAfterYLve: 'PT15M', headcode_increment: 2, number_of: 10}
+  - {train_y: '6G711', train_x: '6G712', XAppAfterYLve: 'PT40M', headcode_increment: 1, number_of: 2}
   - IGNORE_END
 
 

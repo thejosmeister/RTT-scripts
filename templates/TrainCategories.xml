@@ -41,6 +41,10 @@
       <SpeedClass>4</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>120</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>180</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -57,6 +61,10 @@
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>120</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>180</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -73,6 +81,10 @@
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -89,6 +101,10 @@
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>120</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>180</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -105,6 +121,10 @@
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -153,6 +173,10 @@
       <SpeedClass>16</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -169,6 +193,10 @@
       <SpeedClass>16</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -201,6 +229,10 @@
       <SpeedClass>16</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -217,6 +249,10 @@
       <SpeedClass>16</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -233,6 +269,10 @@
       <SpeedClass>16</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -249,6 +289,10 @@
       <SpeedClass>16</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -265,6 +309,10 @@
       <SpeedClass>16</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -281,6 +329,10 @@
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>45</StationForward>
+        <StationReverse>120</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>180</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -297,6 +349,10 @@
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -313,6 +369,10 @@
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
       <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
         <Join>240</Join>
         <Divide>240</Divide>
         <CrewChange>120</CrewChange>
@@ -328,7 +388,15 @@
       <TrainLength>162</TrainLength>
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
-      <DwellTimes/>
+      <DwellTimes>
+        <StationForward>45</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
+        <Join>240</Join>
+        <Divide>240</Divide>
+        <CrewChange>120</CrewChange>
+      </DwellTimes>
       <Electrification>OD</Electrification>
     </TrainCategory>
     <TrainCategory ID="4786BD25">
@@ -340,7 +408,15 @@
       <TrainLength>243</TrainLength>
       <SpeedClass>24</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
-      <DwellTimes/>
+      <DwellTimes>
+        <StationForward>45</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
+        <Join>240</Join>
+        <Divide>240</Divide>
+        <CrewChange>120</CrewChange>
+      </DwellTimes>
       <Electrification>OD</Electrification>
     </TrainCategory>
     <TrainCategory ID="85FA5CE2">
@@ -352,7 +428,15 @@
       <TrainLength>114</TrainLength>
       <SpeedClass>16</SpeedClass>
       <PowerToWeightCategory>0</PowerToWeightCategory>
-      <DwellTimes/>
+      <DwellTimes>
+        <StationForward>60</StationForward>
+        <StationReverse>180</StationReverse>
+        <TerminateForward>120</TerminateForward>
+        <TerminateReverse>240</TerminateReverse>
+        <Join>240</Join>
+        <Divide>240</Divide>
+        <CrewChange>120</CrewChange>
+      </DwellTimes>
       <Electrification>D</Electrification>
     </TrainCategory>
     <TrainCategory ID="9A580DDD">

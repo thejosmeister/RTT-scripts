@@ -20,5 +20,6 @@
 <OperatorCode>${OperatorCode}</OperatorCode>
 <StartTraction>${StartTraction}</StartTraction>
 <Category>${Category}</Category>
+${Extras}
 <Trips>${Trips}</Trips>
 </Timetable>

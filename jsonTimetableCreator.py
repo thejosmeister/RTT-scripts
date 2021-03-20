@@ -126,6 +126,7 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
      - origin: An overridden origin
      - destination: An overridden destination.
      - origin_time: An overridden origin time, still subject to offsets etc.
+     - non_ars: if True will make train non ARS
     :param config_dict: Map of config values.
     :param train_cat_location: Location of file containing train categories.
     :return: A list of json objects that are train TTs.
@@ -208,6 +209,9 @@ def create_json_timetables_with_spec_entry(config_dict: dict, train_cat_location
         train_tt['category'] = train_cat_dict['id']
         train_tt['tt_template'] = config_dict['timetable_template_location']
         train_tt['locations'] = trips
+        if 'non_ars' in config_dict:
+            train_tt['non_ars'] = True
+
         if 'DwellTimes' in train_cat_dict:
             train_tt['dwell_times'] = {'join': train_cat_dict['DwellTimes']['Join'],
                                        'divide': train_cat_dict['DwellTimes']['Divide'],

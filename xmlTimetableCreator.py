@@ -91,6 +91,7 @@ def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str, train
     operator_code = json_tt['operator_code']
     start_traction = json_tt['start_traction']
     speed_class = json_tt['speed_class']
+    extras = ''
 
     if json_tt['category'] in train_cat_by_id:
         category = json_tt['category']
@@ -103,6 +104,9 @@ def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str, train
     else:
         dwell_times = ''
 
+    if 'non_ars' in json_tt:
+        extras += '<NonARSOnEntry>-1</NonARSOnEntry>'
+
     # Compose our string that makes up a TT.
     tt_string = tt_template.replace('${ID}', headcode).replace('${UID}', uid) \
         .replace('${AccelBrakeIndex}', accel_brake_index).replace('${Description}', description) \
@@ -111,7 +115,8 @@ def convert_individual_json_tt_to_xml(json_tt: dict, tiploc_location: str, train
         .replace('${DestinationName}', destination_name).replace('${OriginTime}', origin_time) \
         .replace('${DestinationTime}', destination_time).replace('${OperatorCode}', operator_code) \
         .replace('${StartTraction}', start_traction).replace('${SpeedClass}', speed_class) \
-        .replace('${Category}', category).replace('${Trips}', trips).replace('${DwellTimes}', dwell_times)
+        .replace('${Category}', category).replace('${Trips}', trips).replace('${DwellTimes}', dwell_times)\
+        .replace('${Extras}', extras)
 
     # Add entry point and time if needed.
     if 'entry_point' in json_tt:

@@ -12,18 +12,25 @@ Locations:
 TODO:
 - Add readme.
 - Unit tests - Started
-- Add tt header parser for yaml
 - Some timetable analysing functions - view all trains sorted by headcode etc.
+- Add all dwell times params
+      <RedSignalMoveOff>60</RedSignalMoveOff>
+      <StationForward>60</StationForward>
+      <StationReverse>60</StationReverse>
+      <TerminateForward>60</TerminateForward>
+      <TerminateReverse>60</TerminateReverse>
+      <Join>60</Join>
+      <Divide>60</Divide>
+      <CrewChange>60</CrewChange>
 
-- Sync up stock with diags on london trains
-- 1Axx origins
+
+
 - 2pxx are getting in the way of 1pxxs at some points
-- Make hinksey bth non ars
-- 1h25-31 get in the way of 1gxx a bit move forwards and change swi?
 - 6v37 gets in the way of fast services after did
 - Make 6A11 wait at did
-- Try and solve ars not routing freights from AL to RL at did east jn - delete reading west jn from them
-- Rules for 6g71 and 72
+- 4M51 WAITS AT BAD POINT
+- 6V43 should bypass 1st 2 loops
+- 6c76 via mkm after 1f24 (i think)
 
 to add
 - All freights via did ej

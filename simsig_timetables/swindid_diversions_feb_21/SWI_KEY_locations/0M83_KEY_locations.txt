@@ -1,0 +1,12 @@
+[   {'arr': '', 'dep': '1700', 'location': 'Hinksey Sdgs'},
+    {'dep': '1704', 'location': 'Kennington Jn Entry'},
+    {'dep': '1713', 'line': 'AL', 'location': 'Didcot North Jn'},
+    {'dep': '1714', 'line': 'RL', 'location': 'Didcot East Jn', 'path': 'AL'},
+    {   'dep': '1720.5',
+        'line': 'RL',
+        'location': 'Goring & Streatley [GOR]',
+        'plat': '4'},
+    {   'arr': '1729',
+        'dep': '1738',
+        'location': 'Reading [RDG]'},
+    {'arr': '1849', 'dep': '', 'location': 'Eastleigh East Yard'}]
