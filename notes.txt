@@ -22,6 +22,9 @@ TODO:
       <Join>60</Join>
       <Divide>60</Divide>
       <CrewChange>60</CrewChange>
+- Merge TTs easily
+- Create file for the misc funtions - reports, changes
+
 
 
 

@@ -1,5 +1,4 @@
 import requests
-import pprint
 from bs4 import BeautifulSoup
 
 # pageurl = input(' Paste RTT link: ')
