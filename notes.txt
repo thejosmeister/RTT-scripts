@@ -24,7 +24,7 @@ TODO:
       <CrewChange>60</CrewChange>
 - Merge TTs easily
 - Create file for the misc funtions - reports, changes
-
+- Remove TLC in square brackets from descriptions
 
 
 
@@ -32,37 +32,11 @@ TODO:
 - Make 6A11 wait at did
 - 6V43 should bypass 1st 2 loops
 
-to add
-- All freights via did ej
-- 4M69 as 4M67 dest Birch Coppice -
-- 4O18 make 1h15 early --
-- 4074 as 4019-
-- 4V40 -
-- 4O22 -
-- 4M55 3h early -- make 4h 30 early
-- 4O23 55m early --
-- 5Q67 -
-- 4E34 -
-- 4O05 30m LATER --
-- 4O39 1h15 later --
-- 4O49 -
-- 4O90 1h8 later --
-- 5Q74 -
-- 4O21 1h30 later --
-- 4M51 -
-- 4L40 dest chnage to Shamton western docks, 1h10 earlier --
-- 4V39 -
-- 4O63 dest chnage to esl east yd, 1h30 earlier!! -- make 3h early
-- 6O26 -
-- 4O67 -
-- 4M52 -
 
-
-
-
-- 0M84 chnage dest to hinksey sdgs, 2h later -
-- 4O14 58m later -
-- 4M19 -
+v1 poss start:
+04:00:00 TSR: Didcot Platform 2, 55.
+04:00:00 TSR: Hullavington, 55.
+05:01:30 Signal lamp failure detected in the Swindon area
 
 
 

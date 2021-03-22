@@ -4,25 +4,26 @@ Some utils for extracting stuff from xml files
 import xml.etree.ElementTree as ET
 
 
-def pull_tiploc_out_of_xml(file_to_pull_tiploc_out, out_filename):
+def pull_tiploc_out_of_xml(files_to_pull_tiploc_out: list, out_filename):
     """
-    Will fetch any location codes within a Simsig TT and output a list to a text file.
+    Will fetch any location codes within Simsig TTs for the same sim and output a list to a text file.
     Separates the entry locations from others.
     I used it to create a dictionary of locations in a sim where there is not one provided in the documentation.
 
-    :param file_to_pull_tiploc_out: The Simsig TT.
+    :param files_to_pull_tiploc_out: The Simsig TT.
     :param out_filename: Name of ouput file.
     """
     entry_points = []
     locations = []
-    f = open(file_to_pull_tiploc_out, "r")
-    for file_line in f:
-        if '<EntryPoint>' in file_line:
-            entry_points.append(file_line.split('<EntryPoint>')[1].split('</EntryPoint>')[0])
-        if '<Location>' in file_line:
-            locations.append(file_line.split('<Location>')[1].split('</Location>')[0])
+    for file_to_pull_tiploc_out in files_to_pull_tiploc_out:
+        f = open(file_to_pull_tiploc_out, "r")
+        for file_line in f:
+            if '<EntryPoint>' in file_line:
+                entry_points.append(file_line.split('<EntryPoint>')[1].split('</EntryPoint>')[0])
+            if '<Location>' in file_line:
+                locations.append(file_line.split('<Location>')[1].split('</Location>')[0])
 
-    f.close()
+        f.close()
 
     set_of_entry_points = set(entry_points)
     set_of_locations = set(locations)
@@ -36,6 +37,11 @@ def pull_tiploc_out_of_xml(file_to_pull_tiploc_out, out_filename):
         for e in set_of_locations:
             print(e, file=emails_file)
 
+
+pull_tiploc_out_of_xml(['future_planning/Newport SO 21 11 2015 0000 Start/SavedTimetable.xml',
+                        'future_planning/Newport SX 08 04 2015 0000 Start/SavedTimetable.xml',
+                        'future_planning/Newport  FEB 2020 PLUS/SavedTimetable.xml'],
+                       'sim_location_files/newport_locations.txt')
 
 def pull_train_categories_out_of_xml_string(categories_string: str) -> dict:
     root = ET.fromstring(categories_string)
