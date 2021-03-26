@@ -31,6 +31,8 @@ TODO:
 - 2pxx are getting in the way of 1pxxs at some points
 - Make 6A11 wait at did
 - 6V43 should bypass 1st 2 loops
+- 6Z35 length wrong
+- 1B05 ARS trying to set into goods, tt doesnt look different
 
 
 v1 poss start:
@@ -39,5 +41,6 @@ v1 poss start:
 05:01:30 Signal lamp failure detected in the Swindon area
 
 
-
+ nicholas@newble.co.uk
+ http://charlwoodhouse.co.uk/
 
